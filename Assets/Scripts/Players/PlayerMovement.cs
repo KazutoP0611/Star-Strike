@@ -80,10 +80,11 @@ public class PlayerMovement : MonoBehaviour
 
             // Clamp angle to limited angle;
             float clampedLerpedRollAngle = Mathf.Clamp(LerpedRollAngle, -limitRollAngle, limitRollAngle);
+            float clampedLerpedYawAngle = Mathf.Clamp(LerpedRollAngle, -20.0f, 20.0f);
             float clampedLerpedPitchAngle = Mathf.Clamp(LerpedPitchAngle, -limitPitchAngle, limitPitchAngle);
 
             // Assign result angle to player;
-            transform.localRotation = Quaternion.Euler(clampedLerpedPitchAngle, 0f, clampedLerpedRollAngle);
+            transform.localRotation = Quaternion.Euler(clampedLerpedPitchAngle, -clampedLerpedYawAngle, clampedLerpedRollAngle);
             #endregion
         }
         else
