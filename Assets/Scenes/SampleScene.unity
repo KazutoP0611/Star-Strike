@@ -147,8 +147,8 @@ Transform:
   m_GameObject: {fileID: 257775616}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.878}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0.578}
+  m_LocalScale: {x: 0.29350498, y: 0.29350498, z: 0.29350498}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 783620590}
@@ -977,10 +977,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerFlightControl
   playerModel: {fileID: 1130893769}
-  joystick: 0
-  xySpeed: 18
-  lookSpeed: 320
-  forwardSpeed: 6
+  joystick: 1
+  xySpeed: 12
+  lookSpeed: 10000
+  forwardSpeed: 12
   aimTarget: {fileID: 257775617}
   cameraParent: {fileID: 0}
   trail: {fileID: 0}
