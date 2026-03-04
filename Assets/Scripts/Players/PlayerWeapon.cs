@@ -21,8 +21,10 @@ public class PlayerWeapon : MonoBehaviour
 
     private void Update()
     {
-        CrosshairMovementHandler();
-        AimingPointHandler();
+        //CrosshairMovementHandler();
+        //AimingPointHandler();
+
+        Debug.Log(mousePosition.normalized);
     }
 
     private void CrosshairMovementHandler()

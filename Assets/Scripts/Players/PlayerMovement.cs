@@ -20,7 +20,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(movement);
+        //Debug.Log(movement);
+        //Debug.Log(Input.GetAxis("Horizontal") + " " + Input.GetAxis("Vertical"));
     }
 
     private void StartBarrelRoll()
