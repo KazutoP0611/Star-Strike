@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerFlightControl : MonoBehaviour
 {
-    private Vector2 lastAimingPointPosition;
+    private Vector3 lastAimingPointPosition;
     private Vector3 moveVector;
 
     [SerializeField] private Transform aimingPoint;
@@ -25,10 +25,11 @@ public class PlayerFlightControl : MonoBehaviour
 
     void HandleMovement()
     {
-        Vector2 moveDirection = (Vector2)aimingPoint.position - lastAimingPointPosition;
+        Vector3 moveDirection = aimingPoint.position - lastAimingPointPosition;
+        moveDirection.z = 0;
         //Vector2 normalizedMoveDirection = moveDirection.normalized;
 
-        Vector3 targetPosition = transform.position + ((Vector3)moveDirection * movementMultiplier);
+        Vector3 targetPosition = transform.position + (moveDirection * movementMultiplier);
         targetPosition.x = Mathf.Clamp(targetPosition.x, limitHorizontal.x, limitHorizontal.y);
         targetPosition.y = Mathf.Clamp(targetPosition.y, limitVertical.x, limitVertical.y);
         transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * moveSpeed);
