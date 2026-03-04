@@ -145,7 +145,7 @@
                     "name": "",
                     "id": "6b01c01a-fb9f-411a-a91f-964191341e72",
                     "path": "<Keyboard>/leftShift",
-                    "interactions": "Press(behavior=2)",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Boost",

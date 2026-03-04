@@ -42,12 +42,16 @@ public class PlayerFlightControl : MonoBehaviour
 
         LocalMove(h, v, xySpeed);
         RotationLook(h, v, lookSpeed);
+
+        //Rotate z axis due to horizontal movement;
         HorizontalLean(playerModel, h, 80, .1f);
     }
 
     void LocalMove(float x, float y, float speed)
     {
+        //Move your ownself
         transform.localPosition += new Vector3(x, y, 0) * speed * Time.deltaTime;
+
         ClampPosition();
     }
 
