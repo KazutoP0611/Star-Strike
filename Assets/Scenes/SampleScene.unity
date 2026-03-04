@@ -905,16 +905,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77a0893366d10d148a597d71ac35128c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  movementSpeed: 1.9
-  xLimitMoveRange: {x: -1.3, y: 1.2}
-  yLimitMoveRange: {x: -0.7, y: 1.2}
-  controlBothRollSpeed: 1
-  rollSpeed: 60
-  returnRollSpeed: 10
-  limitRollAngle: 27
-  pitchSpeed: 20
-  returnPitchSpeed: 10
-  limitPitchAngle: 22
+  moveSpeed: 2
+  boostMultiplier: 2
+  moveSmoothness: 6
+  movementBounds: {x: 8, y: 4}
+  maxRollAngle: 25
+  maxPitchAngle: 20
+  maxYawAngle: 15
+  rotationSmoothness: 6
+  barrelRollSpeed: 360
+  doubleTapTime: 0.3
 --- !u!114 &953529694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -934,7 +934,8 @@ MonoBehaviour:
   - {fileID: 657210152}
   crosshairRectTransform: {fileID: 866953718}
   aimingPointTransform: {fileID: 257775617}
-  aiminDistance: 30
+  aimingPointDamping: 10
+  aiminDistance: 5
 --- !u!114 &953529695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -947,8 +948,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29066ba448c5a4349acaf3670c4e7d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerFlightControl
-  aimingObject: {fileID: 257775617}
-  rotateSpeed: 30
+  crosshair: {fileID: 257775617}
+  rotationSpeed: 7
+  planeBounds: {x: 3, y: 2}
+  moveSmoothness: 5
+  maxRoll: 45
+  maxPitch: 20
+  maxYaw: 15
+  rotationSmoothness: 6
 --- !u!1001 &1099560274
 PrefabInstance:
   m_ObjectHideFlags: 0

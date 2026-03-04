@@ -16,9 +16,27 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "QuickRoll",
+                    "name": "MouseMove",
+                    "type": "Value",
+                    "id": "02d707c1-583f-4b48-a75a-68edd9927330",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Roll",
                     "type": "Button",
                     "id": "a0a1ef2c-9bed-4bf9-bcaa-a71ece7e9328",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Boost",
+                    "type": "Button",
+                    "id": "68013136-d177-4c46-9206-77a6a13cbd9e",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -32,15 +50,6 @@
                     "processors": "",
                     "interactions": "Press(behavior=2)",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "MouseMove",
-                    "type": "Value",
-                    "id": "02d707c1-583f-4b48-a75a-68edd9927330",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -117,7 +126,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "QuickRoll",
+                    "action": "Roll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -129,6 +138,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "MouseMove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6b01c01a-fb9f-411a-a91f-964191341e72",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Boost",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
