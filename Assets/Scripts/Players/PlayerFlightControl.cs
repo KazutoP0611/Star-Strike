@@ -1,52 +1,74 @@
+//using Cinemachine;
+//using DG.Tweening;
+//using System.Collections;
+//using System.Collections.Generic;
 using UnityEngine;
+//using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerFlightControl : MonoBehaviour
 {
-    private Vector3 lastAimingPointPosition;
-    private Vector3 moveVector;
+    public Transform playerModel;
 
-    [SerializeField] private Transform aimingPoint;
+    [Header("Settings")]
+    public bool joystick = true;
 
-    [Header("Movement Details")]
-    [SerializeField] private float movementMultiplier = 0.5f;
-    [SerializeField] private float moveSpeed = 6.0f;
-    [SerializeField] private Vector2 limitHorizontal;
-    [SerializeField] private Vector2 limitVertical;
+    [Space]
 
-    [Header("Rotation Details")]
-    [SerializeField] private float rotationSpeed;
-    [SerializeField] private float maxRoll = 45.0f;
+    [Header("Parameters")]
+    public float xySpeed = 18;
+    public float lookSpeed = 340;
+    public float forwardSpeed = 6;
+
+    [Space]
+
+    [Header("Public References")]
+    public Transform aimTarget;
+    //public CinemachineDollyCart dolly;
+    public Transform cameraParent;
+
+    [Space]
+
+    [Header("Particles")]
+    public ParticleSystem trail;
+    public ParticleSystem circle;
+    public ParticleSystem barrel;
+    public ParticleSystem stars;
 
     void Update()
     {
-        HandleMovement();
-        RotationHandler();
+        float h = joystick ? Input.GetAxis("Horizontal") : Input.GetAxis("Mouse X");
+        float v = joystick ? Input.GetAxis("Vertical") : Input.GetAxis("Mouse Y");
+
+        LocalMove(h, v, xySpeed);
+        RotationLook(h, v, lookSpeed);
+        HorizontalLean(playerModel, h, 80, .1f);
     }
 
-    void HandleMovement()
+    void LocalMove(float x, float y, float speed)
     {
-        Vector3 moveDirection = aimingPoint.position - lastAimingPointPosition;
-        moveDirection.z = 0;
-        //Vector2 normalizedMoveDirection = moveDirection.normalized;
-        
-
-        Vector3 targetPosition = transform.position + (new Vector3(moveVector.x, moveVector.y, 0) * movementMultiplier);
-        targetPosition.x = Mathf.Clamp(targetPosition.x, limitHorizontal.x, limitHorizontal.y);
-        targetPosition.y = Mathf.Clamp(targetPosition.y, limitVertical.x, limitVertical.y);
-        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * moveSpeed);
+        transform.localPosition += new Vector3(x, y, 0) * speed * Time.deltaTime;
+        ClampPosition();
     }
 
-    void RotationHandler()
+    void ClampPosition()
     {
-        moveVector = aimingPoint.position - transform.position;
-        //Vector3 normalizedLookAt = moveVector.normalized;
+        Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
+        pos.x = Mathf.Clamp01(pos.x);
+        pos.y = Mathf.Clamp01(pos.y);
+        transform.position = Camera.main.ViewportToWorldPoint(pos);
+    }
 
-        Quaternion lookAtRotation = Quaternion.LookRotation(moveVector, Vector3.up);
-        Vector3 flightRotation = lookAtRotation.eulerAngles;
-        flightRotation.z = Mathf.Clamp(-moveVector.x * 10.0f, - maxRoll, maxRoll);
+    void RotationLook(float h, float v, float speed)
+    {
+        aimTarget.parent.position = Vector3.zero;
+        aimTarget.localPosition = new Vector3(h, v, 1);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(aimTarget.position), Mathf.Deg2Rad * speed * Time.deltaTime);
+    }
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(flightRotation), Time.deltaTime * rotationSpeed);
-
-        lastAimingPointPosition = aimingPoint.position;
+    void HorizontalLean(Transform target, float axis, float leanLimit, float lerpTime)
+    {
+        Vector3 targetEulerAngels = target.localEulerAngles;
+        target.localEulerAngles = new Vector3(targetEulerAngels.x, targetEulerAngels.y, Mathf.LerpAngle(targetEulerAngels.z, -axis * leanLimit, lerpTime));
     }
 }
