@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class PlayerFlightControl : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Transform aimingObject;
+    [SerializeField] private float rotateSpeed = 30.0f;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        Vector3 lookatDirection = aimingObject.position - transform.position;
+
+        Quaternion lookatQuaternion = Quaternion.LookRotation(lookatDirection, Vector3.up);
+        Quaternion rotateValue = Quaternion.Lerp(transform.rotation, lookatQuaternion, Time.deltaTime * rotateSpeed);
+        transform.rotation = rotateValue;
     }
 }

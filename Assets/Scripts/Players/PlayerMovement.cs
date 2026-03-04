@@ -30,11 +30,11 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         // Move player methods
-        ProcessTranslation();
-        ProcessRotation();
+        MovementHandler();
+        RotationHandler();
     }
 
-    private void ProcessTranslation()
+    private void MovementHandler()
     {
         // Get and calculate input value to x and y movement values;
         float xOffset = movement.x * movementSpeed * Time.deltaTime;
@@ -52,9 +52,7 @@ public class PlayerMovement : MonoBehaviour
         transform.localPosition = new Vector3(clampedXPos, clampedYPos, 0);
     }
 
-    
-
-    private void ProcessRotation()
+    private void RotationHandler()
     {
         // Either above or below calculations are fine;
         // But the shorter one seems more smoother;
