@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerWeapon : MonoBehaviour
 {
-    private Vector2 mousePosition;
+    private Vector2 mouseDelta;
 
     [SerializeField] private ParticleSystem[] laserParticles;
 
@@ -23,18 +23,16 @@ public class PlayerWeapon : MonoBehaviour
     {
         //CrosshairMovementHandler();
         //AimingPointHandler();
-
-        Debug.Log(mousePosition.normalized);
     }
 
     private void CrosshairMovementHandler()
     {
-        crosshairRectTransform.position = mousePosition;
+        crosshairRectTransform.position = mouseDelta;
     }
 
     private void AimingPointHandler()
     {
-        Vector3 aimingPosition = new Vector3(mousePosition.x, mousePosition.y, aiminDistance);
+        Vector3 aimingPosition = new Vector3(mouseDelta.x, mouseDelta.y, aiminDistance);
         aimingPointTransform.position = Vector3.Lerp(aimingPointTransform.position, Camera.main.ScreenToWorldPoint(aimingPosition), Time.deltaTime * aimingPointDamping);
     }
 
@@ -48,7 +46,7 @@ public class PlayerWeapon : MonoBehaviour
     }
 
     #region Player Input
-    public void OnMouseMove(InputValue value) => mousePosition = value.Get<Vector2>();
+    public void OnMouseMove(InputValue value) => mouseDelta = value.Get<Vector2>();
 
     // Get "Fire" input from InputAction
     public void OnFire(InputValue value) => FiringHandler(value.isPressed);
