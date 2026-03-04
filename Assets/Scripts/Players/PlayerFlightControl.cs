@@ -28,8 +28,9 @@ public class PlayerFlightControl : MonoBehaviour
         Vector3 moveDirection = aimingPoint.position - lastAimingPointPosition;
         moveDirection.z = 0;
         //Vector2 normalizedMoveDirection = moveDirection.normalized;
+        
 
-        Vector3 targetPosition = transform.position + (moveDirection * movementMultiplier);
+        Vector3 targetPosition = transform.position + (new Vector3(moveVector.x, moveVector.y, 0) * movementMultiplier);
         targetPosition.x = Mathf.Clamp(targetPosition.x, limitHorizontal.x, limitHorizontal.y);
         targetPosition.y = Mathf.Clamp(targetPosition.y, limitVertical.x, limitVertical.y);
         transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * moveSpeed);
