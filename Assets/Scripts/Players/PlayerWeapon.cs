@@ -50,13 +50,11 @@ public class PlayerWeapon : MonoBehaviour
 
     private void DoubleCrosshairTransformHandler()
     {
-        Vector3 inCrosshairPosition = transform.forward * inCrosshairDistance;
-        Vector3 inCrosshairViewport = Camera.main.WorldToScreenPoint(inCrosshairPosition);
-        inCrosshairRectTransform.position = inCrosshairViewport;
+        Vector3 inCrosshairPosition = transform.forward + Vector3.forward * inCrosshairDistance;
+        inCrosshairRectTransform.position = Camera.main.WorldToScreenPoint(inCrosshairPosition);
 
-        Vector3 outCrosshairPosition = transform.forward * outCrosshairDistance;
-        Vector3 outCrosshairViewport = Camera.main.WorldToScreenPoint(outCrosshairPosition);
-        outCrosshairRectTransform.position = outCrosshairViewport;
+        Vector3 outCrosshairPosition = transform.forward + Vector3.forward * outCrosshairDistance;
+        outCrosshairRectTransform.position = Camera.main.WorldToScreenPoint(outCrosshairPosition);
     }
 
     private void AimingTransformHandler()
