@@ -6,7 +6,6 @@ using static UnityEngine.GraphicsBuffer;
 public class PlayerMovement : MonoBehaviour
 {
     private Vector2 mouseDelta;
-    private Vector3 targetMovePoint;
 
     [SerializeField] private Transform aimingpointTransform;
 
@@ -38,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
         //Vector3 moveToPosition = transform.position + (Vector3)mouseDelta * movementMagnitude;
 
         // Fighter's movement;
-        targetMovePoint = Vector3.Lerp(transform.position, moveToPosition, Time.deltaTime * movementSpeed);
+        Vector3 targetMovePoint = Vector3.Lerp(transform.position, moveToPosition, Time.deltaTime * movementSpeed);
         transform.position = targetMovePoint;
 
         // This works too but if you change camera view, you have to change the limit numbers too.
@@ -51,21 +50,22 @@ public class PlayerMovement : MonoBehaviour
         Vector3 playerViewport = Camera.main.WorldToViewportPoint(transform.position);
         playerViewport.x = Mathf.Clamp(playerViewport.x, horizontalLimit.x, horizontalLimit.y);
         playerViewport.y = Mathf.Clamp(playerViewport.y, verticalLimit.x, verticalLimit.y);
-        transform.position = Camera.main.ViewportToWorldPoint(playerViewport);
+        Vector3 playerWorldPosition = Camera.main.ViewportToWorldPoint(playerViewport);
+        transform.position = playerWorldPosition;
         //------------------------------
 
         if (rotate)
-            RotateHandler(moveToPosition);
+            RotateHandler();
     }
 
-    private void RotateHandler(Vector3 moveToPosition)
+    private void RotateHandler()
     {
         Vector3 direction = aimingpointTransform.position - transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
 
         // Rotate z axis for better looking transition;
-        Vector3 movementVector = moveToPosition - transform.position;
-        targetRotation.eulerAngles = new Vector3(targetRotation.eulerAngles.x, targetRotation.eulerAngles.y, -movementVector.x * rollForce);
+        //Vector3 movementVector = moveToPosition - transform.position;
+        targetRotation.eulerAngles = new Vector3(targetRotation.eulerAngles.x, targetRotation.eulerAngles.y, -mouseDelta.x * rollForce);
         //---------------------------------------------
 
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
