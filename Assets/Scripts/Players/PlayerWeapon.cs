@@ -8,9 +8,19 @@ public class PlayerWeapon : MonoBehaviour
 
     [SerializeField] private ParticleSystem[] laserParticles;
 
+    [Header("Object Details")]
+    [SerializeField] private Transform aimingPointTransform;
+    [SerializeField] private float aimpointMovementScale = 1.5f;
+    [SerializeField] private float aimpointMovingSpeed = 30f;
+
+    [Header("Crosshair Movement Details")]
+    [SerializeField] private float crosshairMovementScale = 0.8f;
+    [SerializeField] private float crosshairSpeed = 30f;
+    [SerializeField] private Vector2 horizontalLimit;
+    [SerializeField] private Vector2 verticalLimit;
+
     [Header("Aim Details")]
     [SerializeField] private RectTransform crosshairRectTransform;
-    [SerializeField] private Transform aimingPointTransform;
     [SerializeField] private float aimingPointDamping = 10.0f;
     [SerializeField] private float aiminDistance;
 
@@ -23,11 +33,21 @@ public class PlayerWeapon : MonoBehaviour
     {
         //CrosshairMovementHandler();
         //AimingPointHandler();
+        AimingTransform();
     }
 
     private void CrosshairMovementHandler()
     {
-        crosshairRectTransform.position = mouseDelta;
+        Vector2 moveVector = crosshairRectTransform.position + (Vector3)mouseDelta * crosshairMovementScale;
+        crosshairRectTransform.position = Vector3.Lerp(crosshairRectTransform.position, moveVector, Time.deltaTime * crosshairSpeed);
+    }
+
+    private void AimingTransform()
+    {
+        Vector3 moveVector = aimingPointTransform.position + ((Vector3)mouseDelta * aimpointMovementScale);
+        moveVector.x = Mathf.Clamp(moveVector.x, horizontalLimit.x, horizontalLimit.y);
+        moveVector.y = Mathf.Clamp(moveVector.y, verticalLimit.x, verticalLimit.y);
+        aimingPointTransform.position = Vector3.Lerp(aimingPointTransform.position, moveVector, Time.deltaTime * aimpointMovingSpeed);
     }
 
     private void AimingPointHandler()
