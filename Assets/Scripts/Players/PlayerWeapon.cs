@@ -19,6 +19,12 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] private Vector2 horizontalLimit;
     [SerializeField] private Vector2 verticalLimit;
 
+    [Header("Double Crosshair Details")]
+    [SerializeField] private float inCrosshairDistance;
+    [SerializeField] private RectTransform inCrosshairRectTransform;
+    [SerializeField] private float outCrosshairDistance;
+    [SerializeField] private RectTransform outCrosshairRectTransform;
+
     [Header("Aim Details")]
     [SerializeField] private RectTransform crosshairRectTransform;
     [SerializeField] private float aimingPointDamping = 10.0f;
@@ -32,8 +38,8 @@ public class PlayerWeapon : MonoBehaviour
     private void Update()
     {
         //CrosshairMovementHandler();
-        //AimingPointHandler();
-        AimingTransform();
+        DoubleCrosshairTransformHandler();
+        AimingTransformHandler();
     }
 
     private void CrosshairMovementHandler()
@@ -42,18 +48,23 @@ public class PlayerWeapon : MonoBehaviour
         crosshairRectTransform.position = Vector3.Lerp(crosshairRectTransform.position, moveVector, Time.deltaTime * crosshairSpeed);
     }
 
-    private void AimingTransform()
+    private void DoubleCrosshairTransformHandler()
+    {
+        Vector3 inCrosshairPosition = transform.forward * inCrosshairDistance;
+        Vector3 inCrosshairViewport = Camera.main.WorldToScreenPoint(inCrosshairPosition);
+        inCrosshairRectTransform.position = inCrosshairViewport;
+
+        Vector3 outCrosshairPosition = transform.forward * outCrosshairDistance;
+        Vector3 outCrosshairViewport = Camera.main.WorldToScreenPoint(outCrosshairPosition);
+        outCrosshairRectTransform.position = outCrosshairViewport;
+    }
+
+    private void AimingTransformHandler()
     {
         Vector3 moveVector = aimingPointTransform.position + ((Vector3)mouseDelta * aimpointMovementScale);
         moveVector.x = Mathf.Clamp(moveVector.x, horizontalLimit.x, horizontalLimit.y);
         moveVector.y = Mathf.Clamp(moveVector.y, verticalLimit.x, verticalLimit.y);
         aimingPointTransform.position = Vector3.Lerp(aimingPointTransform.position, moveVector, Time.deltaTime * aimpointMovingSpeed);
-    }
-
-    private void AimingPointHandler()
-    {
-        Vector3 aimingPosition = new Vector3(mouseDelta.x, mouseDelta.y, aiminDistance);
-        aimingPointTransform.position = Vector3.Lerp(aimingPointTransform.position, Camera.main.ScreenToWorldPoint(aimingPosition), Time.deltaTime * aimingPointDamping);
     }
 
     private void FiringHandler(bool fire)

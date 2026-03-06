@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool rotate = true;
     [SerializeField] private float rotationSpeed = 10f;
     [SerializeField] private float rollForce = 50f;
+    [SerializeField] private float rollAngleLimit = 30f;
 
     private void Update()
     {
@@ -64,8 +65,8 @@ public class PlayerMovement : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
 
         // Rotate z axis for better looking transition;
-        //Vector3 movementVector = moveToPosition - transform.position;
-        targetRotation.eulerAngles = new Vector3(targetRotation.eulerAngles.x, targetRotation.eulerAngles.y, -mouseDelta.x * rollForce);
+        float rollVolumn = Mathf.Clamp(-mouseDelta.x * rollForce, -rollAngleLimit, rollAngleLimit);
+        targetRotation.eulerAngles = new Vector3(targetRotation.eulerAngles.x, targetRotation.eulerAngles.y, rollVolumn);
         //---------------------------------------------
 
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
