@@ -1,70 +1,75 @@
-using System;
-using System.Runtime.CompilerServices;
-using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering.Universal;
-using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Vector3 targetPosition;
-    private Vector3 currentVelocity;
-
-    private bool isBarrelRolling;
-    private float barrelDirection; // -1 left, 1 right
-
-    private Vector2 movement;
     private Vector2 mouseDelta;
-    private bool boost;
+    private Vector3 targetMovePoint;
+
+    [SerializeField] private Transform aimingpointTransform;
 
     [Header("Movement Details")]
-    [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float moveLength = 0.1f;
-    [SerializeField] private Vector2 limitHorizontal;
-    [SerializeField] private Vector2 limitVertical;
+    [SerializeField] private bool move = true;
+    [Space]
+    [SerializeField] private float movementSpeed = 10f;
+    [SerializeField] private float movementMagnitude = 0.1f;
+    [Space]
+    [SerializeField] private Vector2 horizontalLimit;
+    [SerializeField] private Vector2 verticalLimit;
 
     [Header("Rotation Details")]
-    [SerializeField] private float maxRoll = 20f;
-    [SerializeField] private float rotateSpeed = 20f;
+    [SerializeField] private bool rotate = true;
+    [SerializeField] private float rotationSpeed = 10f;
+    [SerializeField] private float rollForce = 50f;
 
     private void Update()
     {
-        MovementHandler();
-        RotateHandler();
+        if (move)
+            MovementHandler();
     }
 
     private void MovementHandler()
     {
-        Vector3 newPosition = transform.position + (new Vector3(mouseDelta.x, mouseDelta.y, 0) * moveLength * Time.deltaTime);
+        Vector3 moveToPosition = new Vector3(aimingpointTransform.position.x, aimingpointTransform.position.y, 0);
 
-        newPosition.x = Mathf.Clamp(newPosition.x, limitHorizontal.x, limitHorizontal.y);
-        newPosition.y = Mathf.Clamp(newPosition.y, limitVertical.x, limitVertical.y);
+        // This movement is too linear, it will move without damping;
+        //Vector3 moveToPosition = transform.position + (Vector3)mouseDelta * movementMagnitude;
 
-        //transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * moveSpeed);
-        transform.position = newPosition;
+        // Fighter's movement;
+        targetMovePoint = Vector3.Lerp(transform.position, moveToPosition, Time.deltaTime * movementSpeed);
+        transform.position = targetMovePoint;
+
+        // This works too but if you change camera view, you have to change the limit numbers too.
+        // So I changed to below clamp calculation that use camera's viewport instead;
+        //moveToPosition.x = Mathf.Clamp(moveToPosition.x, horizontalLimit.x, horizontalLimit.y);
+        //moveToPosition.y = Mathf.Clamp(moveToPosition.y, verticalLimit.x, verticalLimit.y);
+
+        //------- Clamp position -------
+        // With this clamp calculation, designer can set only 2 numbers, and it will works with every view point;
+        Vector3 playerViewport = Camera.main.WorldToViewportPoint(transform.position);
+        playerViewport.x = Mathf.Clamp(playerViewport.x, horizontalLimit.x, horizontalLimit.y);
+        playerViewport.y = Mathf.Clamp(playerViewport.y, verticalLimit.x, verticalLimit.y);
+        transform.position = Camera.main.ViewportToWorldPoint(playerViewport);
+        //------------------------------
+
+        if (rotate)
+            RotateHandler(moveToPosition);
     }
 
-    private void RotateHandler()
+    private void RotateHandler(Vector3 moveToPosition)
     {
-        Vector3 targetEulerAngels = transform.localEulerAngles;
-        transform.localEulerAngles = new Vector3(targetEulerAngels.x, targetEulerAngels.y, Mathf.LerpAngle(targetEulerAngels.z, -mouseDelta.x * maxRoll, Time.deltaTime * rotateSpeed));
-    }
+        Vector3 direction = aimingpointTransform.position - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
 
-    private void StartBarrelRoll()
-    {
-        
-    }
+        // Rotate z axis for better looking transition;
+        Vector3 movementVector = moveToPosition - transform.position;
+        targetRotation.eulerAngles = new Vector3(targetRotation.eulerAngles.x, targetRotation.eulerAngles.y, -movementVector.x * rollForce);
+        //---------------------------------------------
 
-    #region PlayerInput
-    public void OnMove(InputValue value) => mouseDelta = value.Get<Vector2>();
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+    }
 
     public void OnMouseMove(InputValue value) => mouseDelta = value.Get<Vector2>();
-
-    public void OnBoost(InputValue value) => boost = value.isPressed;
-
-    public void OnRoll(InputValue value) => StartBarrelRoll();
-    #endregion
 }
