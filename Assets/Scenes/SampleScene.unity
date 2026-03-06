@@ -910,7 +910,7 @@ MonoBehaviour:
   aimpointMovingSpeed: 20
   crosshairMovementScale: 1.5
   crosshairSpeed: 10
-  horizontalLimit: {x: -1.3, y: 1.3}
+  horizontalLimit: {x: -1.5, y: 1.5}
   verticalLimit: {x: -1.2, y: 0.5}
   crosshairRectTransform: {fileID: 866953718}
   aimingPointDamping: 10
@@ -935,7 +935,7 @@ MonoBehaviour:
   verticalLimit: {x: 0.1, y: 0.8}
   rotate: 1
   rotationSpeed: 10
-  rollForce: 30
+  rollForce: 6
 --- !u!1 &1068505219
 GameObject:
   m_ObjectHideFlags: 0
