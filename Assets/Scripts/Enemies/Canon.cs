@@ -7,18 +7,22 @@ public class Canon : MonoBehaviour
 {
     private Material gunMuzzleMat;
     private Color beforeShootColor;
+    private Coroutine shootCoroutine;
 
     private float currentTime;
-
-    private Coroutine shootCoroutine;
 
     public const string EMISSIVE_COLOR_NAME = "_EmissionColor";
     public const string EMISSIVE_KEYWORD = "_EMISSION";
 
     [SerializeField] private Renderer gunMuzzleRenderer;
+
+    [Header("Shoot Sequence Details")]
+    [SerializeField] private bool useAnimationCurve = false;
     [SerializeField] private float shootTime = 0.5f;
     [SerializeField] private float waitSecsBeforeShoot = 0.05f;
     [SerializeField] private Vector2 intensity;
+    [Space]
+    [SerializeField] private AnimationCurve brightnessCurve;
 
     private void Start()
     {
@@ -64,6 +68,9 @@ public class Canon : MonoBehaviour
         }
 
         yield return new WaitForSeconds(waitSecsBeforeShoot);
+
+        // <todo> shoot!
+
         SetMuzzleColor(beforeShootColor);
     }
 

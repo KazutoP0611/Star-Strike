@@ -23,6 +23,7 @@ public class Entity_Health : MonoBehaviour
             return;
 
         currentHealth--;
+
         if (currentHealth <= 0)
             OnDead();
     }
