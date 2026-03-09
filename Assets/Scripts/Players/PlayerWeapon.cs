@@ -42,6 +42,11 @@ public class PlayerWeapon : MonoBehaviour
         AimingTransformHandler();
     }
 
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.DrawRay(transform.position, transform.forward);
+    //}
+
     private void CrosshairMovementHandler()
     {
         Vector2 moveVector = crosshairRectTransform.position + (Vector3)mouseDelta * crosshairMovementScale;
@@ -50,10 +55,10 @@ public class PlayerWeapon : MonoBehaviour
 
     private void DoubleCrosshairTransformHandler()
     {
-        Vector3 inCrosshairPosition = transform.forward + Vector3.forward * inCrosshairDistance;
+        Vector3 inCrosshairPosition = transform.position + transform.forward * inCrosshairDistance;
         inCrosshairRectTransform.position = Camera.main.WorldToScreenPoint(inCrosshairPosition);
 
-        Vector3 outCrosshairPosition = transform.forward + Vector3.forward * outCrosshairDistance;
+        Vector3 outCrosshairPosition = transform.position + transform.forward * outCrosshairDistance;
         outCrosshairRectTransform.position = Camera.main.WorldToScreenPoint(outCrosshairPosition);
     }
 

@@ -912,9 +912,9 @@ MonoBehaviour:
   crosshairSpeed: 10
   horizontalLimit: {x: -1.5, y: 1.5}
   verticalLimit: {x: -1.2, y: 0.5}
-  inCrosshairDistance: 2
+  inCrosshairDistance: 3
   inCrosshairRectTransform: {fileID: 1597942929}
-  outCrosshairDistance: 0.5
+  outCrosshairDistance: 2
   outCrosshairRectTransform: {fileID: 1373973196}
   crosshairRectTransform: {fileID: 866953718}
   aimingPointDamping: 10
