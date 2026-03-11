@@ -13,7 +13,7 @@ The game features **automatic forward rail movement** while allowing the player 
 - Engine: Unity 6000.3.6f1  
 - Programming Language: C#  
 - 3D Rail Shooter Movement System  
-- Dual Crosshair Targeting System  
+- Single and Dual Crosshair Targeting System  
 - Particle-based Laser Shooting with Collision Detection  
 - Smooth Damped Player Movement and Rotation  
 - Unity Input Action System (Mouse Delta Input)  
@@ -30,8 +30,7 @@ The player ship moves automatically forward along a **rail path**, while the pla
 Player control is implemented using a **two-object movement system**:
 
 1. **Invisible Target Object**
-   - Controlled by player input (Mouse or WASD)
-   - Uses delta time damping for smooth movement
+   - Controlled by player input (Mouse's Delta)
 
 2. **Player Ship**
    - Smoothly follows the invisible target
@@ -48,7 +47,7 @@ To enhance visual feedback:
 - **X/Y Axis**  
   The ship constantly **looks toward the invisible control object**
 
-- **Z Axis (Banking Rotation)**  
+- **Z Axis (Roll)**  
   The ship rotates based on the **movement volume and direction**, creating a natural banking effect when turning.
 
 This produces a flight style similar to classic arcade space shooters.
@@ -85,9 +84,9 @@ Player Ship (Smooth Follow)
 
 ### Step 1 — Input Target
 
-Player input (mouse delta or WASD) moves an **invisible control object** inside the movement bounds.
+Player input (mouse delta) moves an **invisible control object** inside the movement bounds.
 
-This object represents the **intended position of the ship**.
+This object represents the **intended forward position of the ship**.
 
 ### Step 2 — Smooth Follow
 
@@ -127,11 +126,13 @@ This architecture allows easy addition of:
 - Camera motion linked to ship velocity
 - Dynamic combat movement during boss encounters
 
-## 🎯 Dual Crosshair Targeting System
+## 🎯 Single and Dual Crosshair(s) Targeting Systems
 
-The aiming system uses **two dynamic crosshairs** based on the ship’s forward direction.
+The aiming system uses **two crosshair systems (single and dual crosshair)** based on the ship’s forward direction.
 
-The system works by projecting the ship's forward vector to **two different distances** in front of the player.
+The system works by projecting the ship's forward vector in front of the player.
+
+With Dual Crosshairs, system use **two different distances** for both crosshairs.
 
 This results in:
 
@@ -163,7 +164,11 @@ Player shooting is implemented using:
 | Input | Action |
 |------|------|
 | Mouse Movement | Control ship position |
-| WASD | Alternative movement control |
+| A | Blank Left |
+| D | Blank Right |
+| Q | Barrel Roll Left |
+| A | Barrel Roll Right |
+| Spacebar | Boost and Brake |
 | Left Click | Fire laser |
 
 ---
@@ -209,7 +214,7 @@ Current implemented features:
 ✔ Player rail movement system  
 ✔ Smooth damped flight control  
 ✔ Ship rotation and banking system  
-✔ Dual crosshair aiming system  
+✔ Two crosshair aiming systems  
 ✔ Particle-based laser shooting  
 ✔ Enemy and boss models added to the scene  
 
