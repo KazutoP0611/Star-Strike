@@ -19511,8 +19511,10 @@ MonoBehaviour:
   onDamageMat: {fileID: 2100000, guid: 51d610110cba8fd45845a58458706cfd, type: 2}
   renderers:
   - {fileID: 57291816132807729}
+  onDamageParticle: {fileID: 4794043405585894037, guid: ae601ef3daefd6c4cbb69eb5edb99ad0, type: 3}
+  damageParticleScale: 0.45
   onDestroyParticle: {fileID: 6192724089161036641, guid: 59951331955d0f44c82e467953f32537, type: 3}
-  destroyParticleScale: 0.75
+  destroyParticleScale: 1
 --- !u!54 &3319091305772254626
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -2,6 +2,12 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 
+public enum ParticleType
+{
+    Damage,
+    Dead
+}
+
 public class Entity_VFX : MonoBehaviour
 {
     private Coroutine onDamageCoroutine;
@@ -13,6 +19,9 @@ public class Entity_VFX : MonoBehaviour
     [SerializeField] private Renderer[] renderers;
 
     [Header("Particle Details")]
+    [SerializeField] private GameObject onDamageParticle;
+    [SerializeField] private float damageParticleScale = 1f;
+    [Space]
     [SerializeField] private GameObject onDestroyParticle;
     [SerializeField] private float destroyParticleScale = 0.75f;
 
@@ -26,14 +35,22 @@ public class Entity_VFX : MonoBehaviour
             Debug.LogWarning("Renderers haven't been set in inspector yet.");
     }
 
-    public void CreateOnDeadEffect()
+    public void CreateEffect(ParticleType particleType)
     {
-        GameObject explodeParticle = Instantiate(onDestroyParticle, transform.position, transform.localRotation);
-        explodeParticle.transform.localScale = Vector3.one * destroyParticleScale;
+        GameObject explodeParticle = Instantiate(particleType == ParticleType.Damage ? onDamageParticle : onDestroyParticle, transform.position, transform.localRotation);
+        explodeParticle.transform.localScale = Vector3.one * (particleType == ParticleType.Damage ? damageParticleScale : destroyParticleScale);
     }
 
-    public void OnDamage()
+    public void CreateEffect(ParticleType particleType, Vector3 hitPoint)
     {
+        GameObject explodeParticle = Instantiate(particleType == ParticleType.Damage ? onDamageParticle : onDestroyParticle, hitPoint, transform.localRotation);
+        explodeParticle.transform.localScale = Vector3.one * (particleType == ParticleType.Damage ? damageParticleScale : destroyParticleScale);
+    }
+
+    public void OnDamage(Vector3 hitPoint)
+    {
+        CreateEffect(ParticleType.Damage, hitPoint);
+
         if (onDamageCoroutine != null)
             StopCoroutine(onDamageCoroutine);
 

@@ -6,12 +6,16 @@ public class PlayerWeapon : MonoBehaviour
 {
     private Vector2 mouseDelta;
 
+    [Header("General Details")]
     [SerializeField] private ParticleSystem[] laserParticles;
+    [SerializeField] private LayerMask enemyLayer;
 
-    [Header("Object Details")]
+    [Header("Aiming Point Details")]
     [SerializeField] private Transform aimingPointTransform;
     [SerializeField] private float aimpointMovementScale = 1.5f;
     [SerializeField] private float aimpointMovingSpeed = 30f;
+    [Space]
+    [SerializeField] private bool useSingleCrosshair = false;
 
     [Header("Crosshair Movement Details")]
     [SerializeField] private float crosshairMovementScale = 0.8f;
@@ -19,38 +23,37 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] private Vector2 horizontalLimit;
     [SerializeField] private Vector2 verticalLimit;
 
+    [Header("Crosshair Setting Details")]
+    [SerializeField] private RectTransform crosshairRectTransform;
+
     [Header("Double Crosshair Details")]
     [SerializeField] private float inCrosshairDistance;
     [SerializeField] private RectTransform inCrosshairRectTransform;
     [SerializeField] private float outCrosshairDistance;
     [SerializeField] private RectTransform outCrosshairRectTransform;
 
-    [Header("Aim Details")]
-    [SerializeField] private RectTransform crosshairRectTransform;
-    [SerializeField] private float aimingPointDamping = 10.0f;
-    [SerializeField] private float aiminDistance;
-
     private void Start()
     {
         Cursor.visible = false;
+
+        crosshairRectTransform.gameObject.SetActive(useSingleCrosshair);
+        inCrosshairRectTransform.gameObject.SetActive(!useSingleCrosshair);
+        outCrosshairRectTransform.gameObject.SetActive(!useSingleCrosshair);
     }
 
     private void Update()
     {
-        //CrosshairMovementHandler();
-        DoubleCrosshairTransformHandler();
+        if (useSingleCrosshair)
+            CrosshairMovementHandler();
+        else
+            DoubleCrosshairTransformHandler();
+
         AimingTransformHandler();
     }
 
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.DrawRay(transform.position, transform.forward);
-    //}
-
     private void CrosshairMovementHandler()
     {
-        Vector2 moveVector = crosshairRectTransform.position + (Vector3)mouseDelta * crosshairMovementScale;
-        crosshairRectTransform.position = Vector3.Lerp(crosshairRectTransform.position, moveVector, Time.deltaTime * crosshairSpeed);
+        crosshairRectTransform.position = Camera.main.WorldToScreenPoint(aimingPointTransform.position);
     }
 
     private void DoubleCrosshairTransformHandler()
@@ -64,10 +67,24 @@ public class PlayerWeapon : MonoBehaviour
 
     private void AimingTransformHandler()
     {
-        Vector3 moveVector = aimingPointTransform.position + ((Vector3)mouseDelta * aimpointMovementScale);
-        moveVector.x = Mathf.Clamp(moveVector.x, horizontalLimit.x, horizontalLimit.y);
-        moveVector.y = Mathf.Clamp(moveVector.y, verticalLimit.x, verticalLimit.y);
-        aimingPointTransform.position = Vector3.Lerp(aimingPointTransform.position, moveVector, Time.deltaTime * aimpointMovingSpeed);
+        Vector3 moveVector = aimingPointTransform.position + new Vector3(mouseDelta.x, mouseDelta.y, 0) * aimpointMovementScale;
+
+        // Just like player's movement. Use clamp calculation as below, will not require developers to input new limit position everytime plane's position changes;
+        //moveVector.x = Mathf.Clamp(moveVector.x, horizontalLimit.x, horizontalLimit.y);
+        //moveVector.y = Mathf.Clamp(moveVector.y, verticalLimit.x, verticalLimit.y);
+
+        // New Clamp Calculation;
+        Vector3 aimingPointNewPosition = Camera.main.WorldToViewportPoint(moveVector);
+        aimingPointNewPosition.x = Mathf.Clamp(aimingPointNewPosition.x, horizontalLimit.x, horizontalLimit.y);
+        aimingPointNewPosition.y = Mathf.Clamp(aimingPointNewPosition.y, verticalLimit.x, verticalLimit.y);
+
+        Vector3 aimingPointWorldPosition = Camera.main.ViewportToWorldPoint(aimingPointNewPosition);
+        aimingPointWorldPosition.z = aimingPointTransform.position.z;
+
+        // Assign position instead of damping value
+        // Because plane already has limit position and damping, using more damping will give weird feeling when aimingObject is near edge of the screen;
+        aimingPointTransform.position = aimingPointWorldPosition;
+        //  aimingPointTransform.position = Vector3.Lerp(aimingPointTransform.position, aimingPointWorldPosition, Time.deltaTime * aimpointMovingSpeed);
     }
 
     private void FiringHandler(bool fire)

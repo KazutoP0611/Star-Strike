@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4794043405585894027}
   - component: {fileID: 4794043405585894026}
   m_Layer: 0
-  m_Name: Impact01
+  m_Name: Impact01 copy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +43,7 @@ ParticleSystem:
   serializedVersion: 8
   lengthInSec: 1.5
   simulationSpeed: 1
-  stopAction: 0
+  stopAction: 2
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}

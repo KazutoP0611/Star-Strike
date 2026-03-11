@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovementHandler()
     {
-        Vector3 moveToPosition = new Vector3(aimingpointTransform.position.x, aimingpointTransform.position.y, 0);
+        Vector3 moveToPosition = new Vector3(aimingpointTransform.position.x, aimingpointTransform.position.y, transform.position.z);
 
         // This movement is too linear, it will move without damping;
         //Vector3 moveToPosition = transform.position + (Vector3)mouseDelta * movementMagnitude;
