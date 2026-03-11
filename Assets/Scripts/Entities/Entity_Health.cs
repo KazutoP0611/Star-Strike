@@ -5,12 +5,15 @@ public class Entity_Health : MonoBehaviour
 {
     private int currentHealth;
 
+    protected Entity_VFX entityVFX;
+
     [Header("Health Details")]
     [SerializeField] private int maxHealth;
 
-    [Header("Particle Details")]
-    [SerializeField] private GameObject onDestroyParticle;
-    [SerializeField] private float onDestroyParticleScale = 0.75f;
+    private void Awake()
+    {
+        entityVFX = GetComponent<Entity_VFX>();
+    }
 
     private void Start()
     {
@@ -23,6 +26,7 @@ public class Entity_Health : MonoBehaviour
             return;
 
         currentHealth--;
+        entityVFX?.OnDamage();
 
         if (currentHealth <= 0)
             OnDead();
@@ -30,7 +34,6 @@ public class Entity_Health : MonoBehaviour
 
     protected virtual void OnDead()
     {
-        GameObject explodeParticle = Instantiate(onDestroyParticle, transform.position, transform.localRotation);
-        explodeParticle.transform.localScale = Vector3.one * onDestroyParticleScale;
+        entityVFX?.CreateOnDeadEffect();
     }
 }

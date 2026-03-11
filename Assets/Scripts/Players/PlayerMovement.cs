@@ -5,7 +5,9 @@ using static UnityEngine.GraphicsBuffer;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private Vector3 playerViewportPosition;
     private Vector2 mouseDelta;
+    private float currentRoll;
 
     [SerializeField] private Transform aimingpointTransform;
 
@@ -21,7 +23,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Rotation Details")]
     [SerializeField] private bool rotate = true;
     [SerializeField] private float rotationSpeed = 10f;
+    [SerializeField] private bool roll = true;
     [SerializeField] private float rollForce = 50f;
+    [SerializeField] private float rollReturnForce = 50f;
     [SerializeField] private float rollAngleLimit = 30f;
 
     private void Update()
@@ -48,10 +52,10 @@ public class PlayerMovement : MonoBehaviour
 
         //------- Clamp position -------
         // With this clamp calculation, designer can set only 2 numbers, and it will works with every view point;
-        Vector3 playerViewport = Camera.main.WorldToViewportPoint(transform.position);
-        playerViewport.x = Mathf.Clamp(playerViewport.x, horizontalLimit.x, horizontalLimit.y);
-        playerViewport.y = Mathf.Clamp(playerViewport.y, verticalLimit.x, verticalLimit.y);
-        Vector3 playerWorldPosition = Camera.main.ViewportToWorldPoint(playerViewport);
+        playerViewportPosition = Camera.main.WorldToViewportPoint(transform.position);
+        playerViewportPosition.x = Mathf.Clamp(playerViewportPosition.x, horizontalLimit.x, horizontalLimit.y);
+        playerViewportPosition.y = Mathf.Clamp(playerViewportPosition.y, verticalLimit.x, verticalLimit.y);
+        Vector3 playerWorldPosition = Camera.main.ViewportToWorldPoint(playerViewportPosition);
         transform.position = playerWorldPosition;
         //------------------------------
 
@@ -64,13 +68,30 @@ public class PlayerMovement : MonoBehaviour
         Vector3 direction = aimingpointTransform.position - transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
 
-        // Rotate z axis for better looking transition;
-        float rollVolumn = Mathf.Clamp(-mouseDelta.x * rollForce, -rollAngleLimit, rollAngleLimit);
-        targetRotation.eulerAngles = new Vector3(targetRotation.eulerAngles.x, targetRotation.eulerAngles.y, rollVolumn);
-        //---------------------------------------------
+        // Implement Rolling
+        if (roll)
+        {
+            // This will limit roll value when player is at edge of screen, or player will roll even the plane doesn't go left or right;
+            float mouseDeltaHorizontal = playerViewportPosition.x == horizontalLimit.x || playerViewportPosition.x == horizontalLimit.y ? 0 : mouseDelta.x;
 
+            // Limit roll angle;
+            float rollVolumn = Mathf.Clamp(-mouseDeltaHorizontal * rollForce, -rollAngleLimit, rollAngleLimit);
+
+            // Define roll speed, if there is no movement, player will return from rolling faster, this will give more feedback roll feel while playing;
+            float rollSpeed = Mathf.Abs(mouseDeltaHorizontal) > 0.01f ? rollForce : rollReturnForce;
+
+            // Apply calculated values to currentRoll;
+            currentRoll = Mathf.Lerp(currentRoll, rollVolumn, Time.deltaTime * rollSpeed);
+            Vector3 currentEuler = targetRotation.eulerAngles;
+            targetRotation = Quaternion.Euler(currentEuler.x, currentEuler.y, currentRoll);
+        }
+        //------------------
+
+        // Add calculated Rotation to player
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
     }
 
+    #region Player's Input
     public void OnMouseMove(InputValue value) => mouseDelta = value.Get<Vector2>();
+    #endregion
 }
