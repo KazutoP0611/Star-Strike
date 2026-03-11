@@ -8,7 +8,6 @@ public class PlayerWeapon : MonoBehaviour
 
     [Header("General Details")]
     [SerializeField] private ParticleSystem[] laserParticles;
-    [SerializeField] private LayerMask enemyLayer;
 
     [Header("Aiming Point Details")]
     [SerializeField] private Transform aimingPointTransform;
@@ -84,7 +83,7 @@ public class PlayerWeapon : MonoBehaviour
         // Assign position instead of damping value
         // Because plane already has limit position and damping, using more damping will give weird feeling when aimingObject is near edge of the screen;
         aimingPointTransform.position = aimingPointWorldPosition;
-        //  aimingPointTransform.position = Vector3.Lerp(aimingPointTransform.position, aimingPointWorldPosition, Time.deltaTime * aimpointMovingSpeed);
+        //aimingPointTransform.position = Vector3.Lerp(aimingPointTransform.position, aimingPointWorldPosition, Time.deltaTime * aimpointMovingSpeed);
     }
 
     private void FiringHandler(bool fire)

@@ -41,23 +41,29 @@ public class PlayerMovement : MonoBehaviour
         // This movement is too linear, it will move without damping;
         //Vector3 moveToPosition = transform.position + (Vector3)mouseDelta * movementMagnitude;
 
-        // Fighter's movement;
+        // Lerp fighter's movement;
         Vector3 targetMovePoint = Vector3.Lerp(transform.position, moveToPosition, Time.deltaTime * movementSpeed);
-        transform.position = targetMovePoint;
 
-        // This works too but if you change camera view, you have to change the limit numbers too.
+        // This works too but if you change camera view or position in player gameobject, you have to change the limit numbers too.
         // So I changed to below clamp calculation that use camera's viewport instead;
         //moveToPosition.x = Mathf.Clamp(moveToPosition.x, horizontalLimit.x, horizontalLimit.y);
         //moveToPosition.y = Mathf.Clamp(moveToPosition.y, verticalLimit.x, verticalLimit.y);
 
         //------- Clamp position -------
         // With this clamp calculation, designer can set only 2 numbers, and it will works with every view point;
-        playerViewportPosition = Camera.main.WorldToViewportPoint(transform.position);
+        playerViewportPosition = Camera.main.WorldToViewportPoint(targetMovePoint);
         playerViewportPosition.x = Mathf.Clamp(playerViewportPosition.x, horizontalLimit.x, horizontalLimit.y);
         playerViewportPosition.y = Mathf.Clamp(playerViewportPosition.y, verticalLimit.x, verticalLimit.y);
-        Vector3 playerWorldPosition = Camera.main.ViewportToWorldPoint(playerViewportPosition);
-        transform.position = playerWorldPosition;
         //------------------------------
+
+        Vector3 playerWorldPosition = Camera.main.ViewportToWorldPoint(playerViewportPosition);
+
+        // ToViewport will make Z transform unstable, so I have to make it return to usual position;
+        // That's why I didn't apply the new transform to player before this Z axis setting;
+        playerWorldPosition.z = transform.position.z;
+
+        // Apply calculated new position to player;
+        transform.position = playerWorldPosition;
 
         if (rotate)
             RotateHandler();
