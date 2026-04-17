@@ -1,13 +1,16 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Accessibility;
 using UnityEngine.InputSystem;
 using static UnityEngine.GraphicsBuffer;
 
 public class PlayerMovement : MonoBehaviour
 {
     private Vector3 playerViewportPosition;
+    private Vector3 moveToPosition;
     private Vector2 mouseDelta;
     private float currentRoll;
+    private float rollDirection;
 
     [SerializeField] private Transform aimingpointTransform;
 
@@ -28,6 +31,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float rollReturnForce = 50f;
     [SerializeField] private float rollAngleLimit = 30f;
 
+    #region Player's Input
+    public void OnMouseMove(InputValue value) => mouseDelta = value.Get<Vector2>();
+    public void OnRoll(InputValue value) => RollHandler();
+    #endregion
+
     private void Update()
     {
         if (move)
@@ -36,8 +44,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovementHandler()
     {
-        Vector3 moveToPosition = new Vector3(aimingpointTransform.position.x, aimingpointTransform.position.y, transform.position.z);
-
+        moveToPosition = new Vector3(aimingpointTransform.position.x, aimingpointTransform.position.y, transform.position.z);
         // This movement is too linear, it will move without damping;
         //Vector3 moveToPosition = transform.position + (Vector3)mouseDelta * movementMagnitude;
 
@@ -97,7 +104,9 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
     }
 
-    #region Player's Input
-    public void OnMouseMove(InputValue value) => mouseDelta = value.Get<Vector2>();
-    #endregion
+    private void RollHandler()
+    {
+        rollDirection = moveToPosition.x - transform.position.x;
+        Debug.Log(rollDirection < 0 ? "Roll Left" : "Roll Right");
+    }
 }
