@@ -13,8 +13,6 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] private Transform aimingPointTransform;
     [SerializeField] private float aimpointMovementScale = 1.5f;
     [SerializeField] private float aimpointMovingSpeed = 30f;
-    [Space]
-    [SerializeField] private bool useSingleCrosshair = false;
 
     [Header("Crosshair Movement Details")]
     [SerializeField] private bool moveCrosshair = true;
@@ -24,10 +22,10 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] private Vector2 horizontalLimit;
     [SerializeField] private Vector2 verticalLimit;
 
-    [Header("Crosshair Setting Details")]
+    [Header("Crosshair Details")]
+    [SerializeField] private bool useSingleCrosshair = false;
     [SerializeField] private RectTransform crosshairRectTransform;
-
-    [Header("Double Crosshair Details")]
+    [Space]
     [SerializeField] private float inCrosshairDistance;
     [SerializeField] private RectTransform inCrosshairRectTransform;
     [SerializeField] private float outCrosshairDistance;
@@ -59,16 +57,18 @@ public class PlayerWeapon : MonoBehaviour
 
     private void CrosshairMovementHandler()
     {
-        crosshairRectTransform.localPosition = Camera.main.WorldToScreenPoint(aimingPointTransform.localPosition);
+        crosshairRectTransform.position = Camera.main.WorldToScreenPoint(aimingPointTransform.position);
     }
 
     private void DoubleCrosshairTransformHandler()
     {
         Vector3 inCrosshairPosition = transform.localPosition + transform.forward * inCrosshairDistance;
-        inCrosshairRectTransform.localPosition = Camera.main.WorldToScreenPoint(inCrosshairPosition);
+        Vector3 inCrosshairWorldPosition = transform.parent.TransformPoint(inCrosshairPosition);
+        inCrosshairRectTransform.position = Camera.main.WorldToScreenPoint(inCrosshairWorldPosition);
 
         Vector3 outCrosshairPosition = transform.localPosition + transform.forward * outCrosshairDistance;
-        outCrosshairRectTransform.localPosition = Camera.main.WorldToScreenPoint(outCrosshairPosition);
+        Vector3 outCrosshairWorldPosition = transform.parent.TransformPoint(outCrosshairPosition);
+        outCrosshairRectTransform.position = Camera.main.WorldToScreenPoint(outCrosshairWorldPosition);
     }
 
     private void AimingTransformHandler()

@@ -78,8 +78,11 @@ public class PlayerMovement : MonoBehaviour
         // So I used below Å´ calculation instead;
         Vector3 targetMovePoint = Vector3.Lerp(transform.localPosition, moveToPosition, Time.deltaTime * movementSpeed); // Lerp fighter's movement;
 
+        Transform tempTransform = transform;
+        tempTransform.localPosition = targetMovePoint;
+
         // Clamp position;
-        GetClampedMovementPosition(targetMovePoint);
+        GetClampedMovementPosition(tempTransform.position);
 
         // Apply calculated new position to player;
         transform.localPosition = GetMovementPositionFromCamView();
@@ -91,10 +94,12 @@ public class PlayerMovement : MonoBehaviour
     private void MoveWhileRolling()
     {
         Vector3 targetMovePoint = Vector3.Lerp(transform.localPosition, moveToPositionWhileRoll, Time.deltaTime * moveWhileRollSpeed);
-        GetClampedMovementPosition(targetMovePoint);
-        transform.localPosition = GetMovementPositionFromCamView();
 
-        //debugSphere.transform.position = moveToPositionWhileRoll;
+        Transform tempTransform = transform;
+        tempTransform.localPosition = targetMovePoint;
+
+        GetClampedMovementPosition(tempTransform.position);
+        transform.localPosition = GetMovementPositionFromCamView();
     }
     #endregion
 
@@ -118,9 +123,11 @@ public class PlayerMovement : MonoBehaviour
         // ToViewport will make Z transform unstable, so I have to make it return to usual position;
         // That's why I didn't apply the new transform to player before this Z axis setting;
         Vector3 playerInScenePosition = Camera.main.ViewportToWorldPoint(playerViewportPosition);
-        playerInScenePosition.z = transform.localPosition.z;
 
-        return playerInScenePosition;
+        Vector3 localPosition = transform.parent.InverseTransformPoint(playerInScenePosition);
+        localPosition.z = transform.localPosition.z;
+
+        return localPosition;
     }
 
     private void RotateHandler()
