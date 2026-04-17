@@ -17,6 +17,8 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] private bool useSingleCrosshair = false;
 
     [Header("Crosshair Movement Details")]
+    [SerializeField] private bool moveCrosshair = true;
+    [Space]
     [SerializeField] private float crosshairMovementScale = 0.8f;
     [SerializeField] private float crosshairSpeed = 30f;
     [SerializeField] private Vector2 horizontalLimit;
@@ -42,48 +44,50 @@ public class PlayerWeapon : MonoBehaviour
 
     private void Update()
     {
+        AimingTransformHandler();
+
+        // Crosshair Moving
+        if (!moveCrosshair)
+            return;
+
         if (useSingleCrosshair)
             CrosshairMovementHandler();
         else
             DoubleCrosshairTransformHandler();
-
-        AimingTransformHandler();
+        //------------------------------------
     }
 
     private void CrosshairMovementHandler()
     {
-        crosshairRectTransform.position = Camera.main.WorldToScreenPoint(aimingPointTransform.position);
+        crosshairRectTransform.localPosition = Camera.main.WorldToScreenPoint(aimingPointTransform.localPosition);
     }
 
     private void DoubleCrosshairTransformHandler()
     {
-        Vector3 inCrosshairPosition = transform.position + transform.forward * inCrosshairDistance;
-        inCrosshairRectTransform.position = Camera.main.WorldToScreenPoint(inCrosshairPosition);
+        Vector3 inCrosshairPosition = transform.localPosition + transform.forward * inCrosshairDistance;
+        inCrosshairRectTransform.localPosition = Camera.main.WorldToScreenPoint(inCrosshairPosition);
 
-        Vector3 outCrosshairPosition = transform.position + transform.forward * outCrosshairDistance;
-        outCrosshairRectTransform.position = Camera.main.WorldToScreenPoint(outCrosshairPosition);
+        Vector3 outCrosshairPosition = transform.localPosition + transform.forward * outCrosshairDistance;
+        outCrosshairRectTransform.localPosition = Camera.main.WorldToScreenPoint(outCrosshairPosition);
     }
 
     private void AimingTransformHandler()
     {
-        Vector3 moveVector = aimingPointTransform.position + new Vector3(mouseDelta.x, mouseDelta.y, 0) * aimpointMovementScale;
+        Transform tempTransform = aimingPointTransform;
 
-        // Just like player's movement. Use clamp calculation as below, will not require developers to input new limit position everytime plane's position changes;
-        //moveVector.x = Mathf.Clamp(moveVector.x, horizontalLimit.x, horizontalLimit.y);
-        //moveVector.y = Mathf.Clamp(moveVector.y, verticalLimit.x, verticalLimit.y);
+        Vector3 moveToPoint = tempTransform.localPosition + new Vector3(mouseDelta.x, mouseDelta.y, 0) * aimpointMovementScale;
+        tempTransform.localPosition = moveToPoint;
 
-        // New Clamp Calculation;
-        Vector3 aimingPointNewPosition = Camera.main.WorldToViewportPoint(moveVector);
+        Vector3 aimingPointNewPosition = Camera.main.WorldToViewportPoint(tempTransform.position);
         aimingPointNewPosition.x = Mathf.Clamp(aimingPointNewPosition.x, horizontalLimit.x, horizontalLimit.y);
         aimingPointNewPosition.y = Mathf.Clamp(aimingPointNewPosition.y, verticalLimit.x, verticalLimit.y);
 
         Vector3 aimingPointWorldPosition = Camera.main.ViewportToWorldPoint(aimingPointNewPosition);
-        aimingPointWorldPosition.z = aimingPointTransform.position.z;
 
-        // Assign position instead of damping value
-        // Because plane already has limit position and damping, using more damping will give weird feeling when aimingObject is near edge of the screen;
-        aimingPointTransform.position = aimingPointWorldPosition;
-        //aimingPointTransform.position = Vector3.Lerp(aimingPointTransform.position, aimingPointWorldPosition, Time.deltaTime * aimpointMovingSpeed);
+        Vector3 localPosition = transform.parent.InverseTransformPoint(aimingPointWorldPosition);
+        localPosition.z = aimingPointTransform.localPosition.z;
+
+        aimingPointTransform.localPosition = localPosition;
     }
 
     private void FiringHandler(bool fire)

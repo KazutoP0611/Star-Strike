@@ -92,7 +92,7 @@ MonoBehaviour:
   rotateReturnForce: 30
   rotateAngleLimit: 20
   moveWhileRollSpeed: 10
-  moveWhileRollDistance: 0.6
+  moveWhileRollDistance: 0.8
   debugSphere: {fileID: 0}
 --- !u!114 &8819017408542840972
 MonoBehaviour:

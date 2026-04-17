@@ -18,7 +18,6 @@ public class PlayerMovement : MonoBehaviour
     #region Movements
     [Header("Movement Details")]
     [SerializeField] private bool move = true;
-    [Space]
     [SerializeField] private float movementSpeed = 10f;
     [SerializeField] private float movementMagnitude = 0.1f;
     [Space]
@@ -73,18 +72,17 @@ public class PlayerMovement : MonoBehaviour
     #region Movements
     private void MovementHandler()
     {
-        moveToPosition = new Vector3(aimingpointTransform.position.x, aimingpointTransform.position.y, transform.position.z);
-        // This movement is too linear, it will move without damping;
-        //Vector3 moveToPosition = transform.position + (Vector3)mouseDelta * movementMagnitude;
+        moveToPosition = new Vector3(aimingpointTransform.localPosition.x, aimingpointTransform.localPosition.y, transform.localPosition.z);
 
-        // Lerp fighter's movement;
-        Vector3 targetMovePoint = Vector3.Lerp(transform.position, moveToPosition, Time.deltaTime * movementSpeed);
+        // Vector3 moveToPosition = transform.position + (Vector3)mouseDelta * movementMagnitude; // This movement is too linear, it will move without damping;
+        // So I used below Å´ calculation instead;
+        Vector3 targetMovePoint = Vector3.Lerp(transform.localPosition, moveToPosition, Time.deltaTime * movementSpeed); // Lerp fighter's movement;
 
         // Clamp position;
         GetClampedMovementPosition(targetMovePoint);
 
         // Apply calculated new position to player;
-        transform.position = GetMovementPosition();
+        transform.localPosition = GetMovementPositionFromCamView();
 
         if (rotate)
             RotateHandler();
@@ -92,9 +90,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void MoveWhileRolling()
     {
-        Vector3 targetMovePoint = Vector3.Lerp(transform.position, moveToPositionWhileRoll, Time.deltaTime * moveWhileRollSpeed);
+        Vector3 targetMovePoint = Vector3.Lerp(transform.localPosition, moveToPositionWhileRoll, Time.deltaTime * moveWhileRollSpeed);
         GetClampedMovementPosition(targetMovePoint);
-        transform.position = GetMovementPosition();
+        transform.localPosition = GetMovementPositionFromCamView();
 
         //debugSphere.transform.position = moveToPositionWhileRoll;
     }
@@ -115,19 +113,19 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Calculate position from Camera Viewport
-    private Vector3 GetMovementPosition()
+    private Vector3 GetMovementPositionFromCamView()
     {
         // ToViewport will make Z transform unstable, so I have to make it return to usual position;
         // That's why I didn't apply the new transform to player before this Z axis setting;
-        Vector3 playerWorldPosition = Camera.main.ViewportToWorldPoint(playerViewportPosition);
-        playerWorldPosition.z = transform.position.z;
+        Vector3 playerInScenePosition = Camera.main.ViewportToWorldPoint(playerViewportPosition);
+        playerInScenePosition.z = transform.localPosition.z;
 
-        return playerWorldPosition;
+        return playerInScenePosition;
     }
 
     private void RotateHandler()
     {
-        Vector3 direction = aimingpointTransform.position - transform.position;
+        Vector3 direction = aimingpointTransform.localPosition - transform.localPosition;
         Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
 
         // Implement Rolling
@@ -150,7 +148,7 @@ public class PlayerMovement : MonoBehaviour
         //------------------
 
         // Add calculated Rotation to player
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, Time.deltaTime * rotationSpeed);
     }
 
     private void RollHandler()
@@ -163,11 +161,11 @@ public class PlayerMovement : MonoBehaviour
         move = false;
 
         // Set movement while roll variables
-        moveToVector = moveToPosition - transform.position;
-        moveToPositionWhileRoll = transform.position + (moveToVector.normalized * moveWhileRollDistance);
+        moveToVector = moveToPosition - transform.localPosition;
+        moveToPositionWhileRoll = transform.localPosition + (moveToVector.normalized * moveWhileRollDistance);
 
         // Set Rolling trigger animations;
-        rollDirection = moveToPosition.x - transform.position.x;
+        rollDirection = moveToPosition.x - transform.localPosition.x;
         string triggerText = rollDirection < 0 ? "RollLeft" : "RollRight";
         anim.SetTrigger(triggerText);
     }
@@ -176,5 +174,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isRolling = false;
         move = true;
+
+        // may be set cooldown later, with UI
     }
 }
