@@ -62,7 +62,6 @@ MonoBehaviour:
   crosshairSpeed: 10
   horizontalLimit: {x: 0.1, y: 0.9}
   verticalLimit: {x: 0.3, y: 0.9}
-  crosshairDistance: 0
   crosshairRectTransform: {fileID: 0}
   inCrosshairDistance: 5
   inCrosshairRectTransform: {fileID: 0}
@@ -88,10 +87,13 @@ MonoBehaviour:
   verticalLimit: {x: 0.1, y: 0.8}
   rotate: 1
   rotationSpeed: 10
-  roll: 1
-  rollForce: 6
-  rollReturnForce: 12
-  rollAngleLimit: 30
+  tilt: 1
+  rotateForce: 50
+  rotateReturnForce: 30
+  rotateAngleLimit: 20
+  moveWhileRollSpeed: 10
+  moveWhileRollDistance: 0.6
+  debugSphere: {fileID: 0}
 --- !u!114 &8819017408542840972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +181,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2966086924770384970}
+  - component: {fileID: 1910916053043207593}
+  - component: {fileID: 984795867500466451}
   m_Layer: 0
   m_Name: Fighter
   m_TagString: Untagged
@@ -206,6 +210,41 @@ Transform:
   - {fileID: 2277550801015664509}
   m_Father: {fileID: 3787183288038386421}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1910916053043207593
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4179911817854820937}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 773658db7fcdedd4398733d4aef0fda0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &984795867500466451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4179911817854820937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed9a128e1ef1ae4a88b03c604841af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationReceiver
+  playerMovement: {fileID: 7632269502934130214}
 --- !u!1 &4677304449060364167
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,7 +286,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 810278286191251104}
-  - component: {fileID: 7910869693667822748}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -273,28 +311,6 @@ Transform:
   - {fileID: 7680141884497223475}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &7910869693667822748
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5028308783247786246}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6490732805650202426
 GameObject:
   m_ObjectHideFlags: 0
