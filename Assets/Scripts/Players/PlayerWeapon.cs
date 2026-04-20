@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,8 +16,8 @@ public class PlayerWeapon : MonoBehaviour
     [Header("Crosshair Movement Details")]
     [SerializeField] private bool moveCrosshair = true;
     [Space]
-    [SerializeField] private float crosshairMovementScale = 0.8f;
-    [SerializeField] private float crosshairSpeed = 30f;
+    //[SerializeField] private float crosshairMovementScale = 0.8f;
+    //[SerializeField] private float crosshairSpeed = 30f;
     [SerializeField] private Vector2 horizontalLimit;
     [SerializeField] private Vector2 verticalLimit;
 
@@ -62,22 +61,27 @@ public class PlayerWeapon : MonoBehaviour
         //------------------------------------
     }
 
+    // Update single crosshair => This one is simple, just align crosshair to aiming object's transform;
     private void CrosshairMovementHandler()
     {
         crosshairRectTransform.position = Camera.main.WorldToScreenPoint(aimingPointTransform.position);
     }
 
+    // Update double crosshair's transform;
     private void DoubleCrosshairTransformHandler()
     {
+        // Inside crosshair movements
         Vector3 inCrosshairPosition = transform.position + transform.forward * inCrosshairDistance;
         Vector3 inCrosshairWorldPosition = transform.parent.TransformPoint(inCrosshairPosition);
         inCrosshairRectTransform.position = Camera.main.WorldToScreenPoint(inCrosshairPosition);
 
+        // Outside crosshair movements
         Vector3 outCrosshairPosition = transform.position + transform.forward * outCrosshairDistance;
         Vector3 outCrosshairWorldPosition = transform.parent.TransformPoint(outCrosshairPosition);
         outCrosshairRectTransform.position = Camera.main.WorldToScreenPoint(outCrosshairPosition);
     }
 
+    // Update aiming object transform => Player's movement will follow this object
     private void AimingTransformHandler()
     {
         Transform tempTransform = aimingPointTransform;
@@ -97,6 +101,7 @@ public class PlayerWeapon : MonoBehaviour
         aimingPointTransform.localPosition = localPosition;
     }
 
+    // Enable firing (laser) particle
     private void FiringHandler(bool fire)
     {
         foreach (var particle in laserParticles)
