@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Accessibility;
@@ -7,12 +8,22 @@ using static UnityEngine.GraphicsBuffer;
 public class PlayerMovement : MonoBehaviour
 {
     private Animator anim;
+    private Coroutine rollingCooldownCoroutine;
 
+    // Movement's variables;
     private Vector3 playerViewportPosition;
     private Vector3 moveToPosition;
     private Vector2 mouseDelta;
     private float currentRotate;
 
+    // Rolling calculation variables;
+    private Vector3 moveToVector;
+    private Vector3 moveToPositionWhileRoll;
+    private float rollDirection;
+    private bool isRolling = false;
+    private bool rollingOnCooldown = false;
+
+    // Aiming Components;
     [SerializeField] private Transform aimingpointTransform;
 
     #region Movements
@@ -40,11 +51,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Roll Details")]
     [SerializeField] private float moveWhileRollSpeed = 10f;
     [SerializeField] private float moveWhileRollDistance = 0.55f;
-
-    private Vector3 moveToVector;
-    private Vector3 moveToPositionWhileRoll;
-    private float rollDirection;
-    private bool isRolling = false;
+    [SerializeField] private float rollingCooldownTime = 1.0f;
     #endregion
 
     //[Header("Debug")]
@@ -138,6 +145,7 @@ public class PlayerMovement : MonoBehaviour
         // Implement Rolling
         if (tilt)
         {
+            // Limit roll value at edge of the screen;
             // This will limit roll value when player is at edge of screen, or player will roll even the plane doesn't go left or right;
             float mouseDeltaHorizontal = playerViewportPosition.x == horizontalLimit.x || playerViewportPosition.x == horizontalLimit.y ? 0 : mouseDelta.x;
 
@@ -160,6 +168,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void RollHandler()
     {
+        if (rollingOnCooldown)
+            return;
+
         if (isRolling)
             return;
 
@@ -182,6 +193,24 @@ public class PlayerMovement : MonoBehaviour
         isRolling = false;
         move = true;
 
-        // may be set cooldown later, with UI
+        // may be add UI later;
+        StartRollingCooldown();
+    }
+
+    private void StartRollingCooldown()
+    {
+        if (rollingCooldownCoroutine != null)
+            StopCoroutine(rollingCooldownCoroutine);
+
+        rollingCooldownCoroutine = StartCoroutine(RollingCooldownCo());
+    }
+
+    IEnumerator RollingCooldownCo()
+    {
+        rollingOnCooldown = true;
+
+        yield return new WaitForSeconds(rollingCooldownTime);
+
+        rollingOnCooldown = false;
     }
 }
