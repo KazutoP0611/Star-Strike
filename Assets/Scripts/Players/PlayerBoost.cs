@@ -14,15 +14,24 @@ public class PlayerBoost : MonoBehaviour
 
     private Coroutine boostCooldownCoroutine;
 
+    [SerializeField] private GameObject cameraGameObject;
+
+    [Header("Boost Details")]
     [SerializeField] private float getInMaxSpeedTimeMulitpler = 5.0f;
     [SerializeField] private float boostCooldownTime = 0.5f;
     [SerializeField] private float boostingDuration = 2.0f;
+    [Space]
+    [SerializeField] private GameObject boostingPrefab;
 
     #region Player Input
     public void OnBoost(InputValue value) => BoostHandler();
     #endregion
 
-    private void BoostHandler() => boosting = true;
+    private void BoostHandler()
+    {
+        boosting = true;
+        boostingPrefab.SetActive(true);
+    }
 
     private void Start()
     {
@@ -47,11 +56,13 @@ public class PlayerBoost : MonoBehaviour
         splineAnimate.ElapsedTime += Time.deltaTime * getInMaxSpeedTimeMulitpler;
 
         // Check for boosting duration
+        // If "true", stop boosting and get to cooldown
         if (time >= boostingDuration)
         {
             // Reset boost variable values;
             time = 0;
             boosting = false;
+            boostingPrefab.SetActive(false);
 
             // Start cooldown coroutine;
             StartBoostCooldownCo();
