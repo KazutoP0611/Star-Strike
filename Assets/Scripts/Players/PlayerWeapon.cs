@@ -31,6 +31,13 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] private float outCrosshairDistance;
     [SerializeField] private RectTransform outCrosshairRectTransform;
 
+    #region Player Input
+    public void OnMouseMove(InputValue value) => mouseDelta = value.Get<Vector2>();
+
+    // Get "Fire" input from InputAction
+    public void OnFire(InputValue value) => FiringHandler(value.isPressed);
+    #endregion
+
     private void Start()
     {
         Cursor.visible = false;
@@ -98,11 +105,4 @@ public class PlayerWeapon : MonoBehaviour
             laserEmission.enabled = fire;
         }
     }
-
-    #region Player Input
-    public void OnMouseMove(InputValue value) => mouseDelta = value.Get<Vector2>();
-
-    // Get "Fire" input from InputAction
-    public void OnFire(InputValue value) => FiringHandler(value.isPressed);
-    #endregion
 }

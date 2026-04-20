@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3787183288038386421}
   - component: {fileID: 6266913758738522410}
   - component: {fileID: 7632269502934130214}
+  - component: {fileID: 8858971373105486100}
   - component: {fileID: 8819017408542840972}
   - component: {fileID: 1392568866539394275}
   - component: {fileID: 7410394160846933140}
@@ -57,11 +58,12 @@ MonoBehaviour:
   aimingPointTransform: {fileID: 7680141884497223475}
   aimpointMovementScale: 0.008
   aimpointMovingSpeed: 3
-  useSingleCrosshair: 1
+  moveCrosshair: 1
   crosshairMovementScale: 1.5
   crosshairSpeed: 10
   horizontalLimit: {x: 0.1, y: 0.9}
   verticalLimit: {x: 0.3, y: 0.9}
+  useSingleCrosshair: 1
   crosshairRectTransform: {fileID: 0}
   inCrosshairDistance: 5
   inCrosshairRectTransform: {fileID: 0}
@@ -93,7 +95,18 @@ MonoBehaviour:
   rotateAngleLimit: 20
   moveWhileRollSpeed: 10
   moveWhileRollDistance: 0.8
-  debugSphere: {fileID: 0}
+--- !u!114 &8858971373105486100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106186133751927957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a943d413cc9133d4198d317a6cb6e20a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerBoost
 --- !u!114 &8819017408542840972
 MonoBehaviour:
   m_ObjectHideFlags: 0

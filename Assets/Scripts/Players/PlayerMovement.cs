@@ -47,8 +47,8 @@ public class PlayerMovement : MonoBehaviour
     private bool isRolling = false;
     #endregion
 
-    [Header("Debug")]
-    [SerializeField] private GameObject debugSphere;
+    //[Header("Debug")]
+    //[SerializeField] private GameObject debugSphere;
 
     #region Player's Input
     public void OnMouseMove(InputValue value) => mouseDelta = value.Get<Vector2>();
