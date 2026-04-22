@@ -38,6 +38,9 @@ public class PlayerBoost : MonoBehaviour
         // Set camera to zoom out
         cameraController.CameraToBoostPosition();
 
+        // TODO : may be add some truster effect a little animation, like a little blib, a litte feedback to feel that fighter is accelerating;
+
+        // Start boost sequence
         boosting = true;
         boostingPrefab.SetActive(true);
     }
@@ -81,7 +84,7 @@ public class PlayerBoost : MonoBehaviour
         }
     }
 
-    // Cooldown Coroutine-------------------------------------------------
+    #region Cooldown Coroutine
     private void StartBoostCooldownCo()
     {
         if (boostCooldownCoroutine != null)
@@ -98,5 +101,5 @@ public class PlayerBoost : MonoBehaviour
 
         onCooldown = false;
     }
-    //-------------------------------------------------------------------
+    #endregion
 }
