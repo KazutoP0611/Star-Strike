@@ -14,7 +14,7 @@ public class PlayerBoost : MonoBehaviour
 
     private Coroutine boostCooldownCoroutine;
 
-    [SerializeField] private GameObject cameraGameObject;
+    [SerializeField] private CameraController cameraController;
 
     [Header("Boost Details")]
     [SerializeField] private float getInMaxSpeedTimeMulitpler = 5.0f;
@@ -29,6 +29,15 @@ public class PlayerBoost : MonoBehaviour
 
     private void BoostHandler()
     {
+        if (onCooldown)
+            return;
+
+        if (boosting)
+            return;
+
+        // Set camera to zoom out
+        cameraController.CameraToBoostPosition();
+
         boosting = true;
         boostingPrefab.SetActive(true);
     }
@@ -59,6 +68,9 @@ public class PlayerBoost : MonoBehaviour
         // If "true", stop boosting and get to cooldown
         if (time >= boostingDuration)
         {
+            // Set camera to normal position
+            cameraController.CameraToNormalPosition();
+
             // Reset boost variable values;
             time = 0;
             boosting = false;
