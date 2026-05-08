@@ -47,6 +47,7 @@ public class PlayerBoost : MonoBehaviour
         if (currentBoostCount <= 0)
             return;
 
+        // Reduce booster count, update booster view
         currentBoostCount--;
         boosterView.SetBoostIndicators(currentBoostCount);
 
@@ -127,11 +128,7 @@ public class PlayerBoost : MonoBehaviour
     #region Boost-Recharge Coroutine
     private void StartRechargeBoostCo()
     {
-        //if (rechargeBoostCoroutine != null)
-        //    StopCoroutine(rechargeBoostCoroutine);
-
-        //rechargeBoostCoroutine = StartCoroutine(RechargeCoroutine());
-
+        // Start recharge
         StartCoroutine(RechargeCoroutine());
     }
 
