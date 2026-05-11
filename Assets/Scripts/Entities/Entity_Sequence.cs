@@ -5,10 +5,14 @@ public class Entity_Sequence : MonoBehaviour
     public delegate void OnSequenceEnter(Entity_Sequence sequence);
     private OnSequenceEnter onSequenceEnter;
 
+    private Collider col;
+
     [SerializeField] private string triggerTag = "Player";
 
     public void Init(OnSequenceEnter onSequenceEnterCallback)
     {
+        col = GetComponent<Collider>();
+
         onSequenceEnter = onSequenceEnterCallback;
     }
 
@@ -27,5 +31,6 @@ public class Entity_Sequence : MonoBehaviour
     public virtual void EndSequence()
     {
         Debug.LogWarning($"{gameObject.name} sequence has ended");
+        col.enabled = false;
     }
 }

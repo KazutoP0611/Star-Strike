@@ -14,11 +14,12 @@ public class Entity_Health : MonoBehaviour
 
     private void Awake()
     {
-        entityVFX = GetComponent<Entity_VFX>();
+        //entityVFX = GetComponent<Entity_VFX>();
     }
 
     private void Start()
     {
+        entityVFX = GetComponent<Entity_VFX>();
         currentHealth = maxHealth;
     }
 
