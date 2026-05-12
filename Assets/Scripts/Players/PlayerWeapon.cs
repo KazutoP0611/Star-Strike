@@ -18,6 +18,9 @@ public class PlayerWeapon : MonoBehaviour
     [Space]
     [SerializeField] private Vector2 horizontalLimit;
     [SerializeField] private Vector2 verticalLimit;
+    [Space]
+    [SerializeField] private Vector2 sideLimit;
+    [SerializeField] private Vector2 upLimit;
 
     [Header("Crosshair Details")]
     [SerializeField] private bool useSingleCrosshair = false;
@@ -84,24 +87,16 @@ public class PlayerWeapon : MonoBehaviour
     {
         Transform tempTransform = aimingPointTransform;
 
-        //TODO
-        // - Limit aiming movement position, or fighter will fly all over the places;
+        // Calculate target position;
         Vector3 moveToPoint = tempTransform.localPosition + new Vector3(mouseDelta.x, mouseDelta.y, 0) * aimpointMovementScale;
 
-        /*
-        tempTransform.localPosition = moveToPoint;
+        // Limit aiming transform inside imagine rectangle, or aiming will keep moving without limit;
+        float sidePosition = Mathf.Clamp(moveToPoint.x, sideLimit.x, sideLimit.y);
+        float upPosition = Mathf.Clamp(moveToPoint.y, upLimit.x, upLimit.y);
+        Vector3 moveToLocalPosition = new Vector3(sidePosition, upPosition, aimingPointTransform.localPosition.z);
 
-        Vector3 aimingPointNewPosition = Camera.main.WorldToViewportPoint(tempTransform.position);
-        aimingPointNewPosition.x = Mathf.Clamp(aimingPointNewPosition.x, horizontalLimit.x, horizontalLimit.y);
-        aimingPointNewPosition.y = Mathf.Clamp(aimingPointNewPosition.y, verticalLimit.x, verticalLimit.y);
-
-        Vector3 aimingPointWorldPosition = Camera.main.ViewportToWorldPoint(aimingPointNewPosition);
-
-        Vector3 localPosition = transform.parent.InverseTransformPoint(aimingPointWorldPosition);
-        localPosition.z = aimingPointTransform.localPosition.z;
-        */
-
-        aimingPointTransform.localPosition = moveToPoint;
+        // Set aiming's transform to calculated limited target position;
+        aimingPointTransform.localPosition = moveToLocalPosition;
     }
 
     // Enable firing (laser) particle
