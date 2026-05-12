@@ -10,14 +10,12 @@ public class PlayerWeapon : MonoBehaviour
 
     [Header("Aiming Point Details")]
     [SerializeField] private Transform aimingPointTransform;
-    [SerializeField] private float aimpointMovementScale = 1.5f;
-    [SerializeField] private float aimpointMovingSpeed = 30f;
+    [SerializeField] private float aimpointMovementScale = 0.008f;
+    [SerializeField] private float aimpointMovingSpeed = 3.0f;
 
     [Header("Crosshair Movement Details")]
     [SerializeField] private bool moveCrosshair = true;
     [Space]
-    //[SerializeField] private float crosshairMovementScale = 0.8f;
-    //[SerializeField] private float crosshairSpeed = 30f;
     [SerializeField] private Vector2 horizontalLimit;
     [SerializeField] private Vector2 verticalLimit;
 
@@ -86,6 +84,8 @@ public class PlayerWeapon : MonoBehaviour
     {
         Transform tempTransform = aimingPointTransform;
 
+        //TODO
+        // - Limit aiming movement position, or fighter will fly all over the places;
         Vector3 moveToPoint = tempTransform.localPosition + new Vector3(mouseDelta.x, mouseDelta.y, 0) * aimpointMovementScale;
 
         /*

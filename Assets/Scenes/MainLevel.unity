@@ -224,6 +224,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: moveSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: moveToOffset.y
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 3861448081355923734, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: m_Enabled
       value: 0

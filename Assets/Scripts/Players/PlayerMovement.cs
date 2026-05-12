@@ -84,7 +84,6 @@ public class PlayerMovement : MonoBehaviour
         // So I used below Å´ calculation instead;
         Vector3 targetMovePoint = Vector3.Lerp(transform.localPosition, moveToPosition, Time.deltaTime * movementSpeed); // Lerp fighter's movement;\
 
-
         transform.localPosition = targetMovePoint;
 
         //Transform tempTransform = transform;
