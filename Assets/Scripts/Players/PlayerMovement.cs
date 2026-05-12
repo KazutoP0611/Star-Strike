@@ -71,8 +71,8 @@ public class PlayerMovement : MonoBehaviour
         if (move)
             MovementHandler();
 
-        if (isRolling)
-            MoveWhileRolling();
+        //if (isRolling)
+        //    MoveWhileRolling();
     }
 
     #region Movements
@@ -165,11 +165,11 @@ public class PlayerMovement : MonoBehaviour
 
         // Enable roll sequence, stop movement
         isRolling = true;
-        move = false;
+        //move = false;
 
         // Set move to target while roll variables
-        moveToVector = moveToPosition - transform.localPosition;
-        moveToPositionWhileRoll = transform.localPosition + (moveToVector.normalized * moveWhileRollDistance);
+        //moveToVector = moveToPosition - transform.localPosition;
+        //moveToPositionWhileRoll = transform.localPosition + (moveToVector.normalized * moveWhileRollDistance);
 
         // Set Rolling trigger animations;
         rollDirection = moveToPosition.x - transform.localPosition.x;
@@ -180,7 +180,7 @@ public class PlayerMovement : MonoBehaviour
     public void StopRolling()
     {
         isRolling = false;
-        move = true;
+        //move = true;
 
         // may be add UI later;
         StartRollingCooldown();
