@@ -87,6 +87,8 @@ public class PlayerWeapon : MonoBehaviour
         Transform tempTransform = aimingPointTransform;
 
         Vector3 moveToPoint = tempTransform.localPosition + new Vector3(mouseDelta.x, mouseDelta.y, 0) * aimpointMovementScale;
+
+        /*
         tempTransform.localPosition = moveToPoint;
 
         Vector3 aimingPointNewPosition = Camera.main.WorldToViewportPoint(tempTransform.position);
@@ -97,8 +99,9 @@ public class PlayerWeapon : MonoBehaviour
 
         Vector3 localPosition = transform.parent.InverseTransformPoint(aimingPointWorldPosition);
         localPosition.z = aimingPointTransform.localPosition.z;
+        */
 
-        aimingPointTransform.localPosition = localPosition;
+        aimingPointTransform.localPosition = moveToPoint;
     }
 
     // Enable firing (laser) particle

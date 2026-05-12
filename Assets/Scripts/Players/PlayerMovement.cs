@@ -29,8 +29,7 @@ public class PlayerMovement : MonoBehaviour
     #region Movements
     [Header("Movement Details")]
     [SerializeField] private bool move = true;
-    [SerializeField] private float movementSpeed = 10f;
-    [SerializeField] private float movementMagnitude = 0.1f;
+    [SerializeField] private float movementSpeed = 2.6f;
     [Space]
     [SerializeField] private Vector2 horizontalLimit;
     [SerializeField] private Vector2 verticalLimit;
@@ -41,10 +40,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool rotate = true;
     [SerializeField] private float rotationSpeed = 10f;
     [Space]
-    [SerializeField] private bool tilt = true;
-    [SerializeField] private float rotateForce = 50f;
-    [SerializeField] private float rotateReturnForce = 30f;
-    [SerializeField] private float rotateAngleLimit = 20f;
+    [SerializeField] private bool pitch = true;
+    [SerializeField] private float pitchForce = 50f;
+    [SerializeField] private float pitchReturnForce = 30f;
+    [SerializeField] private float pitchAngleLimit = 20f;
     #endregion
 
     #region Rolling
@@ -83,16 +82,19 @@ public class PlayerMovement : MonoBehaviour
 
         // Vector3 moveToPosition = transform.position + (Vector3)mouseDelta * movementMagnitude; // This movement is too linear, it will move without damping;
         // So I used below « calculation instead;
-        Vector3 targetMovePoint = Vector3.Lerp(transform.localPosition, moveToPosition, Time.deltaTime * movementSpeed); // Lerp fighter's movement;
+        Vector3 targetMovePoint = Vector3.Lerp(transform.localPosition, moveToPosition, Time.deltaTime * movementSpeed); // Lerp fighter's movement;\
 
-        Transform tempTransform = transform;
-        tempTransform.localPosition = targetMovePoint;
+
+        transform.localPosition = targetMovePoint;
+
+        //Transform tempTransform = transform;
+        //tempTransform.localPosition = targetMovePoint;
 
         // Clamp position;
-        GetClampedMovementPosition(tempTransform.position);
+        // ClampedMovementPosition(tempTransform.position);
 
         // Apply calculated new position to player;
-        transform.localPosition = GetMovementPositionFromCamView();
+        //transform.localPosition = GetMovementPositionFromCamView();
 
         if (rotate)
             RotateHandler();
@@ -105,14 +107,14 @@ public class PlayerMovement : MonoBehaviour
         Transform tempTransform = transform;
         tempTransform.localPosition = targetMovePoint;
 
-        GetClampedMovementPosition(tempTransform.position);
+        ClampedMovementPosition(tempTransform.position);
         transform.localPosition = GetMovementPositionFromCamView();
     }
     #endregion
 
     //------- Clamp position -------
     // With this clamp calculation, designer can set only 2 numbers, and it will works with every view point;
-    private void GetClampedMovementPosition(Vector3 targetMovePoint)
+    private void ClampedMovementPosition(Vector3 targetMovePoint)
     {
         // This works too but if you change camera view or position in player gameobject, you have to change the limit numbers too.
         // So I changed to below clamp calculation that use camera's viewport instead;
@@ -143,17 +145,17 @@ public class PlayerMovement : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
 
         // Implement Rolling
-        if (tilt)
+        if (pitch)
         {
             // Limit roll value at edge of the screen;
             // This will limit roll value when player is at edge of screen, or player will roll even the plane doesn't go left or right;
             float mouseDeltaHorizontal = playerViewportPosition.x == horizontalLimit.x || playerViewportPosition.x == horizontalLimit.y ? 0 : mouseDelta.x;
 
             // Limit roll angle;
-            float rotateVolumn = Mathf.Clamp(-mouseDeltaHorizontal * rotateForce, -rotateAngleLimit, rotateAngleLimit);
+            float rotateVolumn = Mathf.Clamp(-mouseDeltaHorizontal * pitchForce, -pitchAngleLimit, pitchAngleLimit);
 
             // Define roll speed, if there is no movement, player will return from rolling faster, this will give more feedback roll feel while playing;
-            float rollSpeed = Mathf.Abs(mouseDeltaHorizontal) > 0.01f ? rotateForce : rotateReturnForce;
+            float rollSpeed = Mathf.Abs(mouseDeltaHorizontal) > 0.01f ? pitchForce : pitchReturnForce;
 
             // Apply calculated values to currentRoll;
             currentRotate = Mathf.Lerp(currentRotate, rotateVolumn, Time.deltaTime * rollSpeed);
@@ -178,7 +180,7 @@ public class PlayerMovement : MonoBehaviour
         isRolling = true;
         move = false;
 
-        // Set movement while roll variables
+        // Set move to target while roll variables
         moveToVector = moveToPosition - transform.localPosition;
         moveToPositionWhileRoll = transform.localPosition + (moveToVector.normalized * moveWhileRollDistance);
 
