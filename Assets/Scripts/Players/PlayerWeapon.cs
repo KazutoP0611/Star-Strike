@@ -11,16 +11,12 @@ public class PlayerWeapon : MonoBehaviour
     [Header("Aiming Point Details")]
     [SerializeField] private Transform aimingPointTransform;
     [SerializeField] private float aimpointMovementScale = 0.008f;
-    [SerializeField] private float aimpointMovingSpeed = 3.0f;
 
     [Header("Crosshair Movement Details")]
     [SerializeField] private bool moveCrosshair = true;
     [Space]
     [SerializeField] private Vector2 horizontalLimit;
     [SerializeField] private Vector2 verticalLimit;
-    [Space]
-    [SerializeField] private Vector2 sideLimit;
-    [SerializeField] private Vector2 upLimit;
 
     [Header("Crosshair Details")]
     [SerializeField] private bool useSingleCrosshair = false;
@@ -91,9 +87,9 @@ public class PlayerWeapon : MonoBehaviour
         Vector3 moveToPoint = tempTransform.localPosition + new Vector3(mouseDelta.x, mouseDelta.y, 0) * aimpointMovementScale;
 
         // Limit aiming transform inside imagine rectangle, or aiming will keep moving without limit;
-        float sidePosition = Mathf.Clamp(moveToPoint.x, sideLimit.x, sideLimit.y);
-        float upPosition = Mathf.Clamp(moveToPoint.y, upLimit.x, upLimit.y);
-        Vector3 moveToLocalPosition = new Vector3(sidePosition, upPosition, aimingPointTransform.localPosition.z);
+        float horizontalPosition = Mathf.Clamp(moveToPoint.x, horizontalLimit.x, horizontalLimit.y);
+        float verticalPosition = Mathf.Clamp(moveToPoint.y, verticalLimit.x, verticalLimit.y);
+        Vector3 moveToLocalPosition = new Vector3(horizontalPosition, verticalPosition, aimingPointTransform.localPosition.z);
 
         // Set aiming's transform to calculated limited target position;
         aimingPointTransform.localPosition = moveToLocalPosition;

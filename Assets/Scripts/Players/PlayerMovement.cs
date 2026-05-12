@@ -80,20 +80,8 @@ public class PlayerMovement : MonoBehaviour
     {
         moveToPosition = new Vector3(aimingpointTransform.localPosition.x, aimingpointTransform.localPosition.y, transform.localPosition.z);
 
-        // Vector3 moveToPosition = transform.position + (Vector3)mouseDelta * movementMagnitude; // This movement is too linear, it will move without damping;
-        // So I used below Å´ calculation instead;
-        Vector3 targetMovePoint = Vector3.Lerp(transform.localPosition, moveToPosition, Time.deltaTime * movementSpeed); // Lerp fighter's movement;\
-
+        Vector3 targetMovePoint = Vector3.Lerp(transform.localPosition, moveToPosition, Time.deltaTime * movementSpeed); // Lerp fighter's movement;
         transform.localPosition = targetMovePoint;
-
-        //Transform tempTransform = transform;
-        //tempTransform.localPosition = targetMovePoint;
-
-        // Clamp position;
-        // ClampedMovementPosition(tempTransform.position);
-
-        // Apply calculated new position to player;
-        //transform.localPosition = GetMovementPositionFromCamView();
 
         if (rotate)
             RotateHandler();
