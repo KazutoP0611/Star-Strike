@@ -80,6 +80,10 @@ public class PlayerMovement : MonoBehaviour
     {
         moveToPosition = new Vector3(aimingpointTransform.localPosition.x, aimingpointTransform.localPosition.y, transform.localPosition.z);
 
+        //ToDo
+        // - Fix side movements, right now fighter can not shoot far left or far right side of screen
+        // P.S. The rest of the movement seems great;
+
         Vector3 targetMovePoint = Vector3.Lerp(transform.localPosition, moveToPosition, Time.deltaTime * movementSpeed); // Lerp fighter's movement;
         transform.localPosition = targetMovePoint;
 
