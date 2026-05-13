@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e466bf757f297347b5487c5f2d9f7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeapon
-  bulletPrefab: {fileID: 0}
+  bulletPrefab: {fileID: 8351966521501381168, guid: bda48613753fe1540ab406e3b0ebcc50, type: 3}
   shootInterval: 0.25
   shootPoint: {fileID: 4164513450063872343}
   shootPoints:
@@ -105,13 +105,13 @@ MonoBehaviour:
   aimingPointTransform: {fileID: 7680141884497223475}
   aimpointMovementScale: 0.008
   moveCrosshair: 1
-  horizontalLimit: {x: 0, y: 0}
-  verticalLimit: {x: 0, y: 0}
+  horizontalLimit: {x: -2, y: 2}
+  verticalLimit: {x: -1.3, y: 0.65}
   useSingleCrosshair: 0
   crosshairRectTransform: {fileID: 0}
-  inCrosshairDistance: 0
+  inCrosshairDistance: 8
   inCrosshairRectTransform: {fileID: 0}
-  outCrosshairDistance: 0
+  outCrosshairDistance: 4
   outCrosshairRectTransform: {fileID: 0}
 --- !u!114 &7632269502934130214
 MonoBehaviour:

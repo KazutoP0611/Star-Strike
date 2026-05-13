@@ -1,10 +1,12 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerWeapon : MonoBehaviour
 {
     private bool singleShoot = true;
-    private float time;
+    private bool isFiring;
+    private float nextShootTime;
 
     #region Player Input
     // Get "Fire" input from InputAction
@@ -20,29 +22,45 @@ public class PlayerWeapon : MonoBehaviour
     [Space]
     [SerializeField] private Transform[] shootPoints;
 
+    private void Update()
+    {
+        if (!isFiring)
+            return;
+
+        if (Time.time < nextShootTime)
+            return;
+
+        if (singleShoot)
+        {
+            // Shoot bullet one at a time;
+            Shoot(shootPoint);
+        }
+        else
+        {
+            // Shoot multiple bullets
+            foreach (var t in shootPoints)
+            {
+                Shoot(t);
+            }
+        }
+
+        // Set next able to shoot timing;
+        CalculateShootInterval();
+    }
+
+    private void CalculateShootInterval()
+    {
+        nextShootTime = Time.time + shootInterval;
+    }
+
     // Enable firing (laser) particle
     private void FiringHandler(bool fire)
     {
-       if (singleShoot)
-       {
-            Shoot(shootPoint);
-       }
-       else
-       {
-
-       }
+        isFiring = fire;
     }
 
     private void Shoot(Transform shootPoint)
     {
-        if (time > shootInterval)
-        {
-            time = 0;
-            return;
-        }
-
         Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
-
-        time += Time.deltaTime;
     }
 }
