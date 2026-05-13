@@ -272,4 +272,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c25822c63ddce141862fb2fe5dfd955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entity_Bullet
-  bulletSpeed: 30
+  bulletSpeed: 150
+  destroyInSecs: 3
