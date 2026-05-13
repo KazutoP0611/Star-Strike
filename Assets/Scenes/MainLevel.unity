@@ -337,6 +337,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1385626272989807625, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: inCrosshairRectTransform
+      value: 
+      objectReference: {fileID: 1597942929}
+    - target: {fileID: 1385626272989807625, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: outCrosshairRectTransform
+      value: 
+      objectReference: {fileID: 1373973196}
     - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: moveSpeed
       value: 1.5
