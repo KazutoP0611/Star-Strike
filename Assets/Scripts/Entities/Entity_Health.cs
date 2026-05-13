@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Splines;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Entity_Health : MonoBehaviour
@@ -25,12 +26,6 @@ public class Entity_Health : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-
-        if (currentHealth < 0)
-            return;
-
-        currentHealth--;
-
         // Get Particle Collision, but this can cause a lot of performance.
         // But it will be called only hit event, so I guess right now it is ok.
         ParticleSystem ps = other.GetComponent<ParticleSystem>();
@@ -43,8 +38,33 @@ public class Entity_Health : MonoBehaviour
         }
         //---------------------------------------------------------------------
 
+        LostHealth();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Bullet"))
+        {
+            LostHealth();
+
+            entityVFX?.OnDamage(other.gameObject.transform.position);
+            Destroy(other.gameObject);
+        }
+    }
+
+    private void LostHealth()
+    {
+        if (currentHealth < 0)
+            return;
+
+        currentHealth--;
+
         if (currentHealth <= 0)
             OnDead();
+
+        //TODO
+        // add on hit sound
+        // actually I have to add a lot of sound, 
     }
 
     protected virtual void OnDead()
