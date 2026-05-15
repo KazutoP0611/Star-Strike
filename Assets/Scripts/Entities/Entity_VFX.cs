@@ -35,13 +35,11 @@ public class Entity_VFX : MonoBehaviour
             Debug.LogWarning("Renderers haven't been set in inspector yet.");
     }
 
-    public void CreateEffect(ParticleType particleType)
-    {
-        GameObject explodeParticle = Instantiate(particleType == ParticleType.Damage ? onDamageParticle : onDestroyParticle, transform.position, transform.localRotation);
-        explodeParticle.transform.localScale = Vector3.one * (particleType == ParticleType.Damage ? damageParticleScale : destroyParticleScale);
-    }
+    public void CreateEffect(ParticleType particleType) => InstantiateEffect(particleType, transform.position);
 
-    public void CreateEffect(ParticleType particleType, Vector3 hitPoint)
+    public void CreateEffect(ParticleType particleType, Vector3 hitPoint) => InstantiateEffect(particleType, hitPoint);
+
+    private void InstantiateEffect(ParticleType particleType, Vector3 hitPoint)
     {
         GameObject explodeParticle = Instantiate(particleType == ParticleType.Damage ? onDamageParticle : onDestroyParticle, hitPoint, transform.localRotation);
         explodeParticle.transform.localScale = Vector3.one * (particleType == ParticleType.Damage ? damageParticleScale : destroyParticleScale);

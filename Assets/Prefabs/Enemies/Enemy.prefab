@@ -19457,6 +19457,7 @@ GameObject:
   - component: {fileID: 484781343359144259}
   - component: {fileID: 7651931657054383061}
   - component: {fileID: 4392370861284682322}
+  - component: {fileID: 3176785988824011380}
   - component: {fileID: 3319091305772254626}
   m_Layer: 0
   m_Name: Enemy
@@ -19493,7 +19494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71e4c8cb6209eed468b44905b0cee024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Health
-  maxHealth: 10
+  maxHealth: 3
   enemyModel: {fileID: 863043471440685729}
 --- !u!114 &4392370861284682322
 MonoBehaviour:
@@ -19515,6 +19516,22 @@ MonoBehaviour:
   damageParticleScale: 0.45
   onDestroyParticle: {fileID: 6192724089161036641, guid: 59951331955d0f44c82e467953f32537, type: 3}
   destroyParticleScale: 1
+--- !u!114 &3176785988824011380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3854350474580584527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 605036a297c913b42baf8c194e382605, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entity_SFX
+  onDamageSound: {fileID: 8300000, guid: 43228769e06901141bd1cef652e49a74, type: 3}
+  DamageSoundVolume: 100
+  onDestroyedSound: {fileID: 8300000, guid: 8f9c04b88101c2649abfc520170a55db, type: 3}
+  DestroySoundVolume: 2
 --- !u!54 &3319091305772254626
 Rigidbody:
   m_ObjectHideFlags: 0

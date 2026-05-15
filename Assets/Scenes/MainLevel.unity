@@ -242,19 +242,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: verticalLimit.x
-      value: -0.7
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: verticalLimit.y
-      value: 0.56
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: horizontalLimit.x
-      value: -1.26
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: horizontalLimit.y
-      value: 1.26
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3787183288038386421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1746,7 +1746,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1280118013}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29a074d529cf945029ef7cf40540c9df, type: 3}
   m_Name: 

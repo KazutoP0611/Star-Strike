@@ -9,18 +9,16 @@ public class Entity_Health : MonoBehaviour
     private List<ParticleCollisionEvent> collisionEvents = new List<ParticleCollisionEvent>();
 
     protected Entity_VFX entityVFX;
+    protected Entity_SFX entitySFX;
 
     [Header("Health Details")]
     [SerializeField] private int maxHealth;
 
-    private void Awake()
-    {
-        //entityVFX = GetComponent<Entity_VFX>();
-    }
-
     private void Start()
     {
         entityVFX = GetComponent<Entity_VFX>();
+        entitySFX = GetComponent<Entity_SFX>();
+
         currentHealth = maxHealth;
     }
 
@@ -34,7 +32,10 @@ public class Entity_Health : MonoBehaviour
         for (int i = 0; i < collisionEvents.Count; i++)
         {
             Vector3 hitPosition = collisionEvents[i].intersection;
+
+            // Play VFX and SFX
             entityVFX?.OnDamage(hitPosition);
+            entitySFX?.PlaySoundAtPoint(SoundType.Damage);
         }
         //---------------------------------------------------------------------
 
@@ -48,6 +49,8 @@ public class Entity_Health : MonoBehaviour
             LostHealth();
 
             entityVFX?.OnDamage(other.gameObject.transform.position);
+            entitySFX?.PlaySoundAtPoint(SoundType.Damage);
+
             Destroy(other.gameObject);
         }
     }
@@ -61,14 +64,11 @@ public class Entity_Health : MonoBehaviour
 
         if (currentHealth <= 0)
             OnDead();
-
-        //TODO
-        // add on hit sound
-        // actually I have to add a lot of sound, 
     }
 
     protected virtual void OnDead()
     {
         entityVFX?.CreateEffect(ParticleType.Dead);
+        entitySFX?.PlaySoundAtPoint(SoundType.Destroyed);
     }
 }
