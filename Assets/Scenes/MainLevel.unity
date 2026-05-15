@@ -265,6 +265,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 96761839}
     - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: shakeDuration
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: xShakeLimit.x
       value: -0.25
       objectReference: {fileID: 0}

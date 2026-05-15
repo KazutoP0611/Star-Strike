@@ -22,7 +22,9 @@ public class PlayerMovement : MonoBehaviour
     private float rollDirection;
     private bool isRolling = false;
     private bool rollingOnCooldown = false;
+
     private bool isTurning = false;
+    private int turningRight = -1;
 
     // Aiming Components;
     [SerializeField] private Transform aimingpointTransform;
@@ -204,15 +206,14 @@ public class PlayerMovement : MonoBehaviour
             return;
 
         isTurning = isPressed;
-        string text = turningRight ? "right" : "left";
-        Debug.LogWarning($"Turning {text}");
+        this.turningRight = turningRight ? -1 : 1;
     }
 
     private void TurnHandler()
     {
         Vector3 direction = aimingpointTransform.localPosition - transform.localPosition;
         Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
-        targetRotation.eulerAngles = new Vector3(targetRotation.eulerAngles.x, targetRotation.eulerAngles.y, turnLimitAngle);
+        targetRotation.eulerAngles = new Vector3(targetRotation.eulerAngles.x, targetRotation.eulerAngles.y, turnLimitAngle * turningRight);
 
         transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, Time.deltaTime * turningSpeed);
     }
