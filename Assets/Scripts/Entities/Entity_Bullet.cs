@@ -15,6 +15,8 @@ public class Entity_Bullet : MonoBehaviour
 
     private void Update()
     {
+        //Todo make the image look at cross vector with camera.forward;
+
         transform.position += transform.forward * Time.deltaTime * bulletSpeed;
 
         if (Time.time >= destroyTime)

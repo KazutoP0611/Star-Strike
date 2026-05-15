@@ -148,11 +148,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void RotateHandler()
     {
-        Vector3 direction = aimingpointTransform.localPosition - transform.localPosition;
-        Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
-
         if (isTurning)
             return;
+
+        Vector3 direction = aimingpointTransform.localPosition - transform.localPosition;
+        Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
 
         // Implement Rolling
         if (roll)
@@ -169,8 +169,11 @@ public class PlayerMovement : MonoBehaviour
 
             // Apply calculated values to currentRoll;
             currentRoll = Mathf.Lerp(currentRoll, rollVolume, Time.deltaTime * rollSpeed);
-            Vector3 currentEuler = targetRotation.eulerAngles;
-            targetRotation = Quaternion.Euler(currentEuler.x, currentEuler.y, currentRoll);
+
+            //Vector3 currentEuler = targetRotation.eulerAngles;
+            //Quaternion.Euler(currentEuler.x, currentEuler.y, currentRoll);
+
+            targetRotation.eulerAngles = new Vector3(targetRotation.eulerAngles.x, targetRotation.eulerAngles.y, currentRoll); 
         }
         //------------------
 
@@ -213,7 +216,10 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 direction = aimingpointTransform.localPosition - transform.localPosition;
         Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+
+        // Change roll angle for evasive manuver;
         targetRotation.eulerAngles = new Vector3(targetRotation.eulerAngles.x, targetRotation.eulerAngles.y, turnLimitAngle * turningRight);
+        //---------------------------------------
 
         transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, Time.deltaTime * turningSpeed);
     }
