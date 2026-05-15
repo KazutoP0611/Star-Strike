@@ -47,6 +47,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float rollAngleLimit = 20f;
     #endregion
 
+    #region Turning
+    [Header("Turn Details")]
+    [SerializeField] private float turningSpeed = 30.0f; 
+    [SerializeField] private float turnLimitAngle = 75.0f;
+    #endregion
+
     #region Rolling
     [Header("Rolling Movement Details")]
     [SerializeField] private float moveWhileRollSpeed = 10f;
@@ -59,9 +65,9 @@ public class PlayerMovement : MonoBehaviour
 
     #region Player's Input
     public void OnMouseMove(InputValue value) => mouseDelta = value.Get<Vector2>();
-    public void OnRoll(InputValue value) => RollHandler();
-    public void OnTurnRight(InputValue value) => TurnHandler(value.isPressed, true);
-    public void OnTurnLeft(InputValue value) => TurnHandler(value.isPressed, false);
+    public void OnRoll(InputValue value) => OnRollHandler();
+    public void OnTurnRight(InputValue value) => OnTurnHandler(value.isPressed, true);
+    public void OnTurnLeft(InputValue value) => OnTurnHandler(value.isPressed, false);
     #endregion
 
     private void Awake()
@@ -94,6 +100,9 @@ public class PlayerMovement : MonoBehaviour
 
         if (rotate)
             RotateHandler();
+
+        if (isTurning)
+            TurnHandler();
     }
 
     private void MoveWhileRolling()
@@ -167,7 +176,7 @@ public class PlayerMovement : MonoBehaviour
         transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, Time.deltaTime * rotationSpeed);
     }
 
-    private void RollHandler()
+    private void OnRollHandler()
     {
         if (rollingOnCooldown)
             return;
@@ -189,7 +198,7 @@ public class PlayerMovement : MonoBehaviour
         anim.SetTrigger(triggerText);
     }
 
-    private void TurnHandler(bool isPressed, bool turningRight)
+    private void OnTurnHandler(bool isPressed, bool turningRight)
     {
         if (isPressed == isTurning)
             return;
@@ -197,6 +206,15 @@ public class PlayerMovement : MonoBehaviour
         isTurning = isPressed;
         string text = turningRight ? "right" : "left";
         Debug.LogWarning($"Turning {text}");
+    }
+
+    private void TurnHandler()
+    {
+        Vector3 direction = aimingpointTransform.localPosition - transform.localPosition;
+        Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+        targetRotation.eulerAngles = new Vector3(targetRotation.eulerAngles.x, targetRotation.eulerAngles.y, turnLimitAngle);
+
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, Time.deltaTime * turningSpeed);
     }
 
     public void StopRolling()
