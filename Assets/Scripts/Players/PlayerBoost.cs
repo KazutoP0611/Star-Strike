@@ -17,7 +17,6 @@ public class PlayerBoost : MonoBehaviour
     private Coroutine rechargeBoostCoroutine; // don't have any chance to use it yet;
 
     [Header("Controller & View Details")]
-    [SerializeField] private CameraController cameraController;
     [SerializeField] private BoosterView boosterView;
 
     [Header("Boost Details")]

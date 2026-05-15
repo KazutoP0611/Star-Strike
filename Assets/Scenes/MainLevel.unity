@@ -241,6 +241,10 @@ PrefabInstance:
       value: 3.26
       objectReference: {fileID: 0}
     - target: {fileID: 1385626272989807625, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: inCrosshairDistance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385626272989807625, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: crosshairRectTransform
       value: 
       objectReference: {fileID: 866953718}
@@ -394,6 +398,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7632269502934130214, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: move
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7632269502934130214, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: roll
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7632269502934130214, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}

@@ -25,7 +25,7 @@ public class Entity_Sequence : MonoBehaviour
     public virtual void SequenceTrigger()
     {
         onSequenceEnter?.Invoke(this);
-        Debug.LogWarning($"Player has entered {gameObject.name}");
+        //Debug.LogWarning($"Player has entered {gameObject.name}");
     }
 
     public virtual void EndSequence()

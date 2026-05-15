@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 playerViewportPosition;
     private Vector3 moveToPosition;
     private Vector2 mouseDelta;
-    private float currentRotate;
+    private float currentRoll;
 
     // Rolling calculation variables;
     private Vector3 moveToVector;
@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private float rollDirection;
     private bool isRolling = false;
     private bool rollingOnCooldown = false;
+    private bool isTurning = false;
 
     // Aiming Components;
     [SerializeField] private Transform aimingpointTransform;
@@ -40,14 +41,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool rotate = true;
     [SerializeField] private float rotationSpeed = 10f;
     [Space]
-    [SerializeField] private bool pitch = true;
-    [SerializeField] private float pitchForce = 50f;
-    [SerializeField] private float pitchReturnForce = 30f;
-    [SerializeField] private float pitchAngleLimit = 20f;
+    [SerializeField] private bool roll = true;
+    [SerializeField] private float rollForce = 50f;
+    [SerializeField] private float rollReturnForce = 30f;
+    [SerializeField] private float rollAngleLimit = 20f;
     #endregion
 
     #region Rolling
-    [Header("Roll Details")]
+    [Header("Rolling Movement Details")]
     [SerializeField] private float moveWhileRollSpeed = 10f;
     [SerializeField] private float moveWhileRollDistance = 0.55f;
     [SerializeField] private float rollingCooldownTime = 1.0f;
@@ -59,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
     #region Player's Input
     public void OnMouseMove(InputValue value) => mouseDelta = value.Get<Vector2>();
     public void OnRoll(InputValue value) => RollHandler();
+    public void OnTurnRight(InputValue value) => TurnHandler(value.isPressed, true);
+    public void OnTurnLeft(InputValue value) => TurnHandler(value.isPressed, false);
     #endregion
 
     private void Awake()
@@ -137,23 +140,26 @@ public class PlayerMovement : MonoBehaviour
         Vector3 direction = aimingpointTransform.localPosition - transform.localPosition;
         Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
 
+        if (isTurning)
+            return;
+
         // Implement Rolling
-        if (pitch)
+        if (roll)
         {
             // Limit roll value at edge of the screen;
             // This will limit roll value when player is at edge of screen, or player will roll even the plane doesn't go left or right;
-            float mouseDeltaHorizontal = playerViewportPosition.x == horizontalLimit.x || playerViewportPosition.x == horizontalLimit.y ? 0 : mouseDelta.x;
+            float mouseDeltaHorizontal = playerViewportPosition.x <= horizontalLimit.x || playerViewportPosition.x >= horizontalLimit.y ? 0 : mouseDelta.x;
 
             // Limit roll angle;
-            float rotateVolumn = Mathf.Clamp(-mouseDeltaHorizontal * pitchForce, -pitchAngleLimit, pitchAngleLimit);
+            float rollVolume = Mathf.Clamp(-mouseDeltaHorizontal * rollForce, -rollAngleLimit, rollAngleLimit);
 
             // Define roll speed, if there is no movement, player will return from rolling faster, this will give more feedback roll feel while playing;
-            float rollSpeed = Mathf.Abs(mouseDeltaHorizontal) > 0.01f ? pitchForce : pitchReturnForce;
+            float rollSpeed = Mathf.Abs(mouseDeltaHorizontal) > 0.01f ? rollForce : rollReturnForce;
 
             // Apply calculated values to currentRoll;
-            currentRotate = Mathf.Lerp(currentRotate, rotateVolumn, Time.deltaTime * rollSpeed);
+            currentRoll = Mathf.Lerp(currentRoll, rollVolume, Time.deltaTime * rollSpeed);
             Vector3 currentEuler = targetRotation.eulerAngles;
-            targetRotation = Quaternion.Euler(currentEuler.x, currentEuler.y, currentRotate);
+            targetRotation = Quaternion.Euler(currentEuler.x, currentEuler.y, currentRoll);
         }
         //------------------
 
@@ -181,6 +187,16 @@ public class PlayerMovement : MonoBehaviour
         rollDirection = moveToPosition.x - transform.localPosition.x;
         string triggerText = rollDirection < 0 ? "RollLeft" : "RollRight";
         anim.SetTrigger(triggerText);
+    }
+
+    private void TurnHandler(bool isPressed, bool turningRight)
+    {
+        if (isPressed == isTurning)
+            return;
+
+        isTurning = isPressed;
+        string text = turningRight ? "right" : "left";
+        Debug.LogWarning($"Turning {text}");
     }
 
     public void StopRolling()
