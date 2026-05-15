@@ -225,6 +225,26 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1385626272989807625, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: verticalLimit.x
+      value: -2.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385626272989807625, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: verticalLimit.y
+      value: 2.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385626272989807625, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: horizontalLimit.x
+      value: -3.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385626272989807625, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: horizontalLimit.y
+      value: 3.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385626272989807625, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: crosshairRectTransform
+      value: 
+      objectReference: {fileID: 866953718}
+    - target: {fileID: 1385626272989807625, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: inCrosshairRectTransform
       value: 
       objectReference: {fileID: 1597942929}
@@ -234,27 +254,51 @@ PrefabInstance:
       objectReference: {fileID: 1373973196}
     - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: moveSpeed
-      value: 1.25
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: cameraParent
+      value: 
+      objectReference: {fileID: 96761839}
+    - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: xShakeLimit.x
+      value: -0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: xShakeLimit.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: yShakeLimit.x
+      value: -0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: yShakeLimit.y
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: moveToOffset.y
       value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: shakeMagnitude
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: verticalLimit.x
-      value: -1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
-      propertyPath: verticalLimit.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
-      propertyPath: horizontalLimit.x
       value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: verticalLimit.y
+      value: 2.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: horizontalLimit.x
+      value: -1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: horizontalLimit.y
-      value: 2
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: 3787183288038386421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: m_LocalPosition.x
@@ -266,7 +310,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3787183288038386421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3808444588070244549, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: m_LocalPosition.x
@@ -369,8 +413,24 @@ PrefabInstance:
       value: 2.6
       objectReference: {fileID: 0}
     - target: {fileID: 7632269502934130214, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: verticalLimit.x
+      value: -2.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 7632269502934130214, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: verticalLimit.y
+      value: 2.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 7632269502934130214, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: rotateAngleLimit
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7632269502934130214, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: horizontalLimit.x
+      value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7632269502934130214, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: horizontalLimit.y
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7632269502934130214, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: rotateReturnForce
@@ -420,6 +480,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1280118014}
   m_SourcePrefab: {fileID: 100100000, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+--- !u!1 &96761839 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5601693669851144952, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+  m_PrefabInstance: {fileID: 78600225}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &129203579
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,5 +10,7 @@ public class Enemy_Health : Entity_Health
 
         //Destroy(gameObject);
         enemyModel.SetActive(false);
+
+        CameraController.instance.CameraShake();
     }
 }

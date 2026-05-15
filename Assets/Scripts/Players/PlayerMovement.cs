@@ -80,11 +80,13 @@ public class PlayerMovement : MonoBehaviour
     {
         moveToPosition = new Vector3(aimingpointTransform.localPosition.x, aimingpointTransform.localPosition.y, transform.localPosition.z);
 
-        //ToDo
-        // - Fix side movements, right now fighter can not shoot far left or far right side of screen
-        // P.S. The rest of the movement seems great;
+        //------- Clamp Position --------
+        float horizontalPosition = Mathf.Clamp(moveToPosition.x, horizontalLimit.x, horizontalLimit.y);
+        float verticalPosition = Mathf.Clamp(moveToPosition.y, verticalLimit.x, verticalLimit.y);
+        Vector3 moveToLocalPosition = new Vector3(horizontalPosition, verticalPosition, transform.localPosition.z);
+        //-------------------------------
 
-        Vector3 targetMovePoint = Vector3.Lerp(transform.localPosition, moveToPosition, Time.deltaTime * movementSpeed); // Lerp fighter's movement;
+        Vector3 targetMovePoint = Vector3.Lerp(transform.localPosition, moveToLocalPosition, Time.deltaTime * movementSpeed); // Lerp fighter's movement;
         transform.localPosition = targetMovePoint;
 
         if (rotate)
@@ -98,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
         Transform tempTransform = transform;
         tempTransform.localPosition = targetMovePoint;
 
-        ClampedMovementPosition(tempTransform.position);
+        //ClampedMovementPosition(tempTransform.position);
         transform.localPosition = GetMovementPositionFromCamView();
     }
     #endregion

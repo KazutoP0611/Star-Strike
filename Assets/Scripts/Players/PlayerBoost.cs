@@ -14,7 +14,7 @@ public class PlayerBoost : MonoBehaviour
     private bool onCooldown = false;
 
     private Coroutine boostCooldownCoroutine;
-    private Coroutine rechargeBoostCoroutine;
+    private Coroutine rechargeBoostCoroutine; // don't have any chance to use it yet;
 
     [Header("Controller & View Details")]
     [SerializeField] private CameraController cameraController;
@@ -52,7 +52,8 @@ public class PlayerBoost : MonoBehaviour
         boosterView.SetBoostIndicators(currentBoostCount);
 
         // Set camera to zoom out
-        cameraController.CameraToBoostPosition();
+        //cameraController.CameraToBoostPosition();
+        CameraController.instance.CameraToBoostPosition();
 
         // TODO : may be add some truster effect a little animation, like a little blib, a litte feedback to feel that fighter is accelerating;
 
@@ -91,7 +92,8 @@ public class PlayerBoost : MonoBehaviour
         if (time >= boostingDuration)
         {
             // Set camera to normal position
-            cameraController.CameraToNormalPosition();
+            //cameraController.CameraToNormalPosition();
+            CameraController.instance.CameraToNormalPosition();
 
             // Reset boost variable values;
             time = 0;
