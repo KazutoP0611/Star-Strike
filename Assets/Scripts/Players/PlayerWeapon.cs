@@ -15,7 +15,7 @@ public class PlayerWeapon : MonoBehaviour
 
     [Header("General Details")]
     [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip shootingSound;
     [SerializeField] private float shootInterval;
 
     [Header("Shooting Transform Details")]
@@ -63,6 +63,6 @@ public class PlayerWeapon : MonoBehaviour
     private void Shoot(Transform shootPoint)
     {
         Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
-        audioSource.Play(0);
+        AudioSource.PlayClipAtPoint(shootingSound, shootPoint.position);
     }
 }
