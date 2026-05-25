@@ -1,20 +1,24 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
     //private GameObject[] chunks;
-    private List<GameObject> listOfChunks;
+    private List<GameObject> m_listOfChunks;
+    private int m_currentLevelSeqIndex = 0;
+    private LevelSequence_SO m_currentLevelSequence;
 
-    [Header("Level Chunk Details")]
+    [Header("Level Details")]
     [SerializeField] private GameObject chunkPrefab;
-    [SerializeField] private int startingChunkAmount = 12;
-
+    [SerializeField] private Transform chunkParent;
+    [SerializeField] private int chunkLimit = 12;
+    [Space]
+    [SerializeField] private LevelSequence_SO[] levelSeqs;
+    [Space]
     [Tooltip("The same length of chunk prefab.")]
     [SerializeField]
     private float chunkLength = 10.0f;
-
-    [SerializeField] private Transform chunkParent;
 
     [Header("Movement Details")]
     [SerializeField] private bool moveChunk = true;
@@ -23,66 +27,108 @@ public class LevelGenerator : MonoBehaviour
 
     private void Start()
     {
-        //chunks = new GameObject[startingChunkAmount];
-        listOfChunks = new List<GameObject>();
+        m_listOfChunks = new List<GameObject>();
 
-        SpawnStartChunks();
+        RegisterNewSequence();
+    }
+
+    private void RegisterNewSequence()
+    {
+        m_currentLevelSequence = levelSeqs[m_currentLevelSeqIndex];
+
+        for (int i = 0; i < m_currentLevelSequence.GetNormalChunkAmount(); i++)
+        {
+            SpawnNormalChunk();
+        }
     }
 
     private void Update()
     {
-        if (moveChunk)
-            MoveChunks();
+        if (!moveChunk)
+            return;
+
+        MoveChunks();
     }
 
-    private void SpawnStartChunks()
+    private void MoveChunks()
     {
-        for (int i = 0; i < startingChunkAmount; i++)
+        for (int i = 0; i < m_listOfChunks.Count; i++)
         {
-            SpawnChunk();
+            GameObject chunk = m_listOfChunks[i];
+            chunk.transform.Translate(-transform.forward * (moveSpeed * Time.deltaTime));
+
+            if (chunk.transform.position.z <= clearPointTransform.position.z - chunkLength)
+            {
+                m_listOfChunks.Remove(chunk);
+                Destroy(chunk);
+
+                // If chunks in list is lower than limited number, spawn new level;
+                if (m_listOfChunks.Count < chunkLimit)
+                    SpawnLevelChunk();
+            }
         }
     }
 
-    private void SpawnChunk()
+    private void SpawnLevelChunk()
+    {
+        // Prepare to spawn new chunk object, get chunk object from current sequence;
+        GameObject chunkLevel = m_currentLevelSequence.GetCurrentChunk();
+
+        if (chunkLevel != null)
+        {
+            // Spawn set level from level sequence;
+            SpawnChunk(chunkLevel);
+        }
+        // There is no more level in current level sequence;
+        else
+        {
+            // Update current sequence index number;
+            m_currentLevelSeqIndex++;
+
+            // Check if there is still seqence left to play;
+            if (m_currentLevelSeqIndex < levelSeqs.Count())
+            {
+                // Register new sequence
+                RegisterNewSequence();
+            }
+            else
+            {
+                // this means the game has end, or at least there is no more level left;
+                // Spawn normal chunk instead;
+                SpawnNormalChunk();
+            }
+        }
+    }
+
+    private void SpawnNormalChunk() => SpawnChunk(chunkPrefab);
+
+    private void SpawnChunk(GameObject levelChunk)
     {
         Vector3 spawnPosition = transform.position + new Vector3(0, 0, GetPositionZ());
 
         GameObject chunk = Instantiate(
-                chunkPrefab,
+                levelChunk,
                 spawnPosition,
                 Quaternion.identity,
                 chunkParent
             );
 
-        listOfChunks.Add(chunk);
+        // TODO;
+        // After spawned each chunk, each chunk has to have setting for enemies, sequences, etc.
+        // And we have to activate.
+
+        m_listOfChunks.Add(chunk);
     }
 
     private float GetPositionZ()
     {
         float positionZ;
 
-        if (listOfChunks.Count == 0)
+        if (m_listOfChunks.Count == 0)
             positionZ = transform.position.z;
         else
-            positionZ = listOfChunks[listOfChunks.Count - 1].transform.position.z + chunkLength;
+            positionZ = m_listOfChunks[m_listOfChunks.Count - 1].transform.position.z + chunkLength;
 
         return positionZ;
-    }
-
-    private void MoveChunks()
-    {
-        for (int i = 0; i < listOfChunks.Count; i++)
-        {
-            GameObject chunk = listOfChunks[i];
-            chunk.transform.Translate(transform.forward * (-moveSpeed * Time.deltaTime));
-
-            if (chunk.transform.position.z <= clearPointTransform.position.z - chunkLength)
-            {
-                listOfChunks.Remove(chunk);
-                Destroy(chunk);
-
-                SpawnChunk();
-            }
-        }
     }
 }
