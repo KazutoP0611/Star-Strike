@@ -7,16 +7,16 @@ public class LevelSequence_SO : ScriptableObject
     private int currentChunkIndex = 0;
 
     [SerializeField] private int normalChunkBeforeMainChunk = 12;
-    [SerializeField] private GameObject[] levelChunks;
+    [SerializeField] private LevelChunk[] levelChunks;
 
     public int GetNormalChunkAmount() => normalChunkBeforeMainChunk;
 
-    public GameObject GetCurrentChunk()
+    public LevelChunk GetCurrentChunk()
     {
         if (currentChunkIndex >= levelChunks.Length)
             return null;
 
-        GameObject currentLevelChunk = levelChunks[currentChunkIndex];
+        LevelChunk currentLevelChunk = levelChunks[currentChunkIndex];
         currentChunkIndex++;
 
         return currentLevelChunk;

@@ -9,7 +9,7 @@ public class PlayerBoost : MonoBehaviour
     private float time = 0;
     private int currentBoostCount;
 
-    private SplineAnimate splineAnimate;
+    //private SplineAnimate splineAnimate;
     private bool boosting = false;
     private bool onCooldown = false;
 
@@ -18,16 +18,19 @@ public class PlayerBoost : MonoBehaviour
 
     [Header("Controller & View Details")]
     [SerializeField] private BoosterView boosterView;
+    [SerializeField] private LevelGenerator levelGenerator;
 
     [Header("Boost Details")]
     [Tooltip("How many time you can boost.")]
     [SerializeField] private int maxBoost = 2;
     [Space]
-    [SerializeField] private float getInMaxSpeedTimeMulitpler = 5.0f;
-    [SerializeField] private float boostIntervalTime = 0.5f;
+    [SerializeField] private float speedUpMultiplier = 5.0f;
+    [SerializeField] private float boostCooldownTime = 0.5f;
     [SerializeField] private float boostingDuration = 2.0f;
     [Space]
-    [SerializeField] private float boostRechargeTime = 2.5f;
+    [Tooltip("Penalty waiting time if player used up all of boost. (Player has to wait longer than usual cool down time.)")]
+    [SerializeField]
+    private float boostRechargeTime = 2.5f;
     [Space]
     [SerializeField] private GameObject boostingPrefab;
 
@@ -59,11 +62,14 @@ public class PlayerBoost : MonoBehaviour
         // Start boost sequence
         boosting = true;
         boostingPrefab.SetActive(true);
+
+        // Speed up level's movement speed;
+        levelGenerator.SetLevelMovementSpeed(speedUpMultiplier);
     }
 
     private void Start()
     {
-        splineAnimate = GetComponentInParent<SplineAnimate>();
+        //splineAnimate = GetComponentInParent<SplineAnimate>();
 
         currentBoostCount = maxBoost;
         boosterView.Intialize(maxBoost);
@@ -82,9 +88,7 @@ public class PlayerBoost : MonoBehaviour
 
     private void Boosting()
     {
-        // Speed up spline animate time for certain duration
         time += Time.deltaTime;
-        splineAnimate.ElapsedTime += Time.deltaTime * getInMaxSpeedTimeMulitpler;
 
         // Check for boosting duration
         // If "true", stop boosting and get to cooldown
@@ -98,6 +102,9 @@ public class PlayerBoost : MonoBehaviour
             time = 0;
             boosting = false;
             boostingPrefab.SetActive(false);
+
+            // Reverse level's movement speed;
+            levelGenerator.SetLevelMovementSpeed(1.0f);
 
             // Start cooldown coroutine;
             StartBoostCooldownCo();
@@ -117,7 +124,7 @@ public class PlayerBoost : MonoBehaviour
     {
         onCooldown = true;
 
-        yield return new WaitForSeconds(boostIntervalTime);
+        yield return new WaitForSeconds(boostCooldownTime);
 
         onCooldown = false;
 

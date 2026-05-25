@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1401140569787726618}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1166.1791}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3775e78b07d5c064f8775a6c80ee85f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelChunk
-  type: 0
+  testSpawnObject: {fileID: 5673424883441831233, guid: 6e3437ebfaf43f240998cfe877e0eaa9, type: 3}
 --- !u!1 &2694780304210639605
 GameObject:
   m_ObjectHideFlags: 0

@@ -489,6 +489,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8858971373105486100, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: levelGenerator
+      value: 
+      objectReference: {fileID: 1497619957}
+    - target: {fileID: 8858971373105486100, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: boostRechargeTime
       value: 1.85
       objectReference: {fileID: 0}
@@ -547,7 +551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3775e78b07d5c064f8775a6c80ee85f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Level
-  type: 0
+  testSpawnObject: {fileID: 0}
 --- !u!1 &96761839 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5601693669851144952, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
@@ -1525,6 +1529,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3005e5efe6358194dbd0e3f1da75a5cb, type: 3}
+--- !u!1 &717443151
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 717443152}
+  m_Layer: 0
+  m_Name: ActivateChunkTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &717443152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717443151}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 60}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1497619958}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &718188891 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6802035286530924865, guid: d1f6c296b27207c48960c9e7fc8c14cc, type: 3}
@@ -7502,13 +7537,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfb71f683cb35dc4fa99fb8dcbed7816, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelGenerator
-  chunkPrefab: {fileID: 1401140569787726618, guid: 67dc5e6720f85cf41be42c658a59907e, type: 3}
-  startingChunkAmount: 12
-  chunkLength: 10
+  normalChunkPrefab: {fileID: 1401140569787726618, guid: 67dc5e6720f85cf41be42c658a59907e, type: 3}
   chunkParent: {fileID: 2010485071}
+  chunkMinLimit: 12
+  levelSeqs:
+  - {fileID: 11400000, guid: 687448750f86f3c43a26ee12de6f4c7d, type: 2}
+  - {fileID: 11400000, guid: 30b48d5cf95865048a48ba531a4219cb, type: 2}
+  - {fileID: 11400000, guid: 816576886937932458e4cf6298c6261a, type: 2}
+  chunkLength: 10
   moveChunk: 1
-  moveSpeed: 8
+  normalMoveSpeed: 8
   clearPointTransform: {fileID: 2010485071}
+  activateChunkTrasnform: {fileID: 717443152}
 --- !u!4 &1497619958
 Transform:
   m_ObjectHideFlags: 0
@@ -7523,6 +7563,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2010485071}
+  - {fileID: 717443152}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1522503338
@@ -7849,8 +7890,8 @@ Transform:
   m_GameObject: {fileID: 1610892231}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.268, y: -8.27, z: 65.5}
-  m_LocalScale: {x: 95.82017, y: 56.090637, z: 19.449984}
+  m_LocalPosition: {x: -1.268, y: -8.27, z: 70}
+  m_LocalScale: {x: 100, y: 80, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
