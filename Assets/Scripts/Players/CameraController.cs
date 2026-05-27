@@ -74,8 +74,6 @@ public class CameraController : MonoBehaviour
             StopCoroutine(cameraShakeCoroutine);
 
         cameraShakeCoroutine = StartCoroutine(ShakeCamera());
-
-        Debug.LogWarning("Shake!!");
     }
 
     private IEnumerator ShakeCamera()

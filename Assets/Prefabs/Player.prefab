@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 975014127216791140}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: -0, z: 0.5}
+  m_LocalPosition: {x: -0, y: 0.046, z: 0.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -155,9 +155,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerBoost
   boosterView: {fileID: 0}
+  levelGenerator: {fileID: 0}
   maxBoost: 2
-  getInMaxSpeedTimeMulitpler: 5
-  boostIntervalTime: 0.5
+  speedUpMultiplier: 5
+  boostCooldownTime: 0.5
   boostingDuration: 2
   boostRechargeTime: 2.5
   boostingPrefab: {fileID: 7991874693327534838}
@@ -290,7 +291,7 @@ MonoBehaviour:
   followPlayer: 1
   player: {fileID: 1106186133751927957}
   moveSpeed: 1.5
-  moveToOffset: {x: 0, y: 0.35, z: 0}
+  moveToOffset: {x: 0, y: 0.55, z: 0}
   horizontalLimit: {x: -1.26, y: 1.26}
   verticalLimit: {x: -0.7, y: 0.56}
   shakeDuration: 1
@@ -588,13 +589,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5601693669851144952}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.06104851, y: 0, z: 0, w: 0.99813485}
+  m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3693346298225082811}
-  m_LocalEulerAnglesHint: {x: 7, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
 --- !u!20 &5130131605332629119
 Camera:
   m_ObjectHideFlags: 0
@@ -1012,7 +1013,7 @@ Transform:
   m_GameObject: {fileID: 8133028568387039487}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.046, z: 0.495}
+  m_LocalPosition: {x: 0, y: 0.046, z: 0.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

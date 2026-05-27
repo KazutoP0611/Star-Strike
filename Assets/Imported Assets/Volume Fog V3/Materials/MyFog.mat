@@ -98,19 +98,19 @@ Material:
     - _BUILTIN_QueueOffset: 0
     - _Blend: 0
     - _Boolean: 0
-    - _BoundsFade: 7.2
-    - _BoundsFadeRange: 9.05
+    - _BoundsFade: 7.67
+    - _BoundsFadeRange: 11.23
     - _CastShadows: 1
     - _Cull: 1
     - _DstBlend: 10
     - _DstBlendAlpha: 10
     - _LoopStop: 3.95
-    - _Multiplier: 12.77
-    - _Noise2DPower: 10.89
+    - _Multiplier: 10
+    - _Noise2DPower: -1.4
     - _Noise2DScale: 0.532
     - _QueueControl: 1
     - _QueueOffset: 0
-    - _Randomness: 0.53
+    - _Randomness: 1
     - _SHADOW_ENABLED: 1
     - _SHADOW_ENABLED_EDITOR_ONLY: 1
     - _Samples: 10
@@ -118,12 +118,12 @@ Material:
     - _ShadowMulti: 2.04
     - _Shadow_Add: -0.3
     - _Shadow_Multi: 3.52
-    - _Size: 9.7
+    - _Size: 9
     - _SrcBlend: 5
     - _SrcBlendAlpha: 1
     - _Surface: 1
-    - _Threshold: 3.46
-    - _YtoSizeRation: 1.9
+    - _Threshold: 1
+    - _YtoSizeRation: 1.8
     - _ZTest: 8
     - _ZWrite: 0
     - _ZWriteControl: 0
@@ -134,7 +134,7 @@ Material:
     - t1: 0.48
     - t2: 0.5
     m_Colors:
-    - Color_69AD1AD: {r: 0.20878841, g: 0.14244395, b: 0.31132078, a: 0.44705883}
+    - Color_69AD1AD: {r: 0.20878837, g: 0.14244393, b: 0.31132075, a: 0.0627451}
     - Vector3_478B0511: {r: -8.43, g: 0.53, b: 2, a: 0}
     - Vector4_52CE31FB: {r: 0, g: 0, b: 0, a: 0}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}

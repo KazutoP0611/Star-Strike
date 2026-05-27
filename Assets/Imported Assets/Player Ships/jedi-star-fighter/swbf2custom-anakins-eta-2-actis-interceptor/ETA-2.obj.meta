@@ -1,12 +1,5 @@
 fileFormatVersion: 2
-guid: 85bb46f3e6a9597488b706210d83a0bc
-AssetOrigin:
-  serializedVersion: 1
-  productId: 305055
-  packageName: Simple Space Starter Kit
-  packageVersion: 1.0
-  assetPath: Assets/Mwester Studios/Simple Space Starter Kit/Models/Asteroid Models.fbx
-  uploadId: 716559
+guid: d83d34c2cc0b3a046bba62e79fbfa561
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -14,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Asteroid Base
-    second: {fileID: 2100000, guid: 66ca6f7de4cea054cbb5a7ddeb5ecefd, type: 2}
+      name: defaultMat
+    second: {fileID: 2100000, guid: 567c9a0634943f24bb634c269cb1da6e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
