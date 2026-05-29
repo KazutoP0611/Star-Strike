@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf78a44c81b0c6540bbba0a61d10fac7, type: 3}
   m_Name: Level Sequence - 03
   m_EditorClassIdentifier: Assembly-CSharp::LevelSequence_SO
-  normalChunkBeforeMainChunk: 1
+  normalChunkBeforeMainChunk: 2
   levelChunks:
   - {fileID: 6911349128203208868, guid: 3d4c9d0af55216f4686a74992d6ccceb, type: 3}

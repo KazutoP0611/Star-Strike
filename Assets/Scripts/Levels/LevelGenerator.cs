@@ -15,6 +15,7 @@ public class LevelGenerator : MonoBehaviour
     [Header("Level Details")]
     [SerializeField] private GameObject[] normalChunkPrefabs;
     [SerializeField] private Transform chunkParent;
+    [SerializeField] private int startChunkAmount = 6; 
     [SerializeField] private int chunkLimit = 12;
     [Space]
     [SerializeField] private LevelSequence_SO[] levelSeqs;
@@ -50,8 +51,18 @@ public class LevelGenerator : MonoBehaviour
 
     private void SpawnStartChunk()
     {
-        while (m_listOfChunks.Count < chunkLimit)
+        while (m_listOfChunks.Count < startChunkAmount)
             SpawnNormalChunk();
+
+        if (startChunkAmount < chunkLimit)
+        {
+            int chunkFillAmount = chunkLimit - startChunkAmount;
+
+            for (int i = 0; i < chunkFillAmount; i++)
+            {
+                SpawnLevelChunk();
+            }
+        }
     }
 
     private void Update()
@@ -72,7 +83,7 @@ public class LevelGenerator : MonoBehaviour
             chunkObject.transform.Translate(-transform.forward * ((normalMoveSpeed * m_speedMultiplier) * Time.deltaTime));
 
             // Activate chunk's set sequence or spawn objects when it came to certain point;
-            if (chunkObject.transform.position.z <= activateChunkTrasnform.position.z - chunkLength)
+            if (chunkObject.transform.position.z <= activateChunkTrasnform.position.z - chunkLength)// fix this chunk length;
             {
                 if (!chunkLevel.IsActivated)
                 {
@@ -81,7 +92,8 @@ public class LevelGenerator : MonoBehaviour
                 }
             }
 
-            if (chunkObject.transform.position.z <= clearPointTransform.position.z - chunkLength)
+            // If chunk is over this position, destroy it;
+            if (chunkObject.transform.position.z <= clearPointTransform.position.z - chunkLength / 1.5f) // and maybe fix this clear point chunk length too.
             {
                 m_listOfChunks.Remove(chunkLevel);
                 Destroy(chunkObject);
@@ -102,7 +114,7 @@ public class LevelGenerator : MonoBehaviour
             return;
         }
 
-        //
+        // Spawn empty normal chunk in amount of each seqeuence;
         if (m_prefixLevelIndex > 0)
         {
             m_prefixLevelIndex--;
@@ -118,6 +130,7 @@ public class LevelGenerator : MonoBehaviour
         {
             // Spawn set level from level sequence;
             SpawnChunk(chunkLevel.gameObject);
+            Debug.LogWarning($"Level : {m_currentLevelIndex}");
             m_currentLevelIndex++;
         }
         // There is no more level chunk in current level sequence;

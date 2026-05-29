@@ -12,8 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf78a44c81b0c6540bbba0a61d10fac7, type: 3}
   m_Name: Level Sequence - 01
   m_EditorClassIdentifier: Assembly-CSharp::LevelSequence_SO
-  normalChunkBeforeMainChunk: 1
+  normalChunkBeforeMainChunk: 2
   levelChunks:
   - {fileID: 6911349128203208868, guid: 3d4c9d0af55216f4686a74992d6ccceb, type: 3}
   - {fileID: 5695914265139634566, guid: 3be1329c36cfcc54295274b044578ded, type: 3}
   - {fileID: 8615554697049790534, guid: ec8ac006198676f4499f5d859de5b599, type: 3}
+  - {fileID: 8681486083359048714, guid: f81439880dd3ca0429ba6d13d77d7a5f, type: 3}
+  - {fileID: 7434124932562551685, guid: 274fa5e616feec1419e0f49cd881a726, type: 3}
+  - {fileID: 8319959262745879, guid: bb858aadf34f12e43b01eac1c1324be6, type: 3}
+  - {fileID: 8084920005033350387, guid: 1a5c373e2a288e14288323f3b4799c37, type: 3}
+  - {fileID: 1877990157956783559, guid: c6626fb7cfa93ea49a5f4cd55ef66eed, type: 3}
+  - {fileID: 6457328731510915505, guid: 4acd83723119d6b4ba031abfbd92e4b8, type: 3}
+  - {fileID: 2051715136225426376, guid: fc2dd46400c72c643a9f8a77805c3204, type: 3}
+  - {fileID: 1342260244158168743, guid: 56390e92d6630814aa4f1b8e34e16d00, type: 3}
+  - {fileID: 4669229516234324617, guid: 68c16c52dbee79c42aa74fdfd53f8709, type: 3}
