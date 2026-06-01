@@ -781,6 +781,37 @@ Transform:
   - {fileID: 1757499430}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &387481391
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 387481392}
+  m_Layer: 0
+  m_Name: ShootingPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &387481392
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 387481391}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.86}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 602410320}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1382,6 +1413,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 578466302}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &602410320 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5695263511476681246, guid: d1f6c296b27207c48960c9e7fc8c14cc, type: 3}
+  m_PrefabInstance: {fileID: 1279264647}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &621680642
 GameObject:
   m_ObjectHideFlags: 0
@@ -7123,11 +7159,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5695263511476681246, guid: d1f6c296b27207c48960c9e7fc8c14cc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 387481392}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6802035286530924865, guid: d1f6c296b27207c48960c9e7fc8c14cc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1279264649}
+    - targetCorrespondingSourceObject: {fileID: 6802035286530924865, guid: d1f6c296b27207c48960c9e7fc8c14cc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1279264655}
   m_SourcePrefab: {fileID: 100100000, guid: d1f6c296b27207c48960c9e7fc8c14cc, type: 3}
 --- !u!1 &1279264648 stripped
 GameObject:
@@ -7147,9 +7189,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShip
   useRandomIdleTime: 1
-  idleTimeRange: {x: 2.5, y: 4.5}
+  idleTimeRange: {x: 1.2, y: 3.6}
   moveSpeed: 2.5
-  acceptableDistanceForShootingPlayer: 0.05
+  acceptableDistanceForShootingPlayer: 0.09
+  waitForSecsForShootingPlayer: 0.25
+  useRandomAxisShooting: 1
+  waitUntilReturnToIdle: 0.25
+  shootInterval: 0
+--- !u!114 &1279264655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279264648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a53f60e488bbb041936d423b73e15cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy_Weapon
+  bulletPrefab: {fileID: 8351966521501381168, guid: bda48613753fe1540ab406e3b0ebcc50, type: 3}
+  shootingSound: {fileID: 8300000, guid: fe71f275dd0ffd942baeed8459efd688, type: 3}
+  shootPoint: {fileID: 387481392}
 --- !u!1 &1343030658
 GameObject:
   m_ObjectHideFlags: 0

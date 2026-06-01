@@ -2,9 +2,8 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerWeapon : MonoBehaviour
+public class PlayerWeapon : Entity_Weapon
 {
-    private bool singleShoot = true;
     private bool isFiring;
     private float nextShootTime;
 
@@ -14,13 +13,10 @@ public class PlayerWeapon : MonoBehaviour
     #endregion
 
     [Header("General Details")]
-    [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private AudioClip shootingSound;
+    [SerializeField] private bool singleShoot = true;
     [SerializeField] private float shootInterval;
 
     [Header("Shooting Transform Details")]
-    [SerializeField] private Transform shootPoint;
-    [Space]
     [SerializeField] private Transform[] shootPoints;
 
     private void Update()
@@ -58,11 +54,5 @@ public class PlayerWeapon : MonoBehaviour
     private void FiringHandler(bool fire)
     {
         isFiring = fire;
-    }
-
-    private void Shoot(Transform shootPoint)
-    {
-        Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
-        AudioSource.PlayClipAtPoint(shootingSound, shootPoint.position);
     }
 }

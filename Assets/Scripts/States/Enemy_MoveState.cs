@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Enemy_MoveState : EnemyState
 {
+    private bool countingDown = false;
+
     public Enemy_MoveState(EnemyShip enemy, StateMachine stateMachine) : base(enemy, stateMachine)
     {
     }
@@ -9,10 +11,6 @@ public class Enemy_MoveState : EnemyState
     public override void Enter()
     {
         base.Enter();
-
-        // Todo
-        // Register player's position
-        enemy.RegisterMoveVector();
     }
 
     public override void Update()
@@ -21,9 +19,28 @@ public class Enemy_MoveState : EnemyState
 
         enemy.Move();
 
-        if (IsAligningWithPlayer())
-            stateMachine.ChangeState(enemy.enemyIdleState);
+        if (IsAligningWithPlayer()/*IsReadyToShoot()*/)
+            stateMachine.ChangeState(enemy.enemyShootState);
     }
+
+    //private bool IsReadyToShoot()
+    //{
+    //    if (IsAligningWithPlayer())
+    //    {
+    //        if (!countingDown)
+    //        {
+    //            countingDown = true;
+    //            stateTimer = enemy.waitForSecsForShootingPlayer;
+    //        }
+
+    //        if (stateTimer <= 0)
+    //            return true;
+    //    }
+    //    else
+    //        countingDown = false;
+
+    //    return false;
+    //}
 
     private bool IsAligningWithPlayer()
     {
