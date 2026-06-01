@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Splines;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Entity_Health : MonoBehaviour
+public class Entity_Health : MonoBehaviour, IDamagable
 {
     private int currentHealth;
     private List<ParticleCollisionEvent> collisionEvents = new List<ParticleCollisionEvent>();
@@ -22,37 +22,43 @@ public class Entity_Health : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    private void OnParticleCollision(GameObject other)
+    //private void OnParticleCollision(GameObject other)
+    //{
+    //    // Get Particle Collision, but this can cause a lot of performance.
+    //    // But it will be called only hit event, so I guess right now it is ok.
+    //    ParticleSystem ps = other.GetComponent<ParticleSystem>();
+    //    ps.GetCollisionEvents(gameObject, collisionEvents);
+
+    //    for (int i = 0; i < collisionEvents.Count; i++)
+    //    {
+    //        Vector3 hitPosition = collisionEvents[i].intersection;
+
+    //        // Play VFX and SFX
+    //        entityVFX?.OnDamage(hitPosition);
+    //        entitySFX?.PlaySoundAtPoint(SoundType.Damage);
+    //    }
+    //    //---------------------------------------------------------------------
+
+    //    LostHealth();
+    //}
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Bullet"))
+    //    {
+    //        TakeDamage();
+    //    }
+    //}
+
+    public void TakeDamage(Collider hitObject)
     {
-        // Get Particle Collision, but this can cause a lot of performance.
-        // But it will be called only hit event, so I guess right now it is ok.
-        ParticleSystem ps = other.GetComponent<ParticleSystem>();
-        ps.GetCollisionEvents(gameObject, collisionEvents);
-
-        for (int i = 0; i < collisionEvents.Count; i++)
-        {
-            Vector3 hitPosition = collisionEvents[i].intersection;
-
-            // Play VFX and SFX
-            entityVFX?.OnDamage(hitPosition);
-            entitySFX?.PlaySoundAtPoint(SoundType.Damage);
-        }
-        //---------------------------------------------------------------------
-
         LostHealth();
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Bullet"))
-        {
-            LostHealth();
+        // Create effect and play sound effect at hit point (sort of)
+        entityVFX?.OnDamage(hitObject.transform.position);
+        entitySFX?.PlaySoundAtPoint(SoundType.Damage);
 
-            entityVFX?.OnDamage(other.gameObject.transform.position);
-            entitySFX?.PlaySoundAtPoint(SoundType.Damage);
-
-            Destroy(other.gameObject);
-        }
+        //Destroy(hitObject.gameObject);
     }
 
     private void LostHealth()

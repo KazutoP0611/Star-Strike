@@ -19495,7 +19495,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Health
   maxHealth: 3
-  enemyModel: {fileID: 863043471440685729}
+  model: {fileID: 863043471440685729}
 --- !u!114 &4392370861284682322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19529,9 +19529,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entity_SFX
   onDamageSound: {fileID: 8300000, guid: 43228769e06901141bd1cef652e49a74, type: 3}
-  DamageSoundVolume: 100
   onDestroyedSound: {fileID: 8300000, guid: 8f9c04b88101c2649abfc520170a55db, type: 3}
-  DestroySoundVolume: 2
 --- !u!54 &3319091305772254626
 Rigidbody:
   m_ObjectHideFlags: 0

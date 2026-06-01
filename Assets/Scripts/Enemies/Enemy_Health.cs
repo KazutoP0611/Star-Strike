@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class Enemy_Health : Entity_Health
 {
-    [SerializeField] private GameObject enemyModel;
+    [SerializeField] private GameObject model;
 
     protected override void OnDead()
     {
         base.OnDead();
 
         //Destroy(gameObject);
-        enemyModel.SetActive(false);
+        model.SetActive(false);
 
         CameraController.instance.CameraShake();
     }

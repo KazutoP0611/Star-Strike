@@ -214,6 +214,7 @@ GameObject:
   - component: {fileID: 8048570852659279338}
   - component: {fileID: 3179876864283528303}
   - component: {fileID: 8148285989471912336}
+  - component: {fileID: 2684769787705830180}
   m_Layer: 0
   m_Name: Bullet_Prefab
   m_TagString: Bullet
@@ -250,6 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c25822c63ddce141862fb2fe5dfd955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entity_Bullet
+  collider: {fileID: 8148285989471912336}
   bulletSpeed: 150
   destroyInSecs: 3
 --- !u!65 &8148285989471912336
@@ -273,3 +275,30 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.28, y: 0.12, z: 0.64}
   m_Center: {x: 0, y: 0, z: -0.05}
+--- !u!54 &2684769787705830180
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8351966521501381168}
+  serializedVersion: 5
+  m_Mass: 0.1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
