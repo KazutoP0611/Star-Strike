@@ -1,11 +1,10 @@
 using UnityEngine;
 
-public class Entity_Bullet : MonoBehaviour
+public class Bullet_Damager : Entity_Damager
 {
     private float destroyTime;
 
     [Header("General Details")]
-    [SerializeField] private Collider collider;
     [SerializeField] private float bulletSpeed = 30.0f;
     [SerializeField] private float destroyInSecs = 3.0f;
 
@@ -22,13 +21,5 @@ public class Entity_Bullet : MonoBehaviour
 
         if (Time.time >= destroyTime)
             Destroy(gameObject);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        IDamagable damagable = other.GetComponentInParent<IDamagable>();
-        damagable?.TakeDamage(collider);
-
-        Destroy(gameObject);
     }
 }
