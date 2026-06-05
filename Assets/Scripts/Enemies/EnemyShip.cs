@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class EnemyShip : MonoBehaviour
 {
-    private Vector3 moveToPosition;
+    private Vector3 m_moveToPosition;
 
-    private GameObject player;
-    private StateMachine stateMachine;
+    private GameObject m_player;
+    private StateMachine m_stateMachine;
 
-    private Enemy_Weapon weapon;
+    private Enemy_Weapon m_weapon;
 
     #region Enemy States
     public Enemy_IdleState enemyIdleState { get; private set; }
@@ -32,40 +32,40 @@ public class EnemyShip : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.FindWithTag("Player");
+        m_player = GameObject.FindWithTag("Player");
 
-        stateMachine = new StateMachine();
+        m_stateMachine = new StateMachine();
 
-        weapon = GetComponent<Enemy_Weapon>();
+        m_weapon = GetComponent<Enemy_Weapon>();
 
         // Declare enemy's states;
-        enemyIdleState = new Enemy_IdleState(this, stateMachine);
-        enemyMoveState = new Enemy_MoveState(this, stateMachine);
-        enemyShootState = new Enemy_ShootState(this, stateMachine);
+        enemyIdleState = new Enemy_IdleState(this, m_stateMachine);
+        enemyMoveState = new Enemy_MoveState(this, m_stateMachine);
+        enemyShootState = new Enemy_ShootState(this, m_stateMachine);
     }
 
     private void Start()
     {
-        stateMachine.Initialize(enemyIdleState);
+        m_stateMachine.Initialize(enemyIdleState);
     }
 
     private void Update()
     {
-        stateMachine.UpdateActiveState();
+        m_stateMachine.UpdateActiveState();
     }
 
     public void Move()
     {
-        moveToPosition = player.transform.position;
-        moveToPosition.z = transform.position.z;
+        m_moveToPosition = m_player.transform.position;
+        m_moveToPosition.z = transform.position.z;
 
-        Vector3 moveToVector = moveToPosition - transform.position;
+        Vector3 moveToVector = m_moveToPosition - transform.position;
         moveToVector.Normalize();
 
         transform.Translate(moveToVector * moveSpeed * Time.deltaTime, Space.World);
     }
 
-    public Vector3 GetMoveToPosition() => moveToPosition;
+    public Vector3 GetMoveToPosition() => m_moveToPosition;
 
-    public void Shoot() => weapon.Shoot();
+    public void Shoot() => m_weapon.Shoot();
 }

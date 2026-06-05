@@ -10,8 +10,9 @@ public enum ParticleType
 
 public class Entity_VFX : MonoBehaviour
 {
-    private Coroutine onDamageCoroutine;
     private Material originalMat;
+
+    protected Coroutine onDamageCoroutine;
 
     [Header("On Damage Details")]
     [SerializeField] private float onDamageTime = 0.25f;
@@ -55,7 +56,7 @@ public class Entity_VFX : MonoBehaviour
         onDamageCoroutine = StartCoroutine(OnDamageCo());
     }
 
-    IEnumerator OnDamageCo()
+    protected IEnumerator OnDamageCo()
     {
         // Change materials to on damage material;
         foreach (var renderer in renderers)

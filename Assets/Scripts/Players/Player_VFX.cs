@@ -8,6 +8,9 @@ public class Player_VFX : Entity_VFX
 
         //may be change material process too?
 
-        //do red screen;
+        //add short immortality?
+
+        //do red screen only when hit;
+        //check hp and show warning according to hp level;
     }
 }

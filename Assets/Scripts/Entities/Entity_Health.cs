@@ -5,22 +5,25 @@ using UnityEngine.Splines;
 [RequireComponent(typeof(Rigidbody))]
 public class Entity_Health : MonoBehaviour, IDamagable
 {
-    private int currentHealth;
-    private List<ParticleCollisionEvent> collisionEvents = new List<ParticleCollisionEvent>();
+    protected int m_currentHealth;
 
-    protected Entity_VFX entityVFX;
-    protected Entity_SFX entitySFX;
+    protected Entity_VFX m_entityVFX;
+    protected Entity_SFX m_entitySFX;
 
     [Header("Health Details")]
-    [SerializeField] private int maxHealth;
+    [SerializeField] protected int maxHealth;
 
     private void Start()
     {
-        entityVFX = GetComponent<Entity_VFX>();
-        entitySFX = GetComponent<Entity_SFX>();
+        m_entityVFX = GetComponent<Entity_VFX>();
+        m_entitySFX = GetComponent<Entity_SFX>();
 
-        currentHealth = maxHealth;
+        m_currentHealth = maxHealth;
+
+        Initialize();
     }
+
+    protected virtual void Initialize() {}
 
     //private void OnParticleCollision(GameObject other)
     //{
@@ -55,26 +58,26 @@ public class Entity_Health : MonoBehaviour, IDamagable
         LostHealth();
 
         // Create effect and play sound effect at hit point (sort of)
-        entityVFX?.OnDamage(hitObject.transform.position);
-        entitySFX?.PlaySoundAtPoint(SoundType.Damage);
+        m_entityVFX?.OnDamage(hitObject.transform.position);
+        m_entitySFX?.PlaySoundAtPoint(SoundType.Damage);
 
         //Destroy(hitObject.gameObject);
     }
 
     private void LostHealth()
     {
-        if (currentHealth < 0)
+        if (m_currentHealth < 0)
             return;
 
-        currentHealth--;
+        m_currentHealth--;
 
-        if (currentHealth <= 0)
+        if (m_currentHealth <= 0)
             OnDead();
     }
 
     protected virtual void OnDead()
     {
-        entityVFX?.CreateEffect(ParticleType.Dead);
-        entitySFX?.PlaySoundAtPoint(SoundType.Destroyed);
+        m_entityVFX?.CreateEffect(ParticleType.Dead);
+        m_entitySFX?.PlaySoundAtPoint(SoundType.Destroyed);
     }
 }
