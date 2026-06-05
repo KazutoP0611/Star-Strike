@@ -26,10 +26,9 @@ public class EnemyShip : MonoBehaviour
     public float acceptableDistanceForShootingPlayer = 0.5f;
     public float waitForSecsForShootingPlayer = 0.25f;
     [Space]
-    [Tooltip("If \"false\", enemy will shoot bullets ShootAmountRange.x [times].")]
-    public bool useRandomAxisShooting = true;
+    //[Tooltip("If \"false\", enemy will shoot bullets ShootAmountRange.x [times].")]
+    //[SerializeField] private bool useRandomAxisShooting = true;
     public float waitUntilReturnToIdle = 0.25f;
-    public float shootInterval;
 
     private void Awake()
     {

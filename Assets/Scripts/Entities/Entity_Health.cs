@@ -50,7 +50,7 @@ public class Entity_Health : MonoBehaviour, IDamagable
     //    }
     //}
 
-    public void TakeDamage(Collider hitObject)
+    public virtual void TakeDamage(Collider hitObject)
     {
         LostHealth();
 

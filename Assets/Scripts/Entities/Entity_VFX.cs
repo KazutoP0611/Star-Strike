@@ -39,13 +39,13 @@ public class Entity_VFX : MonoBehaviour
 
     public void CreateEffect(ParticleType particleType, Vector3 hitPoint) => InstantiateEffect(particleType, hitPoint);
 
-    private void InstantiateEffect(ParticleType particleType, Vector3 hitPoint)
+    protected void InstantiateEffect(ParticleType particleType, Vector3 hitPoint)
     {
         GameObject explodeParticle = Instantiate(particleType == ParticleType.Damage ? onDamageParticle : onDestroyParticle, hitPoint, transform.localRotation);
         explodeParticle.transform.localScale = Vector3.one * (particleType == ParticleType.Damage ? damageParticleScale : destroyParticleScale);
     }
 
-    public void OnDamage(Vector3 hitPoint)
+    public virtual void OnDamage(Vector3 hitPoint)
     {
         CreateEffect(ParticleType.Damage, hitPoint);
 

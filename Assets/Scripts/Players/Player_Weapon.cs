@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerWeapon : Entity_Weapon
+public class Player_Weapon : Entity_Weapon
 {
     private bool isFiring;
     private float nextShootTime;
