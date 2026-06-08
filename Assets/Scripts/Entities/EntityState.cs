@@ -21,7 +21,6 @@ public abstract class EntityState
 
     public virtual void Enter()
     {
-        Debug.Log($"Enter {this} state.");
         //anim.SetBool(animBoolName, true);
         triggerCalled = false;
     }

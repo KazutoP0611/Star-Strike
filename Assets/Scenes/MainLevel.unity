@@ -1718,6 +1718,9 @@ MonoBehaviour:
   damageParticleScale: 0.45
   onDestroyParticle: {fileID: 6192724089161036641, guid: 59951331955d0f44c82e467953f32537, type: 3}
   destroyParticleScale: 1
+  damageScreenCanvas: {fileID: 1689207975}
+  damageScreenDuration: 0.1
+  fadeDuration: 0.5
 --- !u!1 &761825995
 GameObject:
   m_ObjectHideFlags: 0
@@ -8112,6 +8115,7 @@ GameObject:
   - component: {fileID: 1689207972}
   - component: {fileID: 1689207974}
   - component: {fileID: 1689207973}
+  - component: {fileID: 1689207975}
   m_Layer: 5
   m_Name: DamageScreen
   m_TagString: Untagged
@@ -8176,6 +8180,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1689207971}
   m_CullTransparentMesh: 1
+--- !u!225 &1689207975
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689207971}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1734940064
 GameObject:
   m_ObjectHideFlags: 0
