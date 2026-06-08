@@ -10,7 +10,7 @@ public class MainMenuSceneController : MonoBehaviour
         // Add fade screen
         // After fade, load new scene
 
-        SceneManager.LoadScene(gameLevelString);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(gameLevelString);
     }
 
     public void QuitGame()

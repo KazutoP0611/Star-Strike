@@ -25,4 +25,11 @@ public class Player_Health : Entity_Health
         float hpRatio = (float)m_currentHealth / maxHealth;
         hpBar.value = hpRatio;
     }
+
+    protected override void OnDead()
+    {
+        base.OnDead();
+
+
+    }
 }
