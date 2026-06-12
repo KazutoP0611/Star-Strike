@@ -3,11 +3,10 @@ using UnityEngine;
 public class EnemyShip : MonoBehaviour
 {
     private Vector3 m_moveToPosition;
-
-    private GameObject m_player;
+    private Enemy_Weapon m_weapon;
     private StateMachine m_stateMachine;
 
-    private Enemy_Weapon m_weapon;
+    public GameObject m_player { get; private set; }
 
     #region Enemy States
     public Enemy_IdleState enemyIdleState { get; private set; }
@@ -30,12 +29,11 @@ public class EnemyShip : MonoBehaviour
     //[SerializeField] private bool useRandomAxisShooting = true;
     public float waitUntilReturnToIdle = 0.25f;
 
-    private void Awake()
+    protected void Awake()
     {
-        m_player = GameObject.FindWithTag("Player");
-
         m_stateMachine = new StateMachine();
 
+        m_player = GameObject.FindWithTag("Player");
         m_weapon = GetComponent<Enemy_Weapon>();
 
         // Declare enemy's states;
@@ -44,12 +42,22 @@ public class EnemyShip : MonoBehaviour
         enemyShootState = new Enemy_ShootState(this, m_stateMachine);
     }
 
-    private void Start()
+    private void OnEnable()
+    {
+        Player.OnDead += PlayerOnDeadHandler;
+    }
+
+    private void OnDisable()
+    {
+        Player.OnDead -= PlayerOnDeadHandler;
+    }
+
+    protected void Start()
     {
         m_stateMachine.Initialize(enemyIdleState);
     }
 
-    private void Update()
+    protected void Update()
     {
         m_stateMachine.UpdateActiveState();
     }
@@ -68,4 +76,10 @@ public class EnemyShip : MonoBehaviour
     public Vector3 GetMoveToPosition() => m_moveToPosition;
 
     public void Shoot() => m_weapon.Shoot();
+
+    public void PlayerOnDeadHandler()
+    {
+        m_player = null;
+        m_stateMachine.ChangeState(enemyIdleState);
+    }
 }

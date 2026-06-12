@@ -12,12 +12,12 @@ public class Enemy_Health : Entity_Health
         //play some animations? something like that.
     }
 
-    protected override void OnDead()
+    protected override void Die()
     {
-        base.OnDead();
+        base.Die();
 
-        //Destroy(gameObject);
-        model.SetActive(false);
+        Destroy(gameObject);
+        //model.SetActive(false);
 
         CameraController.instance.CameraShake();
     }

@@ -30,7 +30,7 @@ public class PlayerCrosshair : MonoBehaviour
 
     private void Start()
     {
-        Cursor.visible = false;
+        UI_Manager.instance.SetActiveCursor(false);
 
         crosshairRectTransform.gameObject.SetActive(useSingleCrosshair);
         inCrosshairRectTransform.gameObject.SetActive(!useSingleCrosshair);

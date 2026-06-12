@@ -17,6 +17,9 @@ public class Enemy_MoveState : EnemyState
     {
         base.Update();
 
+        if (enemy.m_player == null)
+            return;
+
         enemy.Move();
 
         if (IsAligningWithPlayer()/*IsReadyToShoot()*/)

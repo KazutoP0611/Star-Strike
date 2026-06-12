@@ -13,7 +13,7 @@ public class Entity_Health : MonoBehaviour, IDamagable
     [Header("Health Details")]
     [SerializeField] protected int maxHealth;
 
-    private void Start()
+    protected virtual void Awake()
     {
         m_entityVFX = GetComponent<Entity_VFX>();
         m_entitySFX = GetComponent<Entity_SFX>();
@@ -72,10 +72,10 @@ public class Entity_Health : MonoBehaviour, IDamagable
         m_currentHealth--;
 
         if (m_currentHealth <= 0)
-            OnDead();
+            Die();
     }
 
-    protected virtual void OnDead()
+    protected virtual void Die()
     {
         m_entityVFX?.CreateEffect(ParticleType.Dead);
         m_entitySFX?.PlaySoundAtPoint(SoundType.Destroyed);

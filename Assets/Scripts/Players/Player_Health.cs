@@ -3,7 +3,16 @@ using UnityEngine.UI;
 
 public class Player_Health : Entity_Health
 {
+    private Player player;
+
     [SerializeField] private Slider hpBar;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        player = GetComponent<Player>();
+    }
 
     protected override void Initialize()
     {
@@ -12,12 +21,12 @@ public class Player_Health : Entity_Health
 
     public override void TakeDamage(Collider hitObject)
     {
+        //camera shake
+        CameraController.instance.CameraShake();
+
         base.TakeDamage(hitObject);
 
         UpdateHealthBar();
-
-        //camera shake
-        CameraController.instance.CameraShake();
     }
 
     private void UpdateHealthBar()
@@ -26,10 +35,10 @@ public class Player_Health : Entity_Health
         hpBar.value = hpRatio;
     }
 
-    protected override void OnDead()
+    protected override void Die()
     {
-        base.OnDead();
+        base.Die();
 
-
+        player.PlayerStartDying();
     }
 }

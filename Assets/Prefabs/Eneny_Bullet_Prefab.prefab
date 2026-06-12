@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entity_Bullet
   collider: {fileID: 7806411175940931477}
-  bulletSpeed: 7
+  bulletSpeed: 4
   destroyInSecs: 3
 --- !u!65 &7806411175940931477
 BoxCollider:
