@@ -100445,6 +100445,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameSceneManager
       objectReference: {fileID: 0}
+    - target: {fileID: 958511179576948452, guid: 805970a530471b04581ef8137e787dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1430429784646374399, guid: 805970a530471b04581ef8137e787dfd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -146788,7 +146792,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5678017796411410500, guid: 9c27cfccc8eaa6a49970ddbee11c0928, type: 3}
       propertyPath: m_Name
-      value: Canvas
+      value: UI_Manager
       objectReference: {fileID: 0}
     - target: {fileID: 8556491235428331674, guid: 9c27cfccc8eaa6a49970ddbee11c0928, type: 3}
       propertyPath: m_AnchorMax.x

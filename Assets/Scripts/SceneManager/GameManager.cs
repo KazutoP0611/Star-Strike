@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
         UI_FadeScreen fadeScreen = GetFadeScreen();
         fadeScreen.FadeIn();
 
+        //FadeUI.instance.FadeIn();
+
         yield return fadeScreen.fadeCoroutine;
 
         SceneManager.LoadScene(sceneName);

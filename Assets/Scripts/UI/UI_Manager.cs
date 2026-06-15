@@ -16,6 +16,8 @@ public class UI_Manager : MonoBehaviour
         else
             Destroy(gameObject);
 
+        //DontDestroyOnLoad(gameObject);
+
         ui_fadeScreen = GetComponentInChildren<UI_FadeScreen>(true);
         ui_gameOverScreen = GetComponentInChildren<UI_GameOverScreen>(true);
     }
@@ -37,8 +39,6 @@ public class UI_Manager : MonoBehaviour
 
         targetScreen.SetActive(true);
     }
-
-   
 
     public void SetActiveGameOverScreen(bool active)
     {

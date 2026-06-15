@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,9 +17,7 @@ public class UI_FadeScreen : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log($"{canvasGroup.alpha}");
-        FadeOut();
-        //Debug.Log($"{SceneManager.GetActiveScene().name}");
+        FadeOut(1.0f);
     }
 
     public void FadeIn(float fadeInSecs = 0.5f)
@@ -49,6 +48,7 @@ public class UI_FadeScreen : MonoBehaviour
         while (elapsedTime < fadeInSecs)
         {
             elapsedTime += Time.deltaTime;
+            Debug.Log($"time {elapsedTime}");
             float alpha = Mathf.Lerp(startValue, targetValue, elapsedTime / fadeInSecs);
             canvasGroup.alpha = alpha;
 
