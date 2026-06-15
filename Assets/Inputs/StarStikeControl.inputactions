@@ -34,6 +34,24 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "BoostNew",
+                    "type": "Button",
+                    "id": "eea71a8f-799f-4a91-9f71-6afa9798ce13",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Break",
+                    "type": "Button",
+                    "id": "9718620a-ece1-42c8-9ffc-499ef3c772df",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Fire",
                     "type": "Button",
                     "id": "deb8a97c-0673-448c-b141-c441d3a30ac0",
@@ -58,15 +76,6 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Press(behavior=2)",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Break",
-                    "type": "Button",
-                    "id": "9718620a-ece1-42c8-9ffc-499ef3c772df",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -107,7 +116,7 @@
                 {
                     "name": "",
                     "id": "6b01c01a-fb9f-411a-a91f-964191341e72",
-                    "path": "<Keyboard>/leftShift",
+                    "path": "<Keyboard>/leftAlt",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -140,11 +149,22 @@
                 {
                     "name": "",
                     "id": "2efa4df5-ee8b-4bd7-a0fd-2e7b84240f9a",
-                    "path": "",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Break",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "189670ab-acde-4cdb-b479-4e7985d01c5c",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BoostNew",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -120,6 +120,24 @@ public partial class @StarStikeControl: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""BoostNew"",
+                    ""type"": ""Button"",
+                    ""id"": ""eea71a8f-799f-4a91-9f71-6afa9798ce13"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Break"",
+                    ""type"": ""Button"",
+                    ""id"": ""9718620a-ece1-42c8-9ffc-499ef3c772df"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Fire"",
                     ""type"": ""Button"",
                     ""id"": ""deb8a97c-0673-448c-b141-c441d3a30ac0"",
@@ -144,15 +162,6 @@ public partial class @StarStikeControl: IInputActionCollection2, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=2)"",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Break"",
-                    ""type"": ""Button"",
-                    ""id"": ""9718620a-ece1-42c8-9ffc-499ef3c772df"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
                     ""initialStateCheck"": false
                 }
             ],
@@ -193,7 +202,7 @@ public partial class @StarStikeControl: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6b01c01a-fb9f-411a-a91f-964191341e72"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""path"": ""<Keyboard>/leftAlt"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -226,11 +235,22 @@ public partial class @StarStikeControl: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""2efa4df5-ee8b-4bd7-a0fd-2e7b84240f9a"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Break"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""189670ab-acde-4cdb-b479-4e7985d01c5c"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BoostNew"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -244,10 +264,11 @@ public partial class @StarStikeControl: IInputActionCollection2, IDisposable
         m_Fighter_MouseMove = m_Fighter.FindAction("MouseMove", throwIfNotFound: true);
         m_Fighter_Roll = m_Fighter.FindAction("Roll", throwIfNotFound: true);
         m_Fighter_Boost = m_Fighter.FindAction("Boost", throwIfNotFound: true);
+        m_Fighter_BoostNew = m_Fighter.FindAction("BoostNew", throwIfNotFound: true);
+        m_Fighter_Break = m_Fighter.FindAction("Break", throwIfNotFound: true);
         m_Fighter_Fire = m_Fighter.FindAction("Fire", throwIfNotFound: true);
         m_Fighter_TurnRight = m_Fighter.FindAction("TurnRight", throwIfNotFound: true);
         m_Fighter_TurnLeft = m_Fighter.FindAction("TurnLeft", throwIfNotFound: true);
-        m_Fighter_Break = m_Fighter.FindAction("Break", throwIfNotFound: true);
     }
 
     ~@StarStikeControl()
@@ -331,10 +352,11 @@ public partial class @StarStikeControl: IInputActionCollection2, IDisposable
     private readonly InputAction m_Fighter_MouseMove;
     private readonly InputAction m_Fighter_Roll;
     private readonly InputAction m_Fighter_Boost;
+    private readonly InputAction m_Fighter_BoostNew;
+    private readonly InputAction m_Fighter_Break;
     private readonly InputAction m_Fighter_Fire;
     private readonly InputAction m_Fighter_TurnRight;
     private readonly InputAction m_Fighter_TurnLeft;
-    private readonly InputAction m_Fighter_Break;
     /// <summary>
     /// Provides access to input actions defined in input action map "Fighter".
     /// </summary>
@@ -359,6 +381,14 @@ public partial class @StarStikeControl: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Boost => m_Wrapper.m_Fighter_Boost;
         /// <summary>
+        /// Provides access to the underlying input action "Fighter/BoostNew".
+        /// </summary>
+        public InputAction @BoostNew => m_Wrapper.m_Fighter_BoostNew;
+        /// <summary>
+        /// Provides access to the underlying input action "Fighter/Break".
+        /// </summary>
+        public InputAction @Break => m_Wrapper.m_Fighter_Break;
+        /// <summary>
         /// Provides access to the underlying input action "Fighter/Fire".
         /// </summary>
         public InputAction @Fire => m_Wrapper.m_Fighter_Fire;
@@ -370,10 +400,6 @@ public partial class @StarStikeControl: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Fighter/TurnLeft".
         /// </summary>
         public InputAction @TurnLeft => m_Wrapper.m_Fighter_TurnLeft;
-        /// <summary>
-        /// Provides access to the underlying input action "Fighter/Break".
-        /// </summary>
-        public InputAction @Break => m_Wrapper.m_Fighter_Break;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -409,6 +435,12 @@ public partial class @StarStikeControl: IInputActionCollection2, IDisposable
             @Boost.started += instance.OnBoost;
             @Boost.performed += instance.OnBoost;
             @Boost.canceled += instance.OnBoost;
+            @BoostNew.started += instance.OnBoostNew;
+            @BoostNew.performed += instance.OnBoostNew;
+            @BoostNew.canceled += instance.OnBoostNew;
+            @Break.started += instance.OnBreak;
+            @Break.performed += instance.OnBreak;
+            @Break.canceled += instance.OnBreak;
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
@@ -418,9 +450,6 @@ public partial class @StarStikeControl: IInputActionCollection2, IDisposable
             @TurnLeft.started += instance.OnTurnLeft;
             @TurnLeft.performed += instance.OnTurnLeft;
             @TurnLeft.canceled += instance.OnTurnLeft;
-            @Break.started += instance.OnBreak;
-            @Break.performed += instance.OnBreak;
-            @Break.canceled += instance.OnBreak;
         }
 
         /// <summary>
@@ -441,6 +470,12 @@ public partial class @StarStikeControl: IInputActionCollection2, IDisposable
             @Boost.started -= instance.OnBoost;
             @Boost.performed -= instance.OnBoost;
             @Boost.canceled -= instance.OnBoost;
+            @BoostNew.started -= instance.OnBoostNew;
+            @BoostNew.performed -= instance.OnBoostNew;
+            @BoostNew.canceled -= instance.OnBoostNew;
+            @Break.started -= instance.OnBreak;
+            @Break.performed -= instance.OnBreak;
+            @Break.canceled -= instance.OnBreak;
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
@@ -450,9 +485,6 @@ public partial class @StarStikeControl: IInputActionCollection2, IDisposable
             @TurnLeft.started -= instance.OnTurnLeft;
             @TurnLeft.performed -= instance.OnTurnLeft;
             @TurnLeft.canceled -= instance.OnTurnLeft;
-            @Break.started -= instance.OnBreak;
-            @Break.performed -= instance.OnBreak;
-            @Break.canceled -= instance.OnBreak;
         }
 
         /// <summary>
@@ -515,6 +547,20 @@ public partial class @StarStikeControl: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnBoost(InputAction.CallbackContext context);
         /// <summary>
+        /// Method invoked when associated input action "BoostNew" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnBoostNew(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Break" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnBreak(InputAction.CallbackContext context);
+        /// <summary>
         /// Method invoked when associated input action "Fire" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -535,12 +581,5 @@ public partial class @StarStikeControl: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnTurnLeft(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Break" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnBreak(InputAction.CallbackContext context);
     }
 }

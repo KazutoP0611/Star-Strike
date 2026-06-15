@@ -48,7 +48,6 @@ public class UI_FadeScreen : MonoBehaviour
         while (elapsedTime < fadeInSecs)
         {
             elapsedTime += Time.deltaTime;
-            Debug.Log($"time {elapsedTime}");
             float alpha = Mathf.Lerp(startValue, targetValue, elapsedTime / fadeInSecs);
             canvasGroup.alpha = alpha;
 

@@ -9,7 +9,7 @@ public class Player_Weapon : Entity_Weapon
 
     #region Player Input
     // Get "Fire" input from InputAction
-    public void OnFire(InputValue value) => FiringHandler(value.isPressed);
+    public void OnFire(InputValue value) => isFiring = value.isPressed;
     #endregion
 
     [Header("General Details")]
@@ -48,11 +48,5 @@ public class Player_Weapon : Entity_Weapon
     private void CalculateShootInterval()
     {
         nextShootTime = Time.time + shootInterval;
-    }
-
-    // Enable firing (laser) particle
-    private void FiringHandler(bool fire)
-    {
-        isFiring = fire;
     }
 }
