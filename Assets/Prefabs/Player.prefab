@@ -45,10 +45,10 @@ GameObject:
   - component: {fileID: 6266913758738522410}
   - component: {fileID: 1385626272989807625}
   - component: {fileID: 7632269502934130214}
-  - component: {fileID: 8858971373105486100}
   - component: {fileID: 8819017408542840972}
   - component: {fileID: 1392568866539394275}
   - component: {fileID: 7410394160846933140}
+  - component: {fileID: 4758874651802499393}
   m_Layer: 0
   m_Name: PlayerRig
   m_TagString: Untagged
@@ -86,8 +86,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeapon
   bulletPrefab: {fileID: 8351966521501381168, guid: bda48613753fe1540ab406e3b0ebcc50, type: 3}
   shootingSound: {fileID: 8300000, guid: fe71f275dd0ffd942baeed8459efd688, type: 3}
-  shootInterval: 0.15
   shootPoint: {fileID: 4164513450063872343}
+  singleShoot: 1
+  shootInterval: 0.15
   shootPoints:
   - {fileID: 4352896745764274056}
   - {fileID: 4132764371131889493}
@@ -109,6 +110,7 @@ MonoBehaviour:
   horizontalLimit: {x: -2, y: 2}
   verticalLimit: {x: -1.3, y: 0.65}
   useSingleCrosshair: 0
+  shootingPoint: {fileID: 4164513450063872343}
   crosshairRectTransform: {fileID: 0}
   inCrosshairDistance: 8
   inCrosshairRectTransform: {fileID: 0}
@@ -142,26 +144,6 @@ MonoBehaviour:
   moveWhileRollSpeed: 10
   moveWhileRollDistance: 0.8
   rollingCooldownTime: 1
---- !u!114 &8858971373105486100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1106186133751927957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a943d413cc9133d4198d317a6cb6e20a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerBoost
-  boosterView: {fileID: 0}
-  levelGenerator: {fileID: 0}
-  maxBoost: 2
-  speedUpMultiplier: 5
-  boostCooldownTime: 0.5
-  boostingDuration: 2
-  boostRechargeTime: 2.5
-  boostingPrefab: {fileID: 7991874693327534838}
 --- !u!114 &8819017408542840972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,6 +222,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4758874651802499393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106186133751927957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac41b9b3c1ee8464aa04947f140e4832, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerNewBoost
+  boostBar: {fileID: 0}
+  levelGenerator: {fileID: 0}
+  maxBoost: 10
+  speedUpMultiplier: 3.5
+  slowDownMultiplier: 0.5
+  boostConsumeMultiplier: 3.5
+  boostRechargeMultiplier: 2
 --- !u!1 &3661990963504164374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1829,11 +1830,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed56e1b2d1590bc4e8c3c9aac86010f0, type: 3}
---- !u!1 &7991874693327534838 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1265835623317972871, guid: ed56e1b2d1590bc4e8c3c9aac86010f0, type: 3}
-  m_PrefabInstance: {fileID: 9185638422207765873}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7991874693327534839 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1265835623317972870, guid: ed56e1b2d1590bc4e8c3c9aac86010f0, type: 3}

@@ -21,6 +21,7 @@ public class PlayerCrosshair : MonoBehaviour
 
     [Header("Crosshair Details")]
     [SerializeField] private bool useSingleCrosshair = false;
+    [SerializeField] private Transform shootingPoint;
     [SerializeField] private RectTransform crosshairRectTransform;
     [Space]
     [SerializeField] private float inCrosshairDistance;
@@ -62,13 +63,13 @@ public class PlayerCrosshair : MonoBehaviour
     private void DoubleCrosshairTransformHandler()
     {
         // Inside crosshair movements
-        Vector3 inCrosshairPosition = transform.position + transform.forward * inCrosshairDistance;
-        Vector3 inCrosshairWorldPosition = transform.parent.TransformPoint(inCrosshairPosition);
+        Vector3 inCrosshairPosition = shootingPoint.position + shootingPoint.forward * inCrosshairDistance;
+        Vector3 inCrosshairWorldPosition = shootingPoint.parent.TransformPoint(inCrosshairPosition);
         inCrosshairRectTransform.position = Camera.main.WorldToScreenPoint(inCrosshairPosition);
 
         // Outside crosshair movements
-        Vector3 outCrosshairPosition = transform.position + transform.forward * outCrosshairDistance;
-        Vector3 outCrosshairWorldPosition = transform.parent.TransformPoint(outCrosshairPosition);
+        Vector3 outCrosshairPosition = shootingPoint.position + shootingPoint.forward * outCrosshairDistance;
+        Vector3 outCrosshairWorldPosition = shootingPoint.parent.TransformPoint(outCrosshairPosition);
         outCrosshairRectTransform.position = Camera.main.WorldToScreenPoint(outCrosshairPosition);
     }
 

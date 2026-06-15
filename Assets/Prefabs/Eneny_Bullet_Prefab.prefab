@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4002044036949047142}
   - component: {fileID: 7806411175940931477}
   - component: {fileID: 6852958604638994248}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Eneny_Bullet_Prefab
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c25822c63ddce141862fb2fe5dfd955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entity_Bullet
-  collider: {fileID: 7806411175940931477}
+  col: {fileID: 7806411175940931477}
   bulletSpeed: 4
   destroyInSecs: 3
 --- !u!65 &7806411175940931477

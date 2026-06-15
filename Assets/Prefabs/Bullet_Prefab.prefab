@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 3179876864283528303}
   - component: {fileID: 8148285989471912336}
   - component: {fileID: 2684769787705830180}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bullet_Prefab
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -251,7 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c25822c63ddce141862fb2fe5dfd955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entity_Bullet
-  collider: {fileID: 8148285989471912336}
+  col: {fileID: 8148285989471912336}
   bulletSpeed: 150
   destroyInSecs: 3
 --- !u!65 &8148285989471912336

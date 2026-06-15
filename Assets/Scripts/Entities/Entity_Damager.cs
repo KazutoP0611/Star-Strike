@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Entity_Damager : MonoBehaviour
 {
-    [SerializeField] protected Collider collider;
+    [SerializeField] protected Collider col;
+    [SerializeField] protected bool destroyAfterCollided = true;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -12,8 +13,9 @@ public class Entity_Damager : MonoBehaviour
     protected void DoDamage(Collider other)
     {
         IDamagable damagable = other.GetComponentInParent<IDamagable>();
-        damagable?.TakeDamage(collider);
+        damagable?.TakeDamage(col);
 
-        Destroy(gameObject);
+        if (destroyAfterCollided)
+            Destroy(gameObject);
     }
 }

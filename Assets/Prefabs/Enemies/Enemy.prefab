@@ -19458,6 +19458,7 @@ GameObject:
   - component: {fileID: 7651931657054383061}
   - component: {fileID: 4392370861284682322}
   - component: {fileID: 3176785988824011380}
+  - component: {fileID: 6682317527087854025}
   - component: {fileID: 3319091305772254626}
   m_Layer: 0
   m_Name: Enemy
@@ -19530,6 +19531,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Entity_SFX
   onDamageSound: {fileID: 8300000, guid: 43228769e06901141bd1cef652e49a74, type: 3}
   onDestroyedSound: {fileID: 8300000, guid: 8f9c04b88101c2649abfc520170a55db, type: 3}
+--- !u!114 &6682317527087854025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3854350474580584527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77a5ce763add1c34087c88affe055a70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entity_Damager
+  col: {fileID: 5451103526560180785}
 --- !u!54 &3319091305772254626
 Rigidbody:
   m_ObjectHideFlags: 0

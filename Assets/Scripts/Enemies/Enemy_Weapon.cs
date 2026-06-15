@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class Enemy_Weapon : Entity_Weapon
 {
-    //public GameObject bullet { get; private set; }
+    [SerializeField] private bool shoot = true;
 
     public void Shoot()
     {
+        if (shoot == false)
+            return;
+
         Shoot(shootPoint);
     }
 

@@ -1,151 +1,117 @@
-using System.Collections;
-using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
-using UnityEngine.Splines;
+using System.Collections;
 
 public class PlayerBoost : MonoBehaviour
 {
-    private float time = 0;
-    private int currentBoostCount;
+    private float currentBoost = 0;
 
     //private SplineAnimate splineAnimate;
-    private bool boosting = false;
+    private bool changingSpeed = false;
     private bool onCooldown = false;
 
     private Coroutine boostCooldownCoroutine;
-    private Coroutine rechargeBoostCoroutine; // don't have any chance to use it yet;
 
     [Header("Controller & View Details")]
-    [SerializeField] private BoosterView boosterView;
+    [SerializeField] private Slider boostBar;
     [SerializeField] private LevelGenerator levelGenerator;
 
     [Header("Boost Details")]
-    [Tooltip("How many time you can boost.")]
-    [SerializeField] private int maxBoost = 2;
-    [Space]
+    [SerializeField] private float maxBoost = 10.0f;
     [SerializeField] private float speedUpMultiplier = 5.0f;
-    [SerializeField] private float boostCooldownTime = 0.5f;
-    [SerializeField] private float boostingDuration = 2.0f;
-    [Space]
-    [Tooltip("Penalty waiting time if player used up all of boost. (Player has to wait longer than usual cool down time.)")]
-    [SerializeField]
-    private float boostRechargeTime = 2.5f;
-    [Space]
-    [SerializeField] private GameObject boostingPrefab;
+    [SerializeField] private float slowDownMultiplier = 0.5f;
+
+    [Header("Boost Multiplier Details")]
+    [SerializeField] private float boostConsumeMultiplier = 3.5f;
+    [SerializeField] private float boostRechargeMultiplier = 2.0f;
 
     #region Player Input
-    public void OnBoost(InputValue value) => BoostHandler();
+    public void OnBoostNew(InputValue value) => OnBoostHandler(value.isPressed, true);
+    public void OnBreak(InputValue value) => OnBoostHandler(value.isPressed, false);
     #endregion
-
-    private void BoostHandler()
-    {
-        if (onCooldown)
-            return;
-
-        if (boosting)
-            return;
-
-        if (currentBoostCount <= 0)
-            return;
-
-        // Reduce booster count, update booster view
-        currentBoostCount--;
-        boosterView.SetBoostIndicators(currentBoostCount);
-
-        // Set camera to zoom out
-        //cameraController.CameraToBoostPosition();
-        CameraController.instance.CameraToBoostPosition();
-
-        // TODO : may be add some truster effect a little animation, like a little blib, a litte feedback to feel that fighter is accelerating;
-
-        // Start boost sequence
-        boosting = true;
-        boostingPrefab.SetActive(true);
-
-        // Speed up level's movement speed;
-        levelGenerator.SetLevelMovementSpeed(speedUpMultiplier);
-    }
 
     private void Start()
     {
-        //splineAnimate = GetComponentInParent<SplineAnimate>();
-
-        currentBoostCount = maxBoost;
-        boosterView.Intialize(maxBoost);
+        currentBoost = maxBoost;
+        UpdateBoostBar();
     }
 
     private void Update()
     {
-        if (onCooldown)
-            return;
-
-        if (!boosting)
+        if (changingSpeed == false)
             return;
 
         Boosting();
     }
 
-    private void Boosting()
+    private void OnBoostHandler(bool isSpeeding, bool isBoosting)
     {
-        time += Time.deltaTime;
+        if (onCooldown)
+            return;
 
-        // Check for boosting duration
-        // If "true", stop boosting and get to cooldown
-        if (time >= boostingDuration)
+        changingSpeed = isSpeeding;
+        
+        if (isSpeeding == true)
         {
-            // Set camera to normal position
-            //cameraController.CameraToNormalPosition();
-            CameraController.instance.CameraToNormalPosition();
-
-            // Reset boost variable values;
-            time = 0;
-            boosting = false;
-            boostingPrefab.SetActive(false);
-
-            // Reverse level's movement speed;
-            levelGenerator.SetLevelMovementSpeed(1.0f);
-
-            // Start cooldown coroutine;
-            StartBoostCooldownCo();
+            //set level speed up
+            // Speed up level's movement speed;
+            float speedMultiplier = isBoosting ? speedUpMultiplier : slowDownMultiplier;
+            levelGenerator.SetLevelMovementSpeed(speedMultiplier);
+        }
+        else
+        {
+            StartBoostCooldown();
         }
     }
 
-    #region Cooldown Coroutine
-    private void StartBoostCooldownCo()
+    private void StartBoostCooldown()
     {
-        if (boostCooldownCoroutine != null)
-            StopCoroutine(boostCooldownCoroutine);
+        changingSpeed = false;
 
-        boostCooldownCoroutine = StartCoroutine(BoostCooldownCoroutine());
+        //set level speed down
+        levelGenerator.SetLevelMovementSpeed(1.0f);
+
+        //cooldown
+        CooldownBoost();
     }
 
-    IEnumerator BoostCooldownCoroutine()
+    private void Boosting()
+    {
+        currentBoost -= (Time.deltaTime * boostConsumeMultiplier);
+        UpdateBoostBar();
+
+        if (currentBoost <= 0)
+            StartBoostCooldown();
+    }
+
+    private void UpdateBoostBar()
+    {
+        float fill = Mathf.Clamp01(currentBoost / maxBoost);
+        boostBar.value = fill;
+    }
+
+    private void CooldownBoost()
     {
         onCooldown = true;
 
-        yield return new WaitForSeconds(boostCooldownTime);
+        if (boostCooldownCoroutine != null)
+            StopCoroutine(boostCooldownCoroutine);
 
+        boostCooldownCoroutine = StartCoroutine(CooldownCo());
+    }
+
+    private IEnumerator CooldownCo()
+    {
+        while (currentBoost < maxBoost)
+        {
+            currentBoost += (Time.deltaTime * boostRechargeMultiplier);
+            UpdateBoostBar();
+
+            yield return null;
+        }
+
+        currentBoost = maxBoost;
         onCooldown = false;
-
-        if (currentBoostCount < maxBoost)
-            StartRechargeBoostCo();
     }
-    #endregion
-
-    #region Boost-Recharge Coroutine
-    private void StartRechargeBoostCo()
-    {
-        // Start recharge
-        StartCoroutine(RechargeCoroutine());
-    }
-
-    IEnumerator RechargeCoroutine()
-    {
-        yield return new WaitForSeconds(boostRechargeTime);
-
-        currentBoostCount++;
-        boosterView.SetBoostIndicators(currentBoostCount);
-    }
-    #endregion
 }

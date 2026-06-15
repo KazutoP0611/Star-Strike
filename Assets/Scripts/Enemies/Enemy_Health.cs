@@ -16,9 +16,8 @@ public class Enemy_Health : Entity_Health
     {
         base.Die();
 
-        Destroy(gameObject);
-        //model.SetActive(false);
-
         CameraController.instance.CameraShake();
+        //Debug.LogWarning($"Enemy destroyed");
+        Destroy(gameObject);
     }
 }
