@@ -2,7 +2,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Level Setup/Level Sequence Data", fileName = "Level Sequence - ")]
+[CreateAssetMenu(menuName = "StarStrike Setup/Level Setup/Level Sequence Data", fileName = "Level Sequence - ")]
 public class LevelSequence_SO : ScriptableObject
 {
     [SerializeField] private int normalChunkBeforeMainChunk = 12;

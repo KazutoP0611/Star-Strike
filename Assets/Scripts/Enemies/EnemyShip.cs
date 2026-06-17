@@ -1,12 +1,8 @@
 using UnityEngine;
 
-public class EnemyShip : MonoBehaviour
+public class EnemyShip : Enemy
 {
-    private Vector3 m_moveToPosition;
-    private Enemy_Weapon m_weapon;
-    private StateMachine m_stateMachine;
-
-    public GameObject m_player { get; private set; }
+    public Enemy_Weapon m_weapon;
 
     #region Enemy States
     public Enemy_IdleState enemyIdleState { get; private set; }
@@ -19,11 +15,12 @@ public class EnemyShip : MonoBehaviour
     [Tooltip("If \"false\", enemy will wait in IdleTimeRange.x [seconds] until start moving.")]
     public bool useRandomIdleTime = true;
     public Vector2 idleTimeRange;
+    public float waitForSecsForShootingPlayer = 0.25f;
     [Space]
     // Movement Details
     [SerializeField] private float moveSpeed = 5.0f;
     public float acceptableDistanceForShootingPlayer = 0.5f;
-    public float waitForSecsForShootingPlayer = 0.25f;
+    
     [Space]
     //[Tooltip("If \"false\", enemy will shoot bullets ShootAmountRange.x [times].")]
     //[SerializeField] private bool useRandomAxisShooting = true;
@@ -42,27 +39,22 @@ public class EnemyShip : MonoBehaviour
         enemyShootState = new Enemy_ShootState(this, m_stateMachine);
     }
 
-    private void OnEnable()
-    {
-        Player.OnDead += PlayerOnDeadHandler;
-    }
-
-    private void OnDisable()
-    {
-        Player.OnDead -= PlayerOnDeadHandler;
-    }
-
     protected void Start()
     {
         m_stateMachine.Initialize(enemyIdleState);
     }
 
-    protected void Update()
+    protected override void Update()
     {
+        base.Update();
+
+        if (isDead)
+            return;
+
         m_stateMachine.UpdateActiveState();
     }
 
-    public void Move()
+    public override void Move()
     {
         m_moveToPosition = m_player.transform.position;
         m_moveToPosition.z = transform.position.z;
@@ -77,9 +69,13 @@ public class EnemyShip : MonoBehaviour
 
     public void Shoot() => m_weapon.Shoot();
 
-    public void PlayerOnDeadHandler()
+    public void Died() => isDead = true;
+
+    protected override void PlayerOnDeadHandler()
     {
-        m_player = null;
+        base.PlayerOnDeadHandler();
+
+        //m_player = null;
         m_stateMachine.ChangeState(enemyIdleState);
     }
 }
