@@ -7,6 +7,7 @@ public class UI_Dialogue : MonoBehaviour
 {
     private Coroutine textTypingCoroutine;
     private string fullTextToShow;
+    private bool isPlayingDialogue = false;
 
     [Header("Display Details")]
     [SerializeField] private Image speakerPortrait;
@@ -25,10 +26,10 @@ public class UI_Dialogue : MonoBehaviour
     }
     private void StartTypeTextCoroutine(DialogueLineSO line)
     {
-        if (textTypingCoroutine != null)
+        if (isPlayingDialogue)
         {
             FinishDialogueTextRightNow();
-            textTypingCoroutine = null;
+            //textTypingCoroutine = null;
 
             return;
             //StopCoroutine(textTypingCoroutine);
@@ -42,10 +43,12 @@ public class UI_Dialogue : MonoBehaviour
     {
         StopCoroutine(textTypingCoroutine);
         dialogueText.text = fullTextToShow;
+        isPlayingDialogue = false;
     }
 
     private IEnumerator TypeTextCo(string text)
     {
+        isPlayingDialogue = true;
         dialogueText.text = "";
 
         foreach (char letter in text)
@@ -53,5 +56,7 @@ public class UI_Dialogue : MonoBehaviour
             dialogueText.text = dialogueText.text + letter;
             yield return new WaitForSeconds(typingSpeedDelay);
         }
+
+        isPlayingDialogue = false;
     }
 }

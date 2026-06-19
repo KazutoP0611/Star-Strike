@@ -40,6 +40,7 @@ public class UI_Manager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.H))
         {
+            Debug.LogWarning($"Open Dialogue Line.");
             OpenDialogueUI(lines);
         }
     }
