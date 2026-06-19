@@ -10,7 +10,7 @@ public class Enemy_IdleState : EnemyState
     {
         base.Enter();
 
-        stateTimer = enemy.useRandomIdleTime ? Random.Range((int)enemy.idleTimeRange.x, (int)enemy.idleTimeRange.y) : (int)enemy.idleTimeRange.x;
+        stateTimer = enemy.useRandomIdleTime ? Random.Range(enemy.idleTimeRange.x, enemy.idleTimeRange.y) : enemy.idleTimeRange.x;
     }
 
     public override void Update()

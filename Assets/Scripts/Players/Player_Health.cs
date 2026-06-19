@@ -14,7 +14,12 @@ public class Player_Health : Entity_Health
         player = GetComponent<Player>();
     }
 
-    protected override void Initialize()
+    private void Start()
+    {
+        Initialize();
+    }
+
+    protected /*override*/ void Initialize()
     {
         UpdateHealthBar();
     }

@@ -5,8 +5,8 @@ public class EnemyShip : Enemy
     public Enemy_Weapon m_weapon;
 
     #region Enemy States
-    public Enemy_IdleState enemyIdleState { get; private set; }
-    public Enemy_MoveState enemyMoveState { get; private set; }
+    public Enemy_IdleState enemyIdleState   { get; private set; }
+    public Enemy_MoveState enemyMoveState   { get; private set; }
     public Enemy_ShootState enemyShootState { get; private set; }
     #endregion
 
@@ -18,7 +18,6 @@ public class EnemyShip : Enemy
     public float waitForSecsForShootingPlayer = 0.25f;
     [Space]
     // Movement Details
-    [SerializeField] private float moveSpeed = 5.0f;
     public float acceptableDistanceForShootingPlayer = 0.5f;
     
     [Space]
@@ -59,11 +58,7 @@ public class EnemyShip : Enemy
         transform.Translate(moveToVector * moveSpeed * Time.deltaTime, Space.World);
     }
 
-    public Vector3 GetMoveToPosition() => m_moveToPosition;
-
     public void Shoot() => m_weapon.Shoot();
-
-    //public void Died() => isDead = true;
 
     protected override void PlayerOnDeadHandler()
     {

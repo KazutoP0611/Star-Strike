@@ -19,37 +19,11 @@ public class Entity_Health : MonoBehaviour, IDamagable
         m_entitySFX = GetComponent<Entity_SFX>();
 
         m_currentHealth = maxHealth;
+
+        //Initialize();
     }
 
-    protected virtual void Initialize() { }
-
-    //private void OnParticleCollision(GameObject other)
-    //{
-    //    // Get Particle Collision, but this can cause a lot of performance.
-    //    // But it will be called only hit event, so I guess right now it is ok.
-    //    ParticleSystem ps = other.GetComponent<ParticleSystem>();
-    //    ps.GetCollisionEvents(gameObject, collisionEvents);
-
-    //    for (int i = 0; i < collisionEvents.Count; i++)
-    //    {
-    //        Vector3 hitPosition = collisionEvents[i].intersection;
-
-    //        // Play VFX and SFX
-    //        entityVFX?.OnDamage(hitPosition);
-    //        entitySFX?.PlaySoundAtPoint(SoundType.Damage);
-    //    }
-    //    //---------------------------------------------------------------------
-
-    //    LostHealth();
-    //}
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.CompareTag("Bullet"))
-    //    {
-    //        TakeDamage();
-    //    }
-    //}
+    //protected virtual void Initialize() { }
 
     public virtual void TakeDamage(Collider hitObject)
     {

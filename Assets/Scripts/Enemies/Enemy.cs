@@ -6,10 +6,9 @@ public class Enemy : MonoBehaviour
     protected Vector3 m_moveToPosition;
     protected bool isDead;
 
-    [Header("Tempolarity Variables")]
-    
-
     public GameObject m_player { get; protected set; }
+
+    [SerializeField] protected float moveSpeed = 5.0f;
 
     protected virtual void Awake()
     {
@@ -42,4 +41,6 @@ public class Enemy : MonoBehaviour
     public void Died() => isDead = true;
 
     protected virtual void PlayerOnDeadHandler() {}
+
+    public Vector3 GetMoveToPosition() => m_moveToPosition;
 }
