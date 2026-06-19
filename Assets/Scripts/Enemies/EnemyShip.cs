@@ -26,11 +26,10 @@ public class EnemyShip : Enemy
     //[SerializeField] private bool useRandomAxisShooting = true;
     public float waitUntilReturnToIdle = 0.25f;
 
-    protected void Awake()
+    protected override void Awake()
     {
-        m_stateMachine = new StateMachine();
+        base.Awake();
 
-        m_player = GameObject.FindWithTag("Player");
         m_weapon = GetComponent<Enemy_Weapon>();
 
         // Declare enemy's states;
@@ -47,11 +46,6 @@ public class EnemyShip : Enemy
     protected override void Update()
     {
         base.Update();
-
-        if (isDead)
-            return;
-
-        m_stateMachine.UpdateActiveState();
     }
 
     public override void Move()
@@ -69,7 +63,7 @@ public class EnemyShip : Enemy
 
     public void Shoot() => m_weapon.Shoot();
 
-    public void Died() => isDead = true;
+    //public void Died() => isDead = true;
 
     protected override void PlayerOnDeadHandler()
     {

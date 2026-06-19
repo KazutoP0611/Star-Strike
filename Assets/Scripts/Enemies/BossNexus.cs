@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GeneralOrunShip : Enemy
+public class BossNexus : Enemy
 {
     public override void Move()
     {

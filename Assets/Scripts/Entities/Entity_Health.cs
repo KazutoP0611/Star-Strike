@@ -19,11 +19,9 @@ public class Entity_Health : MonoBehaviour, IDamagable
         m_entitySFX = GetComponent<Entity_SFX>();
 
         m_currentHealth = maxHealth;
-
-        Initialize();
     }
 
-    protected virtual void Initialize() {}
+    protected virtual void Initialize() { }
 
     //private void OnParticleCollision(GameObject other)
     //{
@@ -64,7 +62,7 @@ public class Entity_Health : MonoBehaviour, IDamagable
         //Destroy(hitObject.gameObject);
     }
 
-    private void LostHealth()
+    protected virtual void LostHealth()
     {
         if (m_currentHealth < 0)
             return;
