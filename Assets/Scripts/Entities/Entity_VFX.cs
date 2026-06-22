@@ -72,4 +72,22 @@ public class Entity_VFX : MonoBehaviour
             renderer.material = originalMat;
         }
     }
+
+    public void SetActiveEmission(bool active)
+    {
+        if (active)
+        {
+            foreach (var renderer in renderers)
+            {
+                renderer.material.EnableKeyword("_EMISSION");
+            }
+        }
+        else
+        {
+            foreach (var renderer in renderers)
+            {
+                renderer.material.DisableKeyword("_EMISSION");
+            }
+        }
+    }
 }

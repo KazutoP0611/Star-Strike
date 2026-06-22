@@ -3,6 +3,7 @@ using UnityEngine;
 public class BossNexus : Enemy
 {
     private BossNexus_Health[] healthComponents;
+    private Boss_Weapon bossWeapon;
     private int healthComponentCount;
 
     #region Boss States
@@ -15,23 +16,15 @@ public class BossNexus : Enemy
     public bool useRandomIdleTime = true;
     public Vector2 idleTimeRange;
 
-    [Header("Shooting Details")]
-    [SerializeField] private GameObject shootingParent;
-
     protected override void Awake()
     {
         base.Awake();
 
         #region Prepare Health Component
-        // Prepare health components-----------------------------------
+        // ----------------- Prepare health components -----------------
         healthComponents = GetComponentsInChildren<BossNexus_Health>();
         healthComponentCount = healthComponents.Length;
-
-        foreach (var health in healthComponents)
-        {
-            health.Initialize(HealthLostCallback);
-        }
-        //-------------------------------------------------------------
+        // -------------------------------------------------------------
         #endregion
 
         #region Prepare Boss States
@@ -40,11 +33,19 @@ public class BossNexus : Enemy
         bossNexus_moveState = new BossNexus_MoveState(this, m_stateMachine);
         bossNexus_attackState = new BossNexus_AttackState(this, m_stateMachine);
         #endregion
+
+        bossWeapon = GetComponentInChildren<Boss_Weapon>();
     }
 
     private void Start()
     {
         m_stateMachine.Initialize(bossNexus_idleState);
+
+        // Set up health component callback;
+        foreach (var health in healthComponents)
+        {
+            health.Initialize(HealthLostCallback);
+        }
     }
 
     public override void Move()
@@ -61,6 +62,7 @@ public class BossNexus : Enemy
     private void HealthLostCallback()
     {
         CameraController.instance.CameraShake();
+
         healthComponentCount--;
 
         if (healthComponentCount <= 0)
@@ -72,5 +74,5 @@ public class BossNexus : Enemy
         }
     }
 
-    public void Shoot() => shootingParent.SetActive(true);
+    public void Shoot() => bossWeapon.Shoot();
 }
