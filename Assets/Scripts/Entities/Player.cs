@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public static event Action OnDead; // The "event" keyword restricts external classes from forces-firing or clearing it.
 
     //public Vector2 mouseDelta { get; private set; }
+    public bool IsDead { get; private set; }
 
     //private StarStikeControl input;
     private PlayerInput inputSet;
@@ -15,6 +16,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         //input = new StarStikeControl();
+        IsDead = false;
         inputSet = GetComponent<PlayerInput>();
     }
 
@@ -34,8 +36,8 @@ public class Player : MonoBehaviour
     public void PlayerStartDying()
     {
         //input.Disable();
+        IsDead = true;
         inputSet.enabled = false;
-
         OnDead?.Invoke();
 
         UI_Manager.instance.SetActiveGameOverScreen(true);

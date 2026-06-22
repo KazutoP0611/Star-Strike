@@ -8,4 +8,12 @@ public class BossNexusState : EntityState
     {
         this.bossNexus = bossNexus;
     }
+
+    //public override void Update()
+    //{
+    //    base.Update();
+
+    //    if (bossNexus.m_player.IsDead)
+    //        return;
+    //}
 }

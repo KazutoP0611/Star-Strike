@@ -42,11 +42,6 @@ public class EnemyShip : Enemy
         m_stateMachine.Initialize(enemyIdleState);
     }
 
-    protected override void Update()
-    {
-        base.Update();
-    }
-
     public override void Move()
     {
         m_moveToPosition = m_player.transform.position;
@@ -62,8 +57,6 @@ public class EnemyShip : Enemy
 
     protected override void PlayerOnDeadHandler()
     {
-        base.PlayerOnDeadHandler();
-
         //m_player = null;
         m_stateMachine.ChangeState(enemyIdleState);
     }

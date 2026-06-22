@@ -3,7 +3,7 @@ using UnityEngine;
 public class BossNexus : Enemy
 {
     private BossNexus_Health[] healthComponents;
-    private Boss_Weapon bossWeapon;
+    private BossNexus_Weapon bossWeapon;
     private int healthComponentCount;
 
     #region Boss States
@@ -34,7 +34,7 @@ public class BossNexus : Enemy
         bossNexus_attackState = new BossNexus_AttackState(this, m_stateMachine);
         #endregion
 
-        bossWeapon = GetComponentInChildren<Boss_Weapon>();
+        bossWeapon = GetComponentInChildren<BossNexus_Weapon>();
     }
 
     private void Start()
@@ -75,4 +75,13 @@ public class BossNexus : Enemy
     }
 
     public void Shoot() => bossWeapon.Shoot();
+
+    public void StopShooting() => bossWeapon.StopShooting();
+
+    protected override void PlayerOnDeadHandler()
+    {
+        //base.PlayerOnDeadHandler();
+
+        m_stateMachine.ChangeState(bossNexus_idleState);
+    }
 }

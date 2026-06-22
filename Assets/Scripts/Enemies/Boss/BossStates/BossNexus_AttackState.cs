@@ -12,4 +12,18 @@ public class BossNexus_AttackState : BossNexusState
 
         bossNexus.Shoot();
     }
+
+    public override void Update()
+    {
+        base.Update();
+
+        bossNexus.Move();
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+
+        bossNexus.StopShooting();
+    }
 }

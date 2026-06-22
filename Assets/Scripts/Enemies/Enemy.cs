@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour
     protected Vector3 m_moveToPosition;
     protected bool isDead;
 
-    public GameObject m_player { get; protected set; }
+    public Player m_player { get; protected set; }
 
     [SerializeField] protected float moveSpeed = 5.0f;
 
@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     {
         m_stateMachine = new StateMachine();
 
-        m_player = GameObject.FindWithTag("Player");
+        m_player = GameObject.FindWithTag("Player").GetComponent<Player>();
     }
 
     protected void OnEnable()
@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (isDead)
+        if (m_player.IsDead)
             return;
 
         m_stateMachine.UpdateActiveState();

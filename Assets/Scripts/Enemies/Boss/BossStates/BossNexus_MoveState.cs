@@ -10,9 +10,6 @@ public class BossNexus_MoveState : BossNexusState
     {
         base.Update();
 
-        if (bossNexus.m_player == null)
-            return;
-
         bossNexus.Move();
 
         if (IsAligningWithPlayer()/*IsReadyToShoot()*/)

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Boss_Weapon : MonoBehaviour
+public class BossNexus_Weapon : MonoBehaviour
 {
     private Coroutine shootingCoroutine;
     private float time;
@@ -77,10 +77,10 @@ public class Boss_Weapon : MonoBehaviour
         }
     }
 
-    [ContextMenu("Reset")]
-    private void ResetSphereGlow()
+    public void StopShooting()
     {
         SetActiveGlowSphere(false);
+        SetActiveLaserObjects(false);
         //SetRendererColor(emissionColor);
     }
 }
