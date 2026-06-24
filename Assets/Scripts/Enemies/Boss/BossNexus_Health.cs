@@ -4,8 +4,9 @@ using UnityEngine;
 public class BossNexus_Health : Entity_Health
 {
     private Collider col;
-
     private event Action onHealthRunOut;
+
+    public bool IsDestroyed { get; private set; }
 
     protected override void Awake()
     {
@@ -16,6 +17,8 @@ public class BossNexus_Health : Entity_Health
 
     public void Initialize(Action onHealthRunOut)
     {
+        IsDestroyed = false;
+
         this.onHealthRunOut = onHealthRunOut;
         ShowHittable(false);
     }
@@ -29,6 +32,7 @@ public class BossNexus_Health : Entity_Health
 
         if (m_currentHealth <= 0)
         {
+            IsDestroyed = true;
             ShowHittable(false);
 
             //play destroyed sound

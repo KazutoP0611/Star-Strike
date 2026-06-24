@@ -4,9 +4,9 @@ public class Enemy : MonoBehaviour
 {
     protected StateMachine m_stateMachine;
     protected Vector3 m_moveToPosition;
-    protected bool isDead;
 
-    public Player m_player { get; protected set; }
+    protected bool isDead { get; private set; }
+    public Player m_player { get; private set; }
 
     [SerializeField] protected float moveSpeed = 5.0f;
 

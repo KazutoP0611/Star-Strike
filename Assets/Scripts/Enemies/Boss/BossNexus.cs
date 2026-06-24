@@ -5,12 +5,14 @@ public class BossNexus : Enemy
     private BossNexus_Health[] healthComponents;
     private BossNexus_Weapon bossWeapon;
     private int healthComponentCount;
-    private float elapsedTime = 0;
+    private float openShieldAngle = 0;
+    private float lastGetPlayerPosTime;
 
     #region Boss States
-    public BossNexus_IdleState bossNexus_idleState      { get; private set; }
-    public BossNexus_MoveState bossNexus_moveState      { get; private set; }
-    public BossNexus_AttackState bossNexus_attackState  { get; private set; }
+    public BossNexus_IdleState bossNexus_idleState              { get; private set; }
+    public BossNexus_MoveState bossNexus_moveState              { get; private set; }
+    public BossNexus_AttackState bossNexus_attackState          { get; private set; }
+    public BossNexus_OpenShieldState bossNexus_openShieldState  { get; private set; }
     #endregion
 
     [Header("Idle Behavior Details")]
@@ -20,6 +22,14 @@ public class BossNexus : Enemy
     [Header("Movement Details")]
     [SerializeField] private GameObject bossModelParent;
     [SerializeField] private float rotateSpeed;
+    [SerializeField] private float getPlayerPositionDelay = 2.0f;
+
+    [Header("Attack Details")]
+    public float attackAcceptableRange = 0.2f;
+    [SerializeField] private Vector2 shootDuration;
+
+    [Header("Open Shield Details")]
+    [SerializeField] private float openRotateSpeed = 10.0f;
 
     protected override void Awake()
     {
@@ -37,6 +47,7 @@ public class BossNexus : Enemy
         bossNexus_idleState = new BossNexus_IdleState(this, m_stateMachine);
         bossNexus_moveState = new BossNexus_MoveState(this, m_stateMachine);
         bossNexus_attackState = new BossNexus_AttackState(this, m_stateMachine);
+        bossNexus_openShieldState = new BossNexus_OpenShieldState(this, m_stateMachine);
         #endregion
 
         bossWeapon = GetComponentInChildren<BossNexus_Weapon>();
@@ -55,20 +66,28 @@ public class BossNexus : Enemy
 
     protected override void Update()
     {
-        //base.Update();
+        if (isDead)
+            return;
+
+        base.Update();
 
         RotatingShip();
+
+        //GettingIntoShieldOpenPosition();
     }
 
     public override void Move()
     {
-        m_moveToPosition = m_player.transform.position;
-        m_moveToPosition.z = transform.position.z;
+        if (lastGetPlayerPosTime < Time.time - getPlayerPositionDelay)
+        {
+            lastGetPlayerPosTime = Time.time;
 
-        Vector3 moveToVector = m_moveToPosition - transform.position;
-        moveToVector.Normalize();
+            m_moveToPosition = m_player.transform.position;
+            m_moveToPosition.z = transform.position.z;
+        }
 
-        transform.Translate(moveToVector * moveSpeed * Time.deltaTime, Space.World);
+        Vector3 moveToPosition = Vector3.Slerp(transform.position, m_moveToPosition, moveSpeed * Time.deltaTime);
+        transform.position = moveToPosition;
     }
 
     private void RotatingShip()
@@ -80,10 +99,21 @@ public class BossNexus : Enemy
     }
 
     [ContextMenu("Open Position")]
-    public void GettingIntoShieldOpenPosition()
+    public void GettingIntoShieldOpenPosition(out bool finishOpenShield)
     {
-        Vector3 newRotatePoint = transform.rotation.eulerAngles + new Vector3(90.0f, 0.0f, 0.0f);
-        transform.Rotate(newRotatePoint);
+        openShieldAngle += Time.deltaTime * openRotateSpeed;
+
+        if (openShieldAngle < 360)
+        {
+            finishOpenShield = false;
+        }
+        else
+        {
+            openShieldAngle = 0;
+            finishOpenShield = true;
+        }
+
+        transform.rotation = Quaternion.Euler(new Vector3(openShieldAngle, 0.0f, 0.0f));
     }
 
     private void HealthLostCallback()
@@ -95,9 +125,19 @@ public class BossNexus : Enemy
         if (healthComponentCount <= 0)
         {
             // Maybe start animation sequence or something;
+            Died();
 
             // Show game over screen, well just placeholder for now;
             UI_Manager.instance.SetActiveGameOverScreen(true);
+        }
+    }
+
+    public void SetShieldDamagable(bool damagable)
+    {
+        foreach (var health in healthComponents)
+        {
+            if (health.IsDestroyed == false)
+                health.ShowHittable(damagable);
         }
     }
 
@@ -111,4 +151,6 @@ public class BossNexus : Enemy
 
         m_stateMachine.ChangeState(bossNexus_idleState);
     }
+
+    public float GetShootingDuration() => Random.Range(shootDuration.x, shootDuration.y);
 }

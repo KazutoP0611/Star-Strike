@@ -18,7 +18,7 @@ public class BossNexus_MoveState : BossNexusState
 
     private bool IsAligningWithPlayer()
     {
-        if (GetShootingDistance() < 0.09f)
+        if (GetShootingDistance() < bossNexus.attackAcceptableRange)
             return true;
 
         return false;
