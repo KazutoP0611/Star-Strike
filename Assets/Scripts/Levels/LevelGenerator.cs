@@ -11,6 +11,7 @@ public class LevelGenerator : MonoBehaviour
     private int m_currentLevelIndex;
     private int m_currentLevelSeqIndex;
     private float m_speedMultiplier = 1.0f;
+    private bool boss = false;
 
     [Header("Level Details")]
     [SerializeField] private GameObject[] normalChunkPrefabs;
@@ -111,6 +112,13 @@ public class LevelGenerator : MonoBehaviour
         if (m_currentLevelSeqIndex >= levelSeqs.Count())
         {
             SpawnNormalChunk();
+
+            if (boss == false)
+            {
+                boss = true;
+                Debug.LogWarning("Boss!!!");
+            }
+
             return;
         }
 

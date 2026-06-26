@@ -14,8 +14,8 @@ public class PlayerBoost : MonoBehaviour
     private Coroutine boostCooldownCoroutine;
 
     [Header("Controller & View Details")]
-    [SerializeField] private Slider boostBar;
     [SerializeField] private LevelGenerator levelGenerator;
+    [SerializeField] private PlayerBoostBar playerBoostBar;
 
     [Header("Boost Details")]
     [SerializeField] private float maxBoost = 10.0f;
@@ -34,7 +34,8 @@ public class PlayerBoost : MonoBehaviour
     private void Start()
     {
         currentBoost = maxBoost;
-        UpdateBoostBar();
+        UpdateBoostValue();
+        playerBoostBar.ChangeColor(true);
     }
 
     private void Update()
@@ -45,14 +46,18 @@ public class PlayerBoost : MonoBehaviour
         Boosting();
     }
 
-    private void OnBoostHandler(bool isSpeeding, bool isBoosting)
+    private void OnBoostHandler(bool isPressing, bool isBoosting)
     {
         if (onCooldown)
-            return;
+        {
+            // Maybe show warning color in boost bar;
 
-        changingSpeed = isSpeeding;
+            return;
+        }
+
+        changingSpeed = isPressing;
         
-        if (isSpeeding == true)
+        if (isPressing == true)
         {
             //set level speed up
             // Speed up level's movement speed;
@@ -72,23 +77,26 @@ public class PlayerBoost : MonoBehaviour
         //set level speed down
         levelGenerator.SetLevelMovementSpeed(1.0f);
 
-        //cooldown
+        // start cooldown
         CooldownBoost();
+
+        playerBoostBar.ChangeColor(false);
     }
 
     private void Boosting()
     {
         currentBoost -= (Time.deltaTime * boostConsumeMultiplier);
-        UpdateBoostBar();
+        UpdateBoostValue();
 
         if (currentBoost <= 0)
             StartBoostCooldown();
     }
 
-    private void UpdateBoostBar()
+    private void UpdateBoostValue()
     {
         float fill = Mathf.Clamp01(currentBoost / maxBoost);
-        boostBar.value = fill;
+
+        playerBoostBar.UpdateBoostBar(fill);
     }
 
     private void CooldownBoost()
@@ -106,12 +114,18 @@ public class PlayerBoost : MonoBehaviour
         while (currentBoost < maxBoost)
         {
             currentBoost += (Time.deltaTime * boostRechargeMultiplier);
-            UpdateBoostBar();
+            UpdateBoostValue();
 
             yield return null;
         }
 
+        // I don't know why, but if I don't wait, boost bar sometimes doesn't change to normal color;
+        yield return new WaitForEndOfFrame();
+
         currentBoost = maxBoost;
+        UpdateBoostValue();
+        playerBoostBar.ChangeColor(true);
+
         onCooldown = false;
     }
 }

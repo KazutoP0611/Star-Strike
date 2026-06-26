@@ -384,6 +384,10 @@ PrefabInstance:
       propertyPath: levelGenerator
       value: 
       objectReference: {fileID: 1497619957}
+    - target: {fileID: 4758874651802499393, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: playerBoostBar
+      value: 
+      objectReference: {fileID: 1020626287}
     - target: {fileID: 5028308783247786246, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: m_Name
       value: Player
@@ -469,6 +473,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7632269502934130214, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: rollForce
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7632269502934130214, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: debugSphere
       value: 
       objectReference: {fileID: 0}
@@ -478,7 +486,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7632269502934130214, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: movementSpeed
-      value: 1
+      value: 1.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 7632269502934130214, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: rotationSpeed
+      value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7632269502934130214, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: rollAngleLimit
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7632269502934130214, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: turnLimitAngle
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7632269502934130214, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: rollReturnForce
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7632269502934130214, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: verticalLimit.x
@@ -1577,7 +1601,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_Health
   maxHealth: 15
-  hpBar: {fileID: 1961676288}
+  playerHealthBar: {fileID: 1961676290}
 --- !u!114 &720232648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6793,6 +6817,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
+--- !u!114 &1020626287 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4094778178191447975, guid: 9c27cfccc8eaa6a49970ddbee11c0928, type: 3}
+  m_PrefabInstance: {fileID: 4828060146314362389}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb53199108007e64397d5de038d9ba43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerBoostBar
 --- !u!1 &1104897372
 GameObject:
   m_ObjectHideFlags: 0
@@ -7431,7 +7466,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 687448750f86f3c43a26ee12de6f4c7d, type: 2}
   chunkLength: 45
   moveChunk: 1
-  normalMoveSpeed: 7
+  normalMoveSpeed: 5
   clearPointTransform: {fileID: 2010485071}
   activateChunkTrasnform: {fileID: 717443152}
 --- !u!4 &1497619958
@@ -8335,17 +8370,17 @@ MonoBehaviour:
   damageParticleScale: 0.45
   onDestroyParticle: {fileID: 6192724089161036641, guid: 59951331955d0f44c82e467953f32537, type: 3}
   destroyParticleScale: 1
---- !u!114 &1961676288 stripped
+--- !u!114 &1961676290 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3868616439900545290, guid: 9c27cfccc8eaa6a49970ddbee11c0928, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3731694730208317078, guid: 9c27cfccc8eaa6a49970ddbee11c0928, type: 3}
   m_PrefabInstance: {fileID: 4828060146314362389}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Script: {fileID: 11500000, guid: 3acb623a9af4de2418e235ff32f4dac0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthBar
 --- !u!23 &1970672370 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 5439097761769389977, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
@@ -8393,6 +8428,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1497619958}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2034966598 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3436318464893157923, guid: 9c27cfccc8eaa6a49970ddbee11c0928, type: 3}
+  m_PrefabInstance: {fileID: 4828060146314362389}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1001 &2038295748
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10469,6 +10515,62 @@ PrefabInstance:
     - target: {fileID: 3072901946223205530, guid: 9c27cfccc8eaa6a49970ddbee11c0928, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3731694730208317078, guid: 9c27cfccc8eaa6a49970ddbee11c0928, type: 3}
+      propertyPath: sliderImage
+      value: 
+      objectReference: {fileID: 2034966598}
+    - target: {fileID: 3731694730208317078, guid: 9c27cfccc8eaa6a49970ddbee11c0928, type: 3}
+      propertyPath: fullHealthColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3731694730208317078, guid: 9c27cfccc8eaa6a49970ddbee11c0928, type: 3}
+      propertyPath: fullHealthColor.b
+      value: 0.50963414
+      objectReference: {fileID: 0}
+    - target: {fileID: 3731694730208317078, guid: 9c27cfccc8eaa6a49970ddbee11c0928, type: 3}
+      propertyPath: fullHealthColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3731694730208317078, guid: 9c27cfccc8eaa6a49970ddbee11c0928, type: 3}
+      propertyPath: fullHealthColor.r
+      value: 0.3537736
+      objectReference: {fileID: 0}
+    - target: {fileID: 3731694730208317078, guid: 9c27cfccc8eaa6a49970ddbee11c0928, type: 3}
+      propertyPath: warningHealthPoint
+      value: 0.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 3731694730208317078, guid: 9c27cfccc8eaa6a49970ddbee11c0928, type: 3}
+      propertyPath: dangerHealthColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3731694730208317078, guid: 9c27cfccc8eaa6a49970ddbee11c0928, type: 3}
+      propertyPath: dangerHealthColor.b
+      value: 0.2783019
+      objectReference: {fileID: 0}
+    - target: {fileID: 3731694730208317078, guid: 9c27cfccc8eaa6a49970ddbee11c0928, type: 3}
+      propertyPath: dangerHealthColor.g
+      value: 0.2783019
+      objectReference: {fileID: 0}
+    - target: {fileID: 3731694730208317078, guid: 9c27cfccc8eaa6a49970ddbee11c0928, type: 3}
+      propertyPath: dangerHealthColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3731694730208317078, guid: 9c27cfccc8eaa6a49970ddbee11c0928, type: 3}
+      propertyPath: warningHealthColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3731694730208317078, guid: 9c27cfccc8eaa6a49970ddbee11c0928, type: 3}
+      propertyPath: warningHealthColor.b
+      value: 0.34509805
+      objectReference: {fileID: 0}
+    - target: {fileID: 3731694730208317078, guid: 9c27cfccc8eaa6a49970ddbee11c0928, type: 3}
+      propertyPath: warningHealthColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3731694730208317078, guid: 9c27cfccc8eaa6a49970ddbee11c0928, type: 3}
+      propertyPath: warningHealthColor.r
+      value: 0.8784314
       objectReference: {fileID: 0}
     - target: {fileID: 5512200112999575030, guid: 9c27cfccc8eaa6a49970ddbee11c0928, type: 3}
       propertyPath: m_AnchorMax.x

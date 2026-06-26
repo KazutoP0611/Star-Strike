@@ -7,7 +7,7 @@ public class Player_Health : Entity_Health
     private bool isImmortal;
     private float immortalTime;
 
-    [SerializeField] private Slider hpBar;
+    [SerializeField] private PlayerHealthBar playerHealthBar;
 
     protected override void Awake()
     {
@@ -35,7 +35,7 @@ public class Player_Health : Entity_Health
 
     protected /*override*/ void Initialize()
     {
-        UpdateHealthBar();
+        UpdateHealh();
     }
 
     public override void TakeDamage(Collider hitObject)
@@ -45,7 +45,7 @@ public class Player_Health : Entity_Health
 
         base.TakeDamage(hitObject);
 
-        UpdateHealthBar();
+        UpdateHealh();
         CameraController.instance.CameraShake();
         isImmortal = true;
         immortalTime = 0;
@@ -54,13 +54,18 @@ public class Player_Health : Entity_Health
             Die();
     }
 
-    private void UpdateHealthBar()
+    private void AddHealth(int value)
+    {
+        m_currentHealth += value;
+        m_currentHealth = Mathf.Clamp(m_currentHealth, 0, maxHealth);
+
+        UpdateHealh();
+    }
+
+    private void UpdateHealh()
     {
         float hpRatio = (float)m_currentHealth / maxHealth;
-        hpBar.value = hpRatio;
-
-        // Todo
-        // Maybe => check hp and show warning according to hp level?;
+        playerHealthBar.UpdateHealthBar(hpRatio);
     }
 
     protected override void Die()

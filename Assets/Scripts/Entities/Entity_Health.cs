@@ -43,9 +43,6 @@ public class Entity_Health : MonoBehaviour, IDamagable
             return;
 
         m_currentHealth--;
-
-        //if (m_currentHealth <= 0)
-        //    Die();
     }
 
     protected virtual void Die()
