@@ -19,6 +19,9 @@ public class Enemy_Health : Entity_Health
 
         //maybe add hurt state?
         //play some animations? something like that.
+
+        if (m_currentHealth <= 0)
+            Die();
     }
 
     protected override void Die()

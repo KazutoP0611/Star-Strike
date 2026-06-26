@@ -15,8 +15,6 @@ public class Bullet_Damager : Entity_Damager
 
     private void Update()
     {
-        //Todo make the image look at cross vector with camera.forward;
-
         transform.position += transform.forward * Time.deltaTime * bulletSpeed;
 
         if (Time.time >= destroyTime)

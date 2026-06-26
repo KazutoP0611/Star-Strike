@@ -252,6 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entity_Bullet
   col: {fileID: 8148285989471912336}
+  destroyAfterCollided: 1
   bulletSpeed: 150
   destroyInSecs: 3
 --- !u!65 &8148285989471912336
@@ -273,8 +274,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.28, y: 0.12, z: 0.12}
-  m_Center: {x: 0, y: 0, z: 0.19}
+  m_Size: {x: 0.28, y: 0.3, z: 0.6}
+  m_Center: {x: 0, y: 0, z: -0.055}
 --- !u!54 &2684769787705830180
 Rigidbody:
   m_ObjectHideFlags: 0

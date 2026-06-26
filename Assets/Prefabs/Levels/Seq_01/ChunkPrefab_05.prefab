@@ -6,7 +6,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 6675062302981274624}
+    m_TransformParent: {fileID: 1621480019331766273}
     m_Modifications:
     - target: {fileID: 630140191004052905, guid: 5d6a3b88018391e45bc34b998d6d331f, type: 3}
       propertyPath: m_Name
@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 630140191004052905, guid: 5d6a3b88018391e45bc34b998d6d331f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4285624125796201637, guid: 5d6a3b88018391e45bc34b998d6d331f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -34,15 +34,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4285624125796201637, guid: 5d6a3b88018391e45bc34b998d6d331f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4285624125796201637, guid: 5d6a3b88018391e45bc34b998d6d331f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4285624125796201637, guid: 5d6a3b88018391e45bc34b998d6d331f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4285624125796201637, guid: 5d6a3b88018391e45bc34b998d6d331f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -142,13 +142,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 7392184937657047097, guid: a7e06d034f9eef74c9fc09769cf99759, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 3221309283848158264, guid: a7e06d034f9eef74c9fc09769cf99759, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2383969998979459091}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7e06d034f9eef74c9fc09769cf99759, type: 3}
---- !u!4 &6675062302981274624 stripped
+--- !u!4 &1621480019331766273 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 7392184937657047097, guid: a7e06d034f9eef74c9fc09769cf99759, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3221309283848158264, guid: a7e06d034f9eef74c9fc09769cf99759, type: 3}
   m_PrefabInstance: {fileID: 4194193505083860025}
   m_PrefabAsset: {fileID: 0}

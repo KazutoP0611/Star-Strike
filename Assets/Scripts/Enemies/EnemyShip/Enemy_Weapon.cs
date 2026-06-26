@@ -22,7 +22,9 @@ public class Enemy_Weapon : Entity_Weapon
         Vector3 rotation = shootPoint.rotation.eulerAngles;
         rotation.z = bulletRotation;
 
-        /*bullet = */Instantiate(bulletPrefab, shootPoint.position, Quaternion.Euler(rotation));
+        /*bullet = */Instantiate(bulletPrefab, shootPoint.position, Quaternion.Euler(rotation), transform.parent);
+        // add bullet to this object's parent, or bullet speed will be weird when player speed up or speed down.
+
         AudioSource.PlayClipAtPoint(shootingSound, shootPoint.position);
     }
 }

@@ -20,7 +20,7 @@ public class Enemy_ShootState : EnemyState
         base.Enter();
 
         hasShot = false;
-        shootCountdown = enemy.waitForSecsForShootingPlayer;
+        shootCountdown = enemy.GetWaitShootTime();
     }
 
     public override void Update()

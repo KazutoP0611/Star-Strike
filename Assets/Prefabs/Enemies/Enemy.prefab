@@ -4858,7 +4858,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2598976816679842576}
   - component: {fileID: 5451103526560180785}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19544,6 +19544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entity_Damager
   col: {fileID: 5451103526560180785}
+  destroyAfterCollided: 1
 --- !u!54 &3319091305772254626
 Rigidbody:
   m_ObjectHideFlags: 0

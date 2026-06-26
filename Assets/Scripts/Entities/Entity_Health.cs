@@ -11,6 +11,7 @@ public class Entity_Health : MonoBehaviour, IDamagable
     protected Entity_SFX m_entitySFX;
 
     [Header("Health Details")]
+    [Tooltip("Represent how many times this character can take hit.")]
     [SerializeField] protected int maxHealth;
 
     protected virtual void Awake()
@@ -43,8 +44,8 @@ public class Entity_Health : MonoBehaviour, IDamagable
 
         m_currentHealth--;
 
-        if (m_currentHealth <= 0)
-            Die();
+        //if (m_currentHealth <= 0)
+        //    Die();
     }
 
     protected virtual void Die()

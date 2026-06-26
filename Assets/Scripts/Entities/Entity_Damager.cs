@@ -13,9 +13,13 @@ public class Entity_Damager : MonoBehaviour
     protected void DoDamage(Collider other)
     {
         IDamagable damagable = other.GetComponentInParent<IDamagable>();
-        damagable?.TakeDamage(col);
 
-        if (destroyAfterCollided)
-            Destroy(gameObject);
+        if (damagable != null)
+        {
+            damagable.TakeDamage(col);
+
+            if (destroyAfterCollided)
+                Destroy(gameObject);
+        }
     }
 }

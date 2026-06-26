@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyShip : Enemy
 {
-    public Enemy_Weapon m_weapon;
+    private Enemy_Weapon m_weapon;
 
     #region Enemy States
     public Enemy_IdleState enemyIdleState   { get; private set; }
@@ -15,7 +15,7 @@ public class EnemyShip : Enemy
     [Tooltip("If \"false\", enemy will wait in IdleTimeRange.x [seconds] until start moving.")]
     public bool useRandomIdleTime = true;
     public Vector2 idleTimeRange;
-    public float waitForSecsForShootingPlayer = 0.25f;
+    public Vector2 waitForSecsForShootingPlayer;
     [Space]
     // Movement Details
     public float acceptableDistanceForShootingPlayer = 0.5f;
@@ -60,4 +60,6 @@ public class EnemyShip : Enemy
         //m_player = null;
         m_stateMachine.ChangeState(enemyIdleState);
     }
+
+    public float GetWaitShootTime() => Random.Range(waitForSecsForShootingPlayer.x, waitForSecsForShootingPlayer.y);
 }

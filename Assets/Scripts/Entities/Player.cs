@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
     //public Vector2 mouseDelta { get; private set; }
     public bool IsDead { get; private set; }
 
+    [Header("Immortal Details")]
+    public float immortalTime = 2.0f;
+
     //private StarStikeControl input;
     private PlayerInput inputSet;
 

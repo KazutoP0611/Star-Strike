@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelChunk
   testSpawnObject: {fileID: 5673424883441831233, guid: 6e3437ebfaf43f240998cfe877e0eaa9, type: 3}
-  enemies: []
+  enemyParent: {fileID: 8861270922694229557}
 --- !u!1 &1869737103225533509
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,6 +770,7 @@ Transform:
   - {fileID: 2125850948835940607}
   - {fileID: 4389007900045954151}
   - {fileID: 3392961673623073186}
+  - {fileID: 6994993722871873976}
   m_Father: {fileID: 6627501794891585573}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3270595464274175876
@@ -2774,6 +2775,37 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &8861270922694229557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6994993722871873976}
+  m_Layer: 0
+  m_Name: EnemyParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &6994993722871873976
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8861270922694229557}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3112276557653665209}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9122593756733673831
 GameObject:
   m_ObjectHideFlags: 0

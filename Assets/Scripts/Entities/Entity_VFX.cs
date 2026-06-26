@@ -10,14 +10,14 @@ public enum ParticleType
 
 public class Entity_VFX : MonoBehaviour
 {
-    private Material originalMat;
+    protected Material originalMat;
 
-    protected Coroutine onDamageCoroutine;
+    public Coroutine onDamageCoroutine { get; private set; }
 
     [Header("On Damage Details")]
-    [SerializeField] private float onDamageTime = 0.25f;
-    [SerializeField] private Material onDamageMat;
-    [SerializeField] private Renderer[] renderers;
+    [SerializeField] protected float onDamageTime = 0.25f;
+    [SerializeField] protected Material onDamageMat;
+    [SerializeField] protected Renderer[] renderers;
 
     [Header("Particle Details")]
     [SerializeField] private GameObject onDamageParticle;
@@ -26,7 +26,7 @@ public class Entity_VFX : MonoBehaviour
     [SerializeField] private GameObject onDestroyParticle;
     [SerializeField] private float destroyParticleScale = 0.75f;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         // If model has multiple materials, this will not give correct material. But in this case it will be fine.
         // I may implement this later.
@@ -56,7 +56,7 @@ public class Entity_VFX : MonoBehaviour
         onDamageCoroutine = StartCoroutine(OnDamageCo());
     }
 
-    protected IEnumerator OnDamageCo()
+    protected virtual IEnumerator OnDamageCo()
     {
         // Change materials to on damage material;
         foreach (var renderer in renderers)
@@ -73,6 +73,7 @@ public class Entity_VFX : MonoBehaviour
         }
     }
 
+    //This should be only at boss's vfx?
     public void SetActiveEmission(bool active)
     {
         if (active)

@@ -15,10 +15,10 @@ TagManager:
   - Water
   - UI
   - FadeScreen
-  - Bullet
-  - 
-  - 
-  - 
+  - Bullet_Player
+  - Bullet_Enemy
+  - Player
+  - Enemy
   - 
   - 
   - 

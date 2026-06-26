@@ -138,6 +138,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 863043471440685729, guid: 43a64c5d5fb16a8489b137a20f1b181c, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2598976816679842576, guid: 43a64c5d5fb16a8489b137a20f1b181c, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.675
@@ -182,15 +186,37 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7651931657054383061, guid: 43a64c5d5fb16a8489b137a20f1b181c, type: 3}
     m_RemovedGameObjects:
     - {fileID: 8901318959272317281, guid: 43a64c5d5fb16a8489b137a20f1b181c, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2598976816679842576, guid: 43a64c5d5fb16a8489b137a20f1b181c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7895265742262709805}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3854350474580584527, guid: 43a64c5d5fb16a8489b137a20f1b181c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7915202594517498491}
   m_SourcePrefab: {fileID: 100100000, guid: 43a64c5d5fb16a8489b137a20f1b181c, type: 3}
+--- !u!1 &7536045949673310397 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3854350474580584527, guid: 43a64c5d5fb16a8489b137a20f1b181c, type: 3}
+  m_PrefabInstance: {fileID: 6766674420832887026}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7915202594517498491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7536045949673310397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12bbb9d42d3319c47815b5d2d2c05174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Asteriod_Health
+  maxHealth: 3
 --- !u!4 &8789167395460223970 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2598976816679842576, guid: 43a64c5d5fb16a8489b137a20f1b181c, type: 3}
