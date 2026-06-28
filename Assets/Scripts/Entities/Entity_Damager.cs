@@ -2,12 +2,15 @@ using UnityEngine;
 
 public class Entity_Damager : MonoBehaviour
 {
-    [SerializeField] protected Collider col;
-    [SerializeField] protected bool destroyAfterCollided = true;
+    private bool canDoDamage = true;
 
-    private void OnTriggerEnter(Collider other)
+    [SerializeField] protected Collider col;
+    [SerializeField] protected bool destroyAfterDidDamage = true;
+
+    protected virtual void OnTriggerEnter(Collider other)
     {
-        DoDamage(other);
+        if (canDoDamage)
+            DoDamage(other);
     }
 
     protected void DoDamage(Collider other)
@@ -18,8 +21,14 @@ public class Entity_Damager : MonoBehaviour
         {
             damagable.TakeDamage(col);
 
-            if (destroyAfterCollided)
-                Destroy(gameObject);
+            if (destroyAfterDidDamage)
+                DisableOnDamagable();
         }
+    }
+
+    protected void DisableOnDamagable()
+    {
+        canDoDamage = false;
+        Destroy(gameObject);
     }
 }
