@@ -19,32 +19,26 @@ public class Enemy_MoveState : EnemyState
 
         enemy.Move();
 
-        if (IsAligningWithPlayer()/*IsReadyToShoot()*/)
+        if (IsInShootRange())
             stateMachine.ChangeState(enemy.enemyShootState);
     }
 
-    //private bool IsReadyToShoot()
-    //{
-    //    if (IsAligningWithPlayer())
-    //    {
-    //        if (!countingDown)
-    //        {
-    //            countingDown = true;
-    //            stateTimer = enemy.waitForSecsForShootingPlayer;
-    //        }
-
-    //        if (stateTimer <= 0)
-    //            return true;
-    //    }
-    //    else
-    //        countingDown = false;
-
-    //    return false;
-    //}
-
-    private bool IsAligningWithPlayer()
+    private bool IsInShootRange()
     {
+        if (IsPlayerInFront() == false)
+            return false;
+
         if (GetShootingDistance() < enemy.acceptableDistanceForShootingPlayer)
+            return true;
+
+        return false;
+    }
+
+    private bool IsPlayerInFront()
+    {
+        Vector3 vectorToPlayer = enemy.m_player.transform.position - enemy.transform.position;
+
+        if (Vector3.Dot(enemy.transform.forward, vectorToPlayer) > enemy.acceptablePlayerDotValue)
             return true;
 
         return false;

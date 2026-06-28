@@ -25,18 +25,28 @@ public class Enemy_ShootState : EnemyState
 
     public override void Update()
     {
-        base.Update();
+        //base.Update();
 
         CheckShoot();
 
-        if (hasShot && stateTimer <= 0)
-            stateMachine.ChangeState(enemy.enemyIdleState);
+        if (hasShot == false)
+            return;
+
+        {
+            stateTimer -= Time.deltaTime;
+
+            if (stateTimer <= 0)
+                stateMachine.ChangeState(enemy.enemyIdleState);
+        }
     }
 
     private void CheckShoot()
     {
+        if (hasShot == true)
+            return;
+
         shootCountdown -= Time.deltaTime;
-        if (shootCountdown <= 0 && !hasShot)
+        if (shootCountdown <= 0)
         {
             enemy.Shoot();
 

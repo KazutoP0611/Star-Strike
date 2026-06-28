@@ -7,11 +7,12 @@ public class PlayerBoost : MonoBehaviour
 {
     private float currentBoost = 0;
 
-    //private SplineAnimate splineAnimate;
     private bool changingSpeed = false;
     private bool onCooldown = false;
 
     private Coroutine boostCooldownCoroutine;
+
+    [SerializeField] private GameObject boostVisual;
 
     [Header("Controller & View Details")]
     [SerializeField] private LevelGenerator levelGenerator;
@@ -56,9 +57,12 @@ public class PlayerBoost : MonoBehaviour
         }
 
         changingSpeed = isPressing;
-        
+
         if (isPressing == true)
         {
+            if (boostVisual.activeSelf == false && isBoosting)
+                boostVisual.SetActive(true);
+
             //set level speed up
             // Speed up level's movement speed;
             float speedMultiplier = isBoosting ? speedUpMultiplier : slowDownMultiplier;
@@ -73,6 +77,9 @@ public class PlayerBoost : MonoBehaviour
     private void StartBoostCooldown()
     {
         changingSpeed = false;
+
+        // Closing boost visual
+        boostVisual.SetActive(false);
 
         //set level speed down
         levelGenerator.SetLevelMovementSpeed(1.0f);

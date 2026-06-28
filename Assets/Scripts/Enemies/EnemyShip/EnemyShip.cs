@@ -15,9 +15,10 @@ public class EnemyShip : Enemy
     [Tooltip("If \"false\", enemy will wait in IdleTimeRange.x [seconds] until start moving.")]
     public bool useRandomIdleTime = true;
     public Vector2 idleTimeRange;
+    [Space] // Attack Details
     public Vector2 waitForSecsForShootingPlayer;
-    [Space]
-    // Movement Details
+    public float acceptablePlayerDotValue = 0.7f;
+    [Space] // Movement Details
     public float acceptableDistanceForShootingPlayer = 0.5f;
     
     [Space]
