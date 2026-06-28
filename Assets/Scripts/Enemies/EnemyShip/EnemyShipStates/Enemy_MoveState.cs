@@ -36,12 +36,12 @@ public class Enemy_MoveState : EnemyState
 
     private bool IsPlayerInFront()
     {
-        Vector3 vectorToPlayer = enemy.m_player.transform.position - enemy.transform.position;
+        //Vector3 vectorToPlayer = enemy.m_player.transform.position - enemy.transform.position;
 
-        if (Vector3.Dot(enemy.transform.forward, vectorToPlayer) > enemy.acceptablePlayerDotValue)
-            return true;
+        //if (Vector3.Dot(enemy.transform.forward, vectorToPlayer) > enemy.acceptablePlayerDotValue)
+        //    return true;
 
-        return false;
+        return enemy.transform.position.z < enemy.m_player.transform.position.z;
     }
 
     private float GetShootingDistance()
