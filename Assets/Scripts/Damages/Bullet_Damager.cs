@@ -2,26 +2,25 @@ using UnityEngine;
 
 public class Bullet_Damager : Entity_Damager
 {
-    private float destroyTime;
+    private float m_destroyTime;
     
-    [Header("General Details")]
-    [SerializeField] private float bulletSpeed = 30.0f;
+    [Header("Damage Details")]
     [SerializeField] private LayerMask damagableLayer;
     [SerializeField] private float bulletHitDistance = 0.1f;
     [SerializeField] private float destroyInSecs = 3.0f;
 
     private void OnEnable()
     {
-        destroyTime = Time.time + destroyInSecs;
+        m_destroyTime = Time.time + destroyInSecs;
     }
 
-    private void Update()
+    protected override void Update()
     {
-        transform.position += transform.forward * Time.deltaTime * bulletSpeed;
+        Move();
 
         CheckHit();
 
-        if (Time.time >= destroyTime)
+        if (Time.time >= m_destroyTime)
             DisableOnDamagable();
     }
 

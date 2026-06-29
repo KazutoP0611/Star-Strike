@@ -10,8 +10,7 @@ public class BossSequenceManager : MonoBehaviour
     [SerializeField] private PlayableDirector bossAppearanceTimeline;
     [SerializeField] private PlayableDirector bossDeadTimeline;
 
-    [ContextMenu("Play")]
-    public void PlayBossAppear()
+    public void StartSequence()
     {
         bossAppearanceTimeline.Play();
     }

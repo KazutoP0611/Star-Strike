@@ -10,10 +10,15 @@ public class LevelSequence_SO : ScriptableObject
 
     public int GetNormalChunkAmount() => normalChunkBeforeMainChunk;
 
-    public LevelChunk GetCurrentLevelChunk(int levelIndex)
+    public LevelChunk GetCurrentLevelChunk(int levelIndex, out bool lastChunk)
     {
+        lastChunk = false;
+
         if (levelIndex >= levelChunks.Length)
             return null;
+
+        if (levelIndex == levelChunks.Length - 1)
+            lastChunk = true;
 
         return levelChunks[levelIndex];
     }

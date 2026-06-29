@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
@@ -11,9 +13,11 @@ public class LevelGenerator : MonoBehaviour
     private int m_currentLevelIndex;
     private int m_currentLevelSeqIndex;
     private float m_speedMultiplier = 1.0f;
-    private bool boss = false;
+    private bool m_boss = false;
 
     [Header("Level Details")]
+    [SerializeField] private BossSequenceManager bossSequenceManager;
+    [Space]
     [SerializeField] private GameObject[] normalChunkPrefabs;
     [SerializeField] private Transform chunkParent;
     [SerializeField] private int startChunkAmount = 6; 
@@ -96,6 +100,8 @@ public class LevelGenerator : MonoBehaviour
             // If chunk is over this position, destroy it;
             if (chunkObject.transform.position.z <= clearPointTransform.position.z - chunkLength / 1.5f) // and maybe fix this clear point chunk length too.
             {
+                chunkLevel.OnChunkDestroyed?.Invoke();
+
                 m_listOfChunks.Remove(chunkLevel);
                 Destroy(chunkObject);
 
@@ -106,20 +112,21 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
+    private void PlayBossSequence()
+    {
+        if (m_boss == true)
+            return;
+
+        m_boss = true;
+        bossSequenceManager.StartSequence();
+    }
+
     private void SpawnLevelChunk()
     {
         // If there is no more level left, spawn only normal level, so there is no need to check all of below;
         if (m_currentLevelSeqIndex >= levelSeqs.Count())
         {
             SpawnNormalChunk();
-
-            if (boss == false)
-            {
-                boss = true;
-                Debug.LogWarning("Boss!!!");
-            }
-
-            return;
         }
 
         // Spawn empty normal chunk in amount of each seqeuence;
@@ -131,9 +138,18 @@ public class LevelGenerator : MonoBehaviour
             return;
         }
 
+        bool lastChunk;
         // Prepare to spawn new chunk object, get chunk object from current sequence;
-        LevelChunk chunkLevel = m_currentLevelSequence.GetCurrentLevelChunk(m_currentLevelIndex);
-        
+        LevelChunk chunkLevel = m_currentLevelSequence.GetCurrentLevelChunk(m_currentLevelIndex, out lastChunk);
+
+        if (lastChunk)
+        {
+            SpawnChunk(chunkLevel.gameObject, PlayBossSequence);
+            Debug.LogWarning($"Level : {m_currentLevelIndex}");
+            m_currentLevelIndex++;
+            return;
+        }
+
         if (chunkLevel != null)
         {
             // Spawn set level from level sequence;
@@ -161,9 +177,9 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    private void SpawnNormalChunk() => SpawnChunk(normalChunkPrefabs[Random.Range(0, normalChunkPrefabs.Count())]);
+    private void SpawnNormalChunk() => SpawnChunk(normalChunkPrefabs[UnityEngine.Random.Range(0, normalChunkPrefabs.Count())]);
 
-    private void SpawnChunk(GameObject chunkObject)
+    private void SpawnChunk(GameObject chunkObject, Action bossAppearCallback = null)
     {
         Vector3 spawnPosition = transform.position + new Vector3(0, 0, GetPositionZ());
 
@@ -175,6 +191,10 @@ public class LevelGenerator : MonoBehaviour
             );
 
         LevelChunk chunkLevel = spawnedChunk.GetComponent<LevelChunk>();
+
+        if (bossAppearCallback != null)
+            chunkLevel.OnChunkDestroyed += PlayBossSequence;
+
         m_listOfChunks.Add(chunkLevel);
     }
 

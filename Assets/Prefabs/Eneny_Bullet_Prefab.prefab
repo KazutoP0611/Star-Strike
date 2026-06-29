@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7453671394627697614}
-  - component: {fileID: 4002044036949047142}
   - component: {fileID: 7806411175940931477}
   - component: {fileID: 6852958604638994248}
+  - component: {fileID: 5927143596173096428}
   m_Layer: 8
   m_Name: Eneny_Bullet_Prefab
   m_TagString: Bullet
@@ -39,22 +39,6 @@ Transform:
   - {fileID: 8477804921157373588}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4002044036949047142
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 106516888721229267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c25822c63ddce141862fb2fe5dfd955, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Entity_Bullet
-  col: {fileID: 7806411175940931477}
-  destroyAfterCollided: 1
-  bulletSpeed: 7
-  destroyInSecs: 3
 --- !u!65 &7806411175940931477
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -103,6 +87,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5927143596173096428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106516888721229267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77a5ce763add1c34087c88affe055a70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entity_Damager
+  col: {fileID: 7806411175940931477}
+  move: 1
+  destroyAfterDidDamage: 1
+  bulletSpeed: 7
 --- !u!1 &2096647717527873097
 GameObject:
   m_ObjectHideFlags: 0

@@ -342,6 +342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entity_Bullet
   col: {fileID: 8767172324512062366}
+  move: 1
   destroyAfterDidDamage: 1
   bulletSpeed: 150
   damagableLayer:
