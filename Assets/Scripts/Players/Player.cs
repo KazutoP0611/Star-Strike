@@ -5,6 +5,7 @@ using UnityEngine.InputSystem.Users;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance { get; private set; }
     public static event Action OnDead; // The "event" keyword restricts external classes from forces-firing or clearing it.
 
     //public Vector2 mouseDelta { get; private set; }
@@ -18,6 +19,11 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+            Destroy(gameObject);
+        else
+            Instance = this;
+
         //input = new StarStikeControl();
         IsDead = false;
         inputSet = GetComponent<PlayerInput>();
@@ -26,9 +32,6 @@ public class Player : MonoBehaviour
     //private void OnEnable()
     //{
     //    input.Enable();
-
-    //    input.Fighter.MouseMove.performed += value => mouseDelta = value.ReadValue<Vector2>();
-    //    input.Fighter.MouseMove.canceled += value => mouseDelta = Vector2.zero;
     //}
 
     //private void OnDisable()
@@ -40,9 +43,12 @@ public class Player : MonoBehaviour
     {
         //input.Disable();
         IsDead = true;
-        inputSet.enabled = false;
+
+        EnablePlayerInput(false);
         OnDead?.Invoke();
 
         UI_Manager.instance.SetActiveGameOverScreen(true);
     }
+
+    public void EnablePlayerInput(bool enableInput) => inputSet.enabled = enableInput;
 }

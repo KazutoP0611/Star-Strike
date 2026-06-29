@@ -162,6 +162,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Rock_02
       objectReference: {fileID: 0}
+    - target: {fileID: 7536045949673310397, guid: 4539599272c736b4c9dda54a189f70b5, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5886840121601859864, guid: 4539599272c736b4c9dda54a189f70b5, type: 3}

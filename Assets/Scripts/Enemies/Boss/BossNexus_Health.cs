@@ -25,15 +25,13 @@ public class BossNexus_Health : Entity_Health
 
     protected override void LostHealth()
     {
-        if (m_currentHealth <= 0)
-            return;
-
-        m_currentHealth--;
+        base.LostHealth();
 
         if (m_currentHealth <= 0)
         {
             IsDestroyed = true;
-            ShowHittable(false);
+            //ShowHittable(false);
+            Destroy(m_entityVFX.gameObject);
 
             //play destroyed sound
             Die();

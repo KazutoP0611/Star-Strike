@@ -41,7 +41,7 @@ public class Enemy_MoveState : EnemyState
         //if (Vector3.Dot(enemy.transform.forward, vectorToPlayer) > enemy.acceptablePlayerDotValue)
         //    return true;
 
-        return enemy.transform.position.z < enemy.m_player.transform.position.z;
+        return enemy.transform.position.z > enemy.m_player.transform.position.z;
     }
 
     private float GetShootingDistance()

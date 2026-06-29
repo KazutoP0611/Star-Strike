@@ -83,6 +83,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3319091305772254626, guid: 43a64c5d5fb16a8489b137a20f1b181c, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3854350474580584527, guid: 43a64c5d5fb16a8489b137a20f1b181c, type: 3}
       propertyPath: m_Name
       value: Enemy_Shooting
@@ -99,6 +103,10 @@ PrefabInstance:
       propertyPath: 'renderers.Array.data[0]'
       value: 
       objectReference: {fileID: 7642625870453694372}
+    - target: {fileID: 5451103526560180785, guid: 43a64c5d5fb16a8489b137a20f1b181c, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6682317527087854025, guid: 43a64c5d5fb16a8489b137a20f1b181c, type: 3}
       propertyPath: destroyAfterCollided
       value: 0

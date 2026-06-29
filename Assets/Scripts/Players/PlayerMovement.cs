@@ -7,7 +7,6 @@ using static UnityEngine.GraphicsBuffer;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Player player;
     private Animator anim;
     private Coroutine rollingCooldownCoroutine;
 
@@ -76,7 +75,6 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
-        player = GetComponentInChildren<Player>();
     }
 
     private void Update()

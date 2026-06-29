@@ -162,6 +162,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Rock_01
       objectReference: {fileID: 0}
+    - target: {fileID: 3854350474580584527, guid: 43a64c5d5fb16a8489b137a20f1b181c, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4392370861284682322, guid: 43a64c5d5fb16a8489b137a20f1b181c, type: 3}
       propertyPath: 'renderers.Array.data[0]'
       value: 
@@ -181,6 +185,10 @@ PrefabInstance:
     - target: {fileID: 5451103526560180785, guid: 43a64c5d5fb16a8489b137a20f1b181c, type: 3}
       propertyPath: m_Center.z
       value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 6682317527087854025, guid: 43a64c5d5fb16a8489b137a20f1b181c, type: 3}
+      propertyPath: destroyAfterDidDamage
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8901318959272317281, guid: 43a64c5d5fb16a8489b137a20f1b181c, type: 3}
       propertyPath: m_IsActive

@@ -7,6 +7,7 @@ public class BossNexus : Enemy
     private int healthComponentCount;
     private float openShieldAngle = 0;
     private float lastGetPlayerPosTime;
+    private bool activeBehaviour = false;
 
     #region Boss States
     public BossNexus_IdleState bossNexus_idleState              { get; private set; }
@@ -69,11 +70,10 @@ public class BossNexus : Enemy
         if (isDead)
             return;
 
-        base.Update();
-
         RotatingShip();
 
-        //GettingIntoShieldOpenPosition();
+        if (activeBehaviour)
+            base.Update();
     }
 
     public override void Move()
@@ -98,7 +98,7 @@ public class BossNexus : Enemy
         bossModelParent.transform.localRotation = Quaternion.Euler(rotatePoint);
     }
 
-    [ContextMenu("Open Position")]
+    //[ContextMenu("Open Position")]
     public void GettingIntoShieldOpenPosition(out bool finishOpenShield)
     {
         openShieldAngle += Time.deltaTime * openRotateSpeed;
@@ -144,6 +144,8 @@ public class BossNexus : Enemy
     public void Shoot() => bossWeapon.Shoot();
 
     public void StopShooting() => bossWeapon.StopShooting();
+
+    public void ActiveBehaviour(bool active) => activeBehaviour = active;
 
     protected override void PlayerOnDeadHandler()
     {

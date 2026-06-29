@@ -9,6 +9,7 @@ public class UI_Manager : MonoBehaviour
     public UI_Dialogue ui_dialogue              { get; private set; }
 
     [SerializeField] private GameObject[] uiElements;
+    [SerializeField] private GameObject[] uiIndicators;
 
     [Header("Test")]
     [SerializeField] private DialogueLineSO lines;
@@ -69,4 +70,12 @@ public class UI_Manager : MonoBehaviour
     }
 
     public void SetActiveCursor(bool active) => Cursor.visible = active;
+
+    public void SetActiveUIIndicators(bool active)
+    {
+        foreach (var ui in uiIndicators)
+        {
+            ui.SetActive(active);
+        }
+    }
 }
