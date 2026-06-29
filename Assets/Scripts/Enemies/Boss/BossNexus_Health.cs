@@ -12,7 +12,7 @@ public class BossNexus_Health : Entity_Health
     {
         base.Awake();
 
-        col = GetComponent<Collider>();
+        col = GetComponentInChildren<Collider>();
     }
 
     public void Initialize(Action onHealthRunOut)
