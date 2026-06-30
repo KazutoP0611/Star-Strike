@@ -12,6 +12,7 @@ public class BossNexus_OpenShieldState : BossNexusState
     {
         base.Enter();
 
+        bossNexus.SetActivateMissle(false);
         bossNexus.SetShieldDamagable(true);
     }
 
@@ -29,6 +30,6 @@ public class BossNexus_OpenShieldState : BossNexusState
     {
         base.Exit();
 
-        bossNexus.SetShieldDamagable(false);
+        bossNexus.SetActivateMissle(true);
     }
 }

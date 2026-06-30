@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class BossNexus : Enemy
 {
-    private BossNexus_Health[] healthComponents;
-    private BossNexus_Weapon bossWeapon;
-    private int healthComponentCount;
-    private float openShieldAngle = 0;
-    private float lastGetPlayerPosTime;
-    private bool activeBehaviour = false;
+    private BossNexus_Health[] m_healthComponents;
+    private BossNexus_Weapon m_bossWeapon;
+    private int m_healthComponentCount;
+    private float m_openShieldAngle = 0;
+    private float m_lastGetPlayerPosTime;
+    private bool m_activeBehaviour = false;
 
     #region Boss States
     public BossNexus_IdleState bossNexus_idleState              { get; private set; }
@@ -29,6 +29,9 @@ public class BossNexus : Enemy
     public float attackAcceptableRange = 0.2f;
     [SerializeField] private Vector2 shootDuration;
 
+    [Header("Missle Details")]
+    [SerializeField] private BossNexus_Missile[] bossMissles;
+
     [Header("Open Shield Details")]
     [SerializeField] private float openRotateSpeed = 10.0f;
 
@@ -38,8 +41,8 @@ public class BossNexus : Enemy
 
         #region Prepare Health Component
         // ----------------- Prepare health components -----------------
-        healthComponents = GetComponentsInChildren<BossNexus_Health>();
-        healthComponentCount = healthComponents.Length;
+        m_healthComponents = GetComponentsInChildren<BossNexus_Health>();
+        m_healthComponentCount = m_healthComponents.Length;
         // -------------------------------------------------------------
         #endregion
 
@@ -51,17 +54,23 @@ public class BossNexus : Enemy
         bossNexus_openShieldState = new BossNexus_OpenShieldState(this, m_stateMachine);
         #endregion
 
-        bossWeapon = GetComponentInChildren<BossNexus_Weapon>();
+        m_bossWeapon = GetComponentInChildren<BossNexus_Weapon>();
     }
 
     private void Start()
     {
         m_stateMachine.Initialize(bossNexus_idleState);
+        // Refactor state after this, move and attack state should firing missles;
 
         // Set up health component callback;
-        foreach (var health in healthComponents)
+        foreach (var health in m_healthComponents)
         {
             health.Initialize(HealthLostCallback);
+        }
+
+        foreach (var missleComp in bossMissles)
+        {
+            missleComp.Initialize(m_player.gameObject);
         }
     }
 
@@ -72,15 +81,15 @@ public class BossNexus : Enemy
 
         RotatingShip();
 
-        if (activeBehaviour)
+        if (m_activeBehaviour)
             base.Update();
     }
 
     public override void Move()
     {
-        if (lastGetPlayerPosTime < Time.time - getPlayerPositionDelay)
+        if (m_lastGetPlayerPosTime < Time.time - getPlayerPositionDelay)
         {
-            lastGetPlayerPosTime = Time.time;
+            m_lastGetPlayerPosTime = Time.time;
 
             m_moveToPosition = m_player.transform.position;
             m_moveToPosition.z = transform.position.z;
@@ -101,28 +110,28 @@ public class BossNexus : Enemy
     //[ContextMenu("Open Position")]
     public void GettingIntoShieldOpenPosition(out bool finishOpenShield)
     {
-        openShieldAngle += Time.deltaTime * openRotateSpeed;
+        m_openShieldAngle += Time.deltaTime * openRotateSpeed;
 
-        if (openShieldAngle < 360)
+        if (m_openShieldAngle < 360)
         {
             finishOpenShield = false;
         }
         else
         {
-            openShieldAngle = 0;
+            m_openShieldAngle = 0;
             finishOpenShield = true;
         }
 
-        transform.rotation = Quaternion.Euler(new Vector3(openShieldAngle, 0.0f, 0.0f));
+        transform.rotation = Quaternion.Euler(new Vector3(m_openShieldAngle, 0.0f, 0.0f));
     }
 
     private void HealthLostCallback()
     {
         CameraController.instance.CameraShake();
 
-        healthComponentCount--;
+        m_healthComponentCount--;
 
-        if (healthComponentCount <= 0)
+        if (m_healthComponentCount <= 0)
         {
             // Maybe start animation sequence or something;
             Died();
@@ -134,18 +143,20 @@ public class BossNexus : Enemy
 
     public void SetShieldDamagable(bool damagable)
     {
-        foreach (var health in healthComponents)
+        foreach (var health in m_healthComponents)
         {
             if (health.IsDestroyed == false)
                 health.ShowHittable(damagable);
         }
     }
 
-    public void Shoot() => bossWeapon.Shoot();
+    public void Shoot() => m_bossWeapon.Shoot();
 
-    public void StopShooting() => bossWeapon.StopShooting();
+    public void StopShooting() => m_bossWeapon.StopShooting();
 
-    public void ActiveBehaviour(bool active) => activeBehaviour = active;
+    public void ActiveBehaviour(bool active) => m_activeBehaviour = active;
+
+    public float GetShootingDuration() => Random.Range(shootDuration.x, shootDuration.y);
 
     protected override void PlayerOnDeadHandler()
     {
@@ -154,5 +165,11 @@ public class BossNexus : Enemy
         m_stateMachine.ChangeState(bossNexus_idleState);
     }
 
-    public float GetShootingDuration() => Random.Range(shootDuration.x, shootDuration.y);
+    public void SetActivateMissle(bool activate)
+    {
+        foreach (var missileComp in bossMissles)
+        {
+            missileComp.SetActivateMissile(activate);
+        }
+    }
 }

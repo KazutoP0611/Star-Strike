@@ -6,6 +6,13 @@ public class BossNexus_MoveState : BossNexusState
     {
     }
 
+    public override void Enter()
+    {
+        base.Enter();
+
+        bossNexus.SetActivateMissle(true);
+    }
+
     public override void Update()
     {
         base.Update();

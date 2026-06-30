@@ -14,6 +14,7 @@ public class BossNexus_AttackState : BossNexusState
 
         stateTimer = bossNexus.GetShootingDuration();
         bossNexus.Shoot();
+        bossNexus.SetActivateMissle(true);
     }
 
     public override void Update()
