@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class BossNexus : Enemy
 {
+    private event Action OnDie;
+
     private BossNexus_Health[] m_healthComponents;
     private BossNexus_Weapon m_bossWeapon;
     private int m_healthComponentCount;
@@ -85,6 +88,11 @@ public class BossNexus : Enemy
             base.Update();
     }
 
+    public void Initialize(Action onDieCallback)
+    {
+        OnDie = onDieCallback;
+    }
+
     public override void Move()
     {
         if (m_lastGetPlayerPosTime < Time.time - getPlayerPositionDelay)
@@ -133,11 +141,17 @@ public class BossNexus : Enemy
 
         if (m_healthComponentCount <= 0)
         {
+            if (isDead == false)
+            {
+                Debug.LogWarning("Yay!");
+                OnDie?.Invoke();
+            }
+
             // Maybe start animation sequence or something;
             Died();
 
             // Show game over screen, well just placeholder for now;
-            UI_Manager.instance.SetActiveGameOverScreen(true);
+            //UI_Manager.instance.SetActiveGameOverScreen(true);
         }
     }
 
@@ -156,7 +170,7 @@ public class BossNexus : Enemy
 
     public void ActiveBehaviour(bool active) => m_activeBehaviour = active;
 
-    public float GetShootingDuration() => Random.Range(shootDuration.x, shootDuration.y);
+    public float GetShootingDuration() => UnityEngine.Random.Range(shootDuration.x, shootDuration.y);
 
     protected override void PlayerOnDeadHandler()
     {

@@ -6,6 +6,7 @@ public class BossNexus_Missile : MonoBehaviour
     private float m_lastShootTime;
     private bool m_isActivated = false;
 
+    [SerializeField] private GameObject missilePrefab;
     [SerializeField] private float shootMissleDotThreshold = 0.9f;
     [SerializeField] private float shootDelay = 2.0f;
 
@@ -32,7 +33,9 @@ public class BossNexus_Missile : MonoBehaviour
 
         if (dotValue > shootMissleDotThreshold)
         {
-            Debug.LogWarning($"Shoot Missile! {gameObject} {dotValue}");
+            Missile_Damager missile = Instantiate(missilePrefab, transform.position + transform.forward * 0.5f, transform.rotation).GetComponent<Missile_Damager>();
+            missile.ShootAt(m_playerGO.transform.position);
+
             m_lastShootTime = Time.time;
         }
     }

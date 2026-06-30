@@ -49,4 +49,6 @@ public class Player_Weapon : Entity_Weapon
     {
         nextShootTime = Time.time + shootInterval;
     }
+
+    public void ForceShutdownFiring() => isFiring = false;
 }

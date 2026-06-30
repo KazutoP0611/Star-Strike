@@ -10,7 +10,7 @@ public class Entity_Damager : MonoBehaviour
     [SerializeField] protected bool destroyAfterDidDamage = true;
 
     [Header("Movement Details")]
-    [SerializeField] private float bulletSpeed = 30.0f;
+    [SerializeField] protected float bulletSpeed = 30.0f;
 
     protected virtual void Update()
     {
@@ -24,7 +24,7 @@ public class Entity_Damager : MonoBehaviour
             DoDamage(other);
     }
 
-    protected void Move()
+    protected virtual void Move()
     {
         transform.position += transform.forward * Time.deltaTime * bulletSpeed;
     }

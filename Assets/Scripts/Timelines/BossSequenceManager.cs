@@ -10,21 +10,31 @@ public class BossSequenceManager : MonoBehaviour
     [SerializeField] private PlayableDirector bossAppearanceTimeline;
     [SerializeField] private PlayableDirector bossDeadTimeline;
 
+    [ContextMenu("Start Boss")]
     public void StartSequence()
     {
+        SetActiveBoss(true);
+        BossNexus bossNexus = boss.GetComponent<BossNexus>();
+        bossNexus.Initialize(StartBossDieSequence);
+
         bossAppearanceTimeline.Play();
     }
 
-    public void OnBossAppearStart()
+    public void OnSequenceStart()
     {
         UI_Manager.instance.SetActiveUIIndicators(false);
         Player.Instance.EnablePlayerInput(false);
     }
 
-    public void OnBossAppearEnd()
+    public void OnSequenceEnd()
     {
         UI_Manager.instance.SetActiveUIIndicators(true);
         Player.Instance.EnablePlayerInput(true);
+    }
+
+    public void StartBossDieSequence()
+    {
+        bossDeadTimeline.Play();
     }
 
     public void SetActiveBoss(bool active) => boss.SetActive(active);

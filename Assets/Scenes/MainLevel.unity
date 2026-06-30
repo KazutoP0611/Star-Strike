@@ -1028,7 +1028,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 476847831}
           m_TargetAssemblyTypeName: BossSequenceManager, Assembly-CSharp
-          m_MethodName: OnBossAppearEnd
+          m_MethodName: OnSequenceEnd
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1070,7 +1070,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 476847831}
           m_TargetAssemblyTypeName: BossSequenceManager, Assembly-CSharp
-          m_MethodName: OnBossAppearStart
+          m_MethodName: OnSequenceStart
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1756,6 +1756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2907ff3a51fac2444a52d0a3dd9710cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossNexus_Missile
+  missilePrefab: {fileID: 3753941869475814430, guid: 3856cdd7b9e86e24d9ece9eae4ac837e, type: 3}
   shootMissleDotThreshold: 0.9
   shootDelay: 2
 --- !u!1 &827775512
@@ -2155,6 +2156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2907ff3a51fac2444a52d0a3dd9710cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossNexus_Missile
+  missilePrefab: {fileID: 3753941869475814430, guid: 3856cdd7b9e86e24d9ece9eae4ac837e, type: 3}
   shootMissleDotThreshold: 0.9
   shootDelay: 2
 --- !u!1 &1144925209
@@ -2240,7 +2242,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 3b4a2e7b9e6815a42a5d6caaee092405, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -2594,6 +2596,8 @@ PlayableDirector:
     value: {fileID: 1684104290}
   - key: {fileID: 0}
     value: {fileID: 506417354}
+  - key: {fileID: 4812266867046867350, guid: 574505c57851961458304be0fbdb711d, type: 2}
+    value: {fileID: 476847832}
   m_ExposedReferences:
     m_References: []
 --- !u!224 &1373973196 stripped
@@ -3538,6 +3542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2907ff3a51fac2444a52d0a3dd9710cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossNexus_Missile
+  missilePrefab: {fileID: 3753941869475814430, guid: 3856cdd7b9e86e24d9ece9eae4ac837e, type: 3}
   shootMissleDotThreshold: 0.9
   shootDelay: 2
 --- !u!1 &1869827542
@@ -3761,6 +3766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2907ff3a51fac2444a52d0a3dd9710cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossNexus_Missile
+  missilePrefab: {fileID: 3753941869475814430, guid: 3856cdd7b9e86e24d9ece9eae4ac837e, type: 3}
   shootMissleDotThreshold: 0.9
   shootDelay: 2
 --- !u!1 &1944405375
@@ -3813,7 +3819,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 484f850144a50f646941f48a20d9110c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossNexus_Health
-  maxHealth: 50
+  maxHealth: 3
 --- !u!54 &1944405379
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7272,7 +7278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 484f850144a50f646941f48a20d9110c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossNexus_Health
-  maxHealth: 50
+  maxHealth: 3
 --- !u!54 &8398788042393136062
 Rigidbody:
   m_ObjectHideFlags: 0
