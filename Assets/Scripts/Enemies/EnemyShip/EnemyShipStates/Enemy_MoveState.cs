@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class Enemy_MoveState : EnemyState
 {
-    private bool countingDown = false;
-
     public Enemy_MoveState(EnemyShip enemy, StateMachine stateMachine) : base(enemy, stateMachine)
     {
     }

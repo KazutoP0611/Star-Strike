@@ -11,6 +11,8 @@ public class BossNexus_IdleState : BossNexusState
         base.Enter();
 
         bossNexus.SetActivateMissle(false);
+        bossNexus.SetShieldDamagable(false);
+
         stateTimer = bossNexus.useRandomIdleTime ? Random.Range(bossNexus.idleTimeRange.x, bossNexus.idleTimeRange.y) : bossNexus.idleTimeRange.x;
     }
 

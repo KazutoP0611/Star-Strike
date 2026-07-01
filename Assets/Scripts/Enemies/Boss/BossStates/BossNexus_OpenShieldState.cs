@@ -25,11 +25,4 @@ public class BossNexus_OpenShieldState : BossNexusState
         if (finishedOpenShield)
             stateMachine.ChangeState(bossNexus.bossNexus_idleState);
     }
-
-    public override void Exit()
-    {
-        base.Exit();
-
-        bossNexus.SetActivateMissle(true);
-    }
 }
