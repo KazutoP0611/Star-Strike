@@ -4,27 +4,34 @@ using UnityEngine.InputSystem;
 
 public class Player_Weapon : Entity_Weapon
 {
-    private bool isFiring;
-    private float nextShootTime;
+    private PlayerAiming m_playerAiming;
+    private bool m_isFiring;
+    private float m_lastShootTime;
 
     #region Player Input
     // Get "Fire" input from InputAction
-    public void OnFire(InputValue value) => isFiring = value.isPressed;
+    public void OnFire(InputValue value) => m_isFiring = value.isPressed;
     #endregion
 
     [Header("General Details")]
+    [SerializeField] private LayerMask shootableLayer;
     [SerializeField] private bool singleShoot = true;
     [SerializeField] private float shootInterval;
 
     [Header("Shooting Transform Details")]
     [SerializeField] private Transform[] shootPoints;
 
+    private void Awake()
+    {
+        m_playerAiming = GetComponent<PlayerAiming>();
+    }
+
     private void Update()
     {
-        if (!isFiring)
+        if (!m_isFiring)
             return;
 
-        if (Time.time < nextShootTime)
+        if (Time.time < m_lastShootTime + shootInterval)
             return;
 
         if (singleShoot)
@@ -34,21 +41,31 @@ public class Player_Weapon : Entity_Weapon
         }
         else
         {
-            // Shoot multiple bullets
+            // Shoot bullets from multiple points;
             foreach (var t in shootPoints)
             {
                 Shoot(t);
             }
         }
-
-        // Set next able to shoot timing;
-        CalculateShootInterval();
     }
 
-    private void CalculateShootInterval()
+    public void ForceShutdownFiring() => m_isFiring = false;
+
+    protected override void Shoot(Transform shootPoint)
     {
-        nextShootTime = Time.time + shootInterval;
-    }
+        RaycastHit hit;
+        Vector3 aimPoint = m_playerAiming.GetCrossHairAimingPosition();
+        Vector3 aimVector = shootPoint.forward;
 
-    public void ForceShutdownFiring() => isFiring = false;
+        //if (Physics.Raycast(aimPoint, Camera.main.transform.forward, out hit, float.MaxValue, shootableLayer))
+        //{
+        //    aimVector = hit.transform.position - shootPoint.position;
+        //}
+
+        Quaternion shootDirection = Quaternion.LookRotation(aimVector);
+        Instantiate(bulletPrefab, shootPoint.position, shootDirection);
+        AudioSource.PlayClipAtPoint(shootingSound, shootPoint.position);
+
+        m_lastShootTime = Time.time;
+    }
 }

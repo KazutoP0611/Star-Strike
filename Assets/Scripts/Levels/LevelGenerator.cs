@@ -117,8 +117,8 @@ public class LevelGenerator : MonoBehaviour
         if (m_boss == true)
             return;
 
-        m_boss = true;
         bossSequenceManager.StartSequence();
+        m_boss = true;
     }
 
     private void SpawnLevelChunk()

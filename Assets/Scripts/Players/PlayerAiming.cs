@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerCrosshair : MonoBehaviour
+public class PlayerAiming : MonoBehaviour
 {
     private Vector2 mouseDelta;
 
@@ -47,14 +47,25 @@ public class PlayerCrosshair : MonoBehaviour
             return;
 
         if (useSingleCrosshair)
-            CrosshairMovementHandler();
+            SingleCrosshairMovementHandler();
         else
             DoubleCrosshairTransformHandler();
         //------------------------------------
+
+        // crossPos = GetCrossHairAimingPosition();
+        //Debug.DrawRay(crossPos, Camera.main.transform.forward, Color.yellow);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Vector3 crossPos = GetCrossHairAimingPosition();
+
+        Gizmos.DrawWireSphere(crossPos + Camera.main.transform.forward, .05f);
+        //Gizmos.DrawRay(crossPos, Camera.main.transform.forward);
     }
 
     // Update single crosshair => This one is simple, just align crosshair to aiming object's transform;
-    private void CrosshairMovementHandler()
+    private void SingleCrosshairMovementHandler()
     {
         crosshairRectTransform.position = Camera.main.WorldToScreenPoint(aimingPointTransform.position);
     }
@@ -88,5 +99,13 @@ public class PlayerCrosshair : MonoBehaviour
 
         // Set aiming's transform to calculated limited target position;
         aimingPointTransform.localPosition = moveToLocalPosition;
+    }
+
+    public Vector3 GetCrossHairAimingPosition()
+    {
+        RectTransform currentCrossHair = useSingleCrosshair ? crosshairRectTransform : inCrosshairRectTransform;
+        Vector3 crossHairScreenPos = Camera.main.ScreenToWorldPoint(currentCrossHair.position);
+
+        return crossHairScreenPos;
     }
 }
