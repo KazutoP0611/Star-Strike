@@ -53,16 +53,17 @@ public class Player_Weapon : Entity_Weapon
 
     protected override void Shoot(Transform shootPoint)
     {
-        RaycastHit hit;
         Vector3 aimPoint = m_playerAiming.GetCrossHairAimingPosition();
+        Ray ray = Camera.main.ScreenPointToRay(aimPoint);
         Vector3 aimVector = shootPoint.forward;
 
-        //if (Physics.Raycast(aimPoint, Camera.main.transform.forward, out hit, float.MaxValue, shootableLayer))
-        //{
-        //    aimVector = hit.transform.position - shootPoint.position;
-        //}
-
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 1000.0f, shootableLayer))
+        {
+            aimVector = hit.collider.gameObject.transform.position - shootPoint.position;
+        }
         Quaternion shootDirection = Quaternion.LookRotation(aimVector);
+
         Instantiate(bulletPrefab, shootPoint.position, shootDirection);
         AudioSource.PlayClipAtPoint(shootingSound, shootPoint.position);
 

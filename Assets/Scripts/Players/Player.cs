@@ -9,7 +9,11 @@ public class Player : MonoBehaviour
     public static event Action OnDead; // The "event" keyword restricts external classes from forces-firing or clearing it.
 
     private PlayerInput m_inputSet;
+
+    #region Player Components
     private Player_Weapon m_playerWeapon;
+    private PlayerBoost m_playerBoost;
+    #endregion
 
     //public Vector2 mouseDelta { get; private set; }
     public bool IsDead { get; private set; }
@@ -24,10 +28,11 @@ public class Player : MonoBehaviour
         else
             Instance = this;
 
-        //input = new StarStikeControl();
         IsDead = false;
         m_inputSet = GetComponent<PlayerInput>();
+
         m_playerWeapon = GetComponent<Player_Weapon>();
+        m_playerBoost = GetComponent<PlayerBoost>();
     }
 
     //private void OnEnable()
@@ -54,8 +59,11 @@ public class Player : MonoBehaviour
     public void EnablePlayerInput(bool enableInput)
     {
         m_inputSet.enabled = enableInput;
+    }
 
-        if (enableInput == false)
-            m_playerWeapon.ForceShutdownFiring();
+    public void ForceStopActions()
+    {
+        m_playerWeapon.ForceShutdownFiring();
+        m_playerBoost.StartBoostCooldown();
     }
 }

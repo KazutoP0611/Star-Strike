@@ -29,6 +29,8 @@ public class BossSequenceManager : MonoBehaviour
         bossNexus.Initialize(StartBossDieSequence);
 
         UI_Manager.instance.SetActiveUIIndicators(false);
+
+        Player.Instance.ForceStopActions();
         Player.Instance.EnablePlayerInput(false);
     }
 

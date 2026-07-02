@@ -74,7 +74,7 @@ public class PlayerBoost : MonoBehaviour
         }
     }
 
-    private void StartBoostCooldown()
+    public void StartBoostCooldown()
     {
         changingSpeed = false;
 

@@ -30,13 +30,13 @@ public class BossNexus_Health : Entity_Health
         if (m_currentHealth <= 0)
         {
             IsDestroyed = true;
-            //ShowHittable(false);
-            Destroy(m_entityVFX.gameObject);
 
             //play destroyed sound
             Die();
 
-            //callback to boss ship, tell them that one of health component is destroyed;
+            col.enabled = false;
+            m_entityVFX.OnDestroy();
+
             onHealthRunOut?.Invoke();
         }
     }

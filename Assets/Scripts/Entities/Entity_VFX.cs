@@ -91,4 +91,14 @@ public class Entity_VFX : MonoBehaviour
             }
         }
     }
+
+    public void OnDestroy()
+    {
+        StopCoroutine(onDamageCoroutine);
+
+        foreach (var renderer in renderers)
+        {
+            renderer.gameObject.SetActive(false);
+        }
+    }
 }

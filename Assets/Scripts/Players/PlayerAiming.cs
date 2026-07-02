@@ -104,8 +104,6 @@ public class PlayerAiming : MonoBehaviour
     public Vector3 GetCrossHairAimingPosition()
     {
         RectTransform currentCrossHair = useSingleCrosshair ? crosshairRectTransform : inCrosshairRectTransform;
-        Vector3 crossHairScreenPos = Camera.main.ScreenToWorldPoint(currentCrossHair.position);
-
-        return crossHairScreenPos;
+        return currentCrossHair.position;
     }
 }
