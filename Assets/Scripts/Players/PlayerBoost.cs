@@ -11,26 +11,36 @@ public class PlayerBoost : MonoBehaviour
     private bool onCooldown = false;
 
     private Coroutine boostCooldownCoroutine;
-
-    [SerializeField] private GameObject boostVisual;
+    private Player_SFX playerSFX;
 
     [Header("Controller & View Details")]
     [SerializeField] private LevelGenerator levelGenerator;
     [SerializeField] private PlayerBoostBar playerBoostBar;
 
-    [Header("Boost Details")]
+    [Header("Boost Parameter Details")]
     [SerializeField] private float maxBoost = 10.0f;
     [SerializeField] private float speedUpMultiplier = 5.0f;
     [SerializeField] private float slowDownMultiplier = 0.5f;
-
-    [Header("Boost Multiplier Details")]
+    [Space]
     [SerializeField] private float boostConsumeMultiplier = 3.5f;
     [SerializeField] private float boostRechargeMultiplier = 2.0f;
+
+    [Header("Effect Details")]
+    [SerializeField] private GameObject boostVisual;
+    [Space]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip boostSound;
+    [SerializeField] private AudioClip breakSound;
 
     #region Player Input
     public void OnBoostNew(InputValue value) => OnBoostHandler(value.isPressed, true);
     public void OnBreak(InputValue value) => OnBoostHandler(value.isPressed, false);
     #endregion
+
+    private void Awake()
+    {
+        playerSFX = GetComponent<Player_SFX>();
+    }
 
     private void Start()
     {
@@ -60,19 +70,25 @@ public class PlayerBoost : MonoBehaviour
         {
             changingSpeed = isPressing;
 
-            // Set boost or slow down camera position
-            if (isBoosting)
-                CameraController.instance.CameraToBoostPosition();
-            else
-                CameraController.instance.CameraToBreakPosition();
+            if (isPressing == true)
+            {
+                // Set boost or slow down camera position
+                if (isBoosting)
+                {
+                    boostVisual.SetActive(true);
+                    CameraController.instance.CameraToBoostPosition();
+                    playerSFX.PlaySpeedChangeSound(ChangeSpeedSound.Boost);
+                }
+                else
+                {
+                    CameraController.instance.CameraToBreakPosition();
+                    playerSFX.PlaySpeedChangeSound(ChangeSpeedSound.Break);
+                }
+            }
         }
 
         if (isPressing == true)
         {
-            // SetActive boost effect
-            if (boostVisual.activeSelf == false && isBoosting)
-                boostVisual.SetActive(true);
-
             // Set level speed up
             float speedMultiplier = isBoosting ? speedUpMultiplier : slowDownMultiplier;
             levelGenerator.SetLevelMovementSpeed(speedMultiplier);

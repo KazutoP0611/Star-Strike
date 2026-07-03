@@ -215,7 +215,8 @@ PrefabInstance:
       propertyPath: damageScreenCanvas
       value: 
       objectReference: {fileID: 1689207975}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4353853659645827370, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
