@@ -1,13 +1,16 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public static CameraController instance;
+
     private Vector3 cameraParentOriginalLocation;
     private Coroutine cameraShakeCoroutine;
+    private bool isAnimBusy;
 
     [SerializeField] private Animator anim;
-    [SerializeField] private string boostParameter;
     [SerializeField] private GameObject cameraParent;
 
     [Header("Player Follower Details")]
@@ -27,11 +30,16 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Vector2 xShakeLimit;
     [SerializeField] private Vector2 yShakeLimit;
 
-    public static CameraController instance;
+    [Header("Animation Details")]
+    [SerializeField] private string boostStringParameter;
+    [SerializeField] private string normalStringParam;
+    [SerializeField] private string breakStringParam;
 
-    public void CameraToBoostPosition() => anim.SetBool(boostParameter, true);
+    public void CameraToBoostPosition() => SetCameraAnimation(boostStringParameter, false);
+    public void CameraToNormalPosition() => SetCameraAnimation(normalStringParam, true);
 
-    public void CameraToNormalPosition() => anim.SetBool(boostParameter, false);
+    [ContextMenu("Break")]
+    public void CameraToBreakPosition() => SetCameraAnimation(breakStringParam, false);
 
     private void Start()
     {
@@ -94,5 +102,18 @@ public class CameraController : MonoBehaviour
         }
 
         cameraParent.transform.localPosition = initialPosition;
+    }
+
+    private void SetCameraAnimation(string animParam, bool normal)
+    {
+        // If animParam is NOT normal, can not play anim;
+        if (isAnimBusy && normal == false)
+            return;
+
+        // If method doesn't send normal, means anim is busy;
+        isAnimBusy = !normal;
+
+        anim.SetTrigger(animParam);
+        Debug.LogWarning($"Anim Status : {animParam} is {isAnimBusy}");
     }
 }

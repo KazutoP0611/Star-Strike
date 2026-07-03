@@ -56,15 +56,24 @@ public class PlayerBoost : MonoBehaviour
             return;
         }
 
-        changingSpeed = isPressing;
+        if (isPressing != changingSpeed)
+        {
+            changingSpeed = isPressing;
+
+            // Set boost or slow down camera position
+            if (isBoosting)
+                CameraController.instance.CameraToBoostPosition();
+            else
+                CameraController.instance.CameraToBreakPosition();
+        }
 
         if (isPressing == true)
         {
+            // SetActive boost effect
             if (boostVisual.activeSelf == false && isBoosting)
                 boostVisual.SetActive(true);
 
-            //set level speed up
-            // Speed up level's movement speed;
+            // Set level speed up
             float speedMultiplier = isBoosting ? speedUpMultiplier : slowDownMultiplier;
             levelGenerator.SetLevelMovementSpeed(speedMultiplier);
         }
@@ -77,6 +86,9 @@ public class PlayerBoost : MonoBehaviour
     public void StartBoostCooldown()
     {
         changingSpeed = false;
+
+        // Play slow down camera animation
+        CameraController.instance.CameraToNormalPosition();
 
         // Closing boost visual
         boostVisual.SetActive(false);

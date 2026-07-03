@@ -179,6 +179,18 @@ PrefabInstance:
       propertyPath: outCrosshairRectTransform
       value: 
       objectReference: {fileID: 1373973196}
+    - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: breakStringParam
+      value: break
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: normalStringParam
+      value: normal
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135271017404642421, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: boostStringParameter
+      value: boost
+      objectReference: {fileID: 0}
     - target: {fileID: 4758874651802499393, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: levelGenerator
       value: 
@@ -187,6 +199,10 @@ PrefabInstance:
       propertyPath: playerBoostBar
       value: 
       objectReference: {fileID: 1020626287}
+    - target: {fileID: 4758874651802499393, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
+      propertyPath: slowDownMultiplier
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 5028308783247786246, guid: ead8333ea5c142343b9cccf441dcc5ba, type: 3}
       propertyPath: m_Name
       value: Player

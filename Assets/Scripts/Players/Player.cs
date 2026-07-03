@@ -5,7 +5,7 @@ using UnityEngine.InputSystem.Users;
 
 public class Player : MonoBehaviour
 {
-    public static Player Instance { get; private set; }
+    public static Player instance { get; private set; }
     public static event Action OnDead; // The "event" keyword restricts external classes from forces-firing or clearing it.
 
     private PlayerInput m_inputSet;
@@ -23,10 +23,10 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (instance != null && instance != this)
             Destroy(gameObject);
         else
-            Instance = this;
+            instance = this;
 
         IsDead = false;
         m_inputSet = GetComponent<PlayerInput>();

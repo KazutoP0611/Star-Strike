@@ -30,19 +30,19 @@ public class BossSequenceManager : MonoBehaviour
 
         UI_Manager.instance.SetActiveUIIndicators(false);
 
-        Player.Instance.ForceStopActions();
-        Player.Instance.EnablePlayerInput(false);
+        Player.instance.ForceStopActions();
+        Player.instance.EnablePlayerInput(false);
     }
 
     public void OnSequenceEnd()
     {
         UI_Manager.instance.SetActiveUIIndicators(true);
-        Player.Instance.EnablePlayerInput(true);
+        Player.instance.EnablePlayerInput(true);
     }
 
     public void OnGameOver()
     {
-        Player.Instance.EnablePlayerInput(false);
+        Player.instance.EnablePlayerInput(false);
         UI_Manager.instance.SetActiveGameOverScreen(true);
     }
 
