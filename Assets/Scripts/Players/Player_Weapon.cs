@@ -15,8 +15,9 @@ public class Player_Weapon : Entity_Weapon
 
     [Header("General Details")]
     [SerializeField] private LayerMask shootableLayer;
-    [SerializeField] private bool singleShoot = true;
     [SerializeField] private float shootInterval;
+    [SerializeField] private float distanceThreshold = 1.0f;
+    [SerializeField] private bool singleShoot = true;
 
     [Header("Shooting Transform Details")]
     [SerializeField] private Transform[] shootPoints;
@@ -60,9 +61,14 @@ public class Player_Weapon : Entity_Weapon
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 1000.0f, shootableLayer))
         {
-            aimVector = hit.collider.gameObject.transform.position - shootPoint.position;
+            if (hit.collider.gameObject.transform.position.z >= transform.position.z + distanceThreshold)
+            {
+                aimVector = hit.collider.gameObject.transform.position - shootPoint.position;
+            }
         }
         Quaternion shootDirection = Quaternion.LookRotation(aimVector);
+
+        //Debug.DrawRay(shootPoint.position, aimVector, Color.yellow, 10.0f);
 
         Instantiate(bulletPrefab, shootPoint.position, shootDirection);
         AudioSource.PlayClipAtPoint(shootingSound, shootPoint.position);

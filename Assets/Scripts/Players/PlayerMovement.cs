@@ -7,7 +7,6 @@ using static UnityEngine.GraphicsBuffer;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Animator anim;
     private Coroutine rollingCooldownCoroutine;
 
     // Movement's variables;
@@ -57,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
 
     #region Rolling
     [Header("Rolling Movement Details")]
+    [SerializeField] private Animator anim;
     [SerializeField] private float moveWhileRollSpeed = 10f;
     [SerializeField] private float moveWhileRollDistance = 0.55f;
     [SerializeField] private float rollingCooldownTime = 1.0f;
@@ -71,11 +71,6 @@ public class PlayerMovement : MonoBehaviour
     public void OnTurnRight(InputValue value) => OnTurnHandler(value.isPressed, true);
     public void OnTurnLeft(InputValue value) => OnTurnHandler(value.isPressed, false);
     #endregion
-
-    private void Awake()
-    {
-        anim = GetComponentInChildren<Animator>();
-    }
 
     private void Update()
     {

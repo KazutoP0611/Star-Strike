@@ -31,11 +31,11 @@ public class BossNexus_Health : Entity_Health
         {
             IsDestroyed = true;
 
-            //play destroyed sound
             Die();
 
             col.enabled = false;
-            m_entityVFX.OnDestroy();
+            Destroy(gameObject);
+            //m_entityVFX.OnDestroy();
 
             onHealthRunOut?.Invoke();
         }

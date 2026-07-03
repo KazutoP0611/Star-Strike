@@ -144,14 +144,10 @@ public class BossNexus : Enemy
             if (isDead == false)
             {
                 Debug.LogWarning("Yay!");
+
+                Died();
                 OnDie?.Invoke();
             }
-
-            // Maybe start animation sequence or something;
-            Died();
-
-            // Show game over screen, well just placeholder for now;
-            //UI_Manager.instance.SetActiveGameOverScreen(true);
         }
     }
 

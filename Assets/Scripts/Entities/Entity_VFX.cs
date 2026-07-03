@@ -50,8 +50,7 @@ public class Entity_VFX : MonoBehaviour
     {
         CreateEffect(ParticleType.Damage, hitPoint);
 
-        if (onDamageCoroutine != null)
-            StopCoroutine(onDamageCoroutine);
+        StopCurrentCoroutine();
 
         onDamageCoroutine = StartCoroutine(OnDamageCo());
     }
@@ -92,13 +91,19 @@ public class Entity_VFX : MonoBehaviour
         }
     }
 
-    public void OnDestroy()
-    {
-        StopCoroutine(onDamageCoroutine);
+    //public void OnDestroy()
+    //{
+    //    StopCurrentCoroutine();
 
-        foreach (var renderer in renderers)
-        {
-            renderer.gameObject.SetActive(false);
-        }
+    //    foreach (var renderer in renderers)
+    //    {
+    //        renderer.gameObject.SetActive(false);
+    //    }
+    //}
+
+    private void StopCurrentCoroutine()
+    {
+        if (onDamageCoroutine != null)
+            StopCoroutine(onDamageCoroutine);
     }
 }
