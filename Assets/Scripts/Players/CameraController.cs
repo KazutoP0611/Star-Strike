@@ -37,9 +37,13 @@ public class CameraController : MonoBehaviour
 
     public void CameraToBoostPosition() => SetCameraAnimation(boostStringParameter, false);
     public void CameraToNormalPosition() => SetCameraAnimation(normalStringParam, true);
-
-    [ContextMenu("Break")]
     public void CameraToBreakPosition() => SetCameraAnimation(breakStringParam, false);
+    public void ResetCameraTriggerParams()
+    {
+        anim.ResetTrigger(boostStringParameter);
+        anim.ResetTrigger(normalStringParam);
+        anim.ResetTrigger(breakStringParam);
+    }
 
     private void Start()
     {

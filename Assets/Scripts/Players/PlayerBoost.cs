@@ -83,6 +83,15 @@ public class PlayerBoost : MonoBehaviour
         }
     }
 
+    private void Boosting()
+    {
+        currentBoost -= (Time.deltaTime * boostConsumeMultiplier);
+        UpdateBoostValue();
+
+        if (currentBoost <= 0)
+            StartBoostCooldown();
+    }
+
     public void StartBoostCooldown()
     {
         changingSpeed = false;
@@ -93,22 +102,11 @@ public class PlayerBoost : MonoBehaviour
         // Closing boost visual
         boostVisual.SetActive(false);
 
-        //set level speed down
+        // set level speed down
         levelGenerator.SetLevelMovementSpeed(1.0f);
 
         // start cooldown
         CooldownBoost();
-
-        playerBoostBar.ChangeColor(false);
-    }
-
-    private void Boosting()
-    {
-        currentBoost -= (Time.deltaTime * boostConsumeMultiplier);
-        UpdateBoostValue();
-
-        if (currentBoost <= 0)
-            StartBoostCooldown();
     }
 
     private void UpdateBoostValue()
@@ -120,6 +118,7 @@ public class PlayerBoost : MonoBehaviour
 
     private void CooldownBoost()
     {
+        playerBoostBar.ChangeColor(false);
         onCooldown = true;
 
         if (boostCooldownCoroutine != null)
@@ -146,5 +145,7 @@ public class PlayerBoost : MonoBehaviour
         playerBoostBar.ChangeColor(true);
 
         onCooldown = false;
+
+        CameraController.instance.ResetCameraTriggerParams();
     }
 }
